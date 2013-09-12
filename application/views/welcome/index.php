@@ -1,0 +1,1 @@
+<i><b>This is main welcome page!</b></i>

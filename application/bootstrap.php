@@ -112,7 +112,7 @@ Kohana::init(array(
 /**
  * Cookie salt value.
  */
-Cookie::$salt = '182s6f15f';
+Cookie::$salt = '182s6f15fgfkln65nj56ll54nj55jk3n4lmf49of5h4fh5fdh4';
 
 /**
  * Attach the file write to logging. Multiple writers are supported.
@@ -138,7 +138,7 @@ Kohana::modules(array(
 	// 'image'      => MODPATH.'image',      // Image manipulation
 	// 'minion'     => MODPATH.'minion',     // CLI Tasks
 	'orm'        => MODPATH.'orm',        // Object Relationship Mapping
-	// 'unittest'   => MODPATH.'unittest',   // Unit testing
+	'unittest'   => MODPATH.'unittest',   // Unit testing
 	'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	));
 
@@ -151,3 +151,13 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'welcome',
 		'action'     => 'index',
 	));
+
+/**
+ * Static file serving (CSS, JS, images)
+ */
+Route::set('media', '(media(/<file>))',array('file'=>'.+'))
+	->defaults(array(
+		'action'	=>	'index',
+		'file'		=>	NULL,
+	));
+	
