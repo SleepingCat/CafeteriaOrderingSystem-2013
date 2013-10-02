@@ -84,6 +84,7 @@ class Controller_Front extends Kohana_Controller_Template {
 			// Добавляем стили, используемые на каждой странице web-сайта
 			$styles = array(
 				$media->uri(array('file' => 'css/jquery-ui.css')) => 'screen',
+				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen'
 			);
 			// Добавляем скрипты, используемые на каждой странице web-сайта
 			$scripts = array(
@@ -97,6 +98,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->title = $this->title;
 		$this->template->user = $this->user;
 		$this->template->content = $this->content;
+		
 		// вызываем родительский метод
 		parent::after();
 	}

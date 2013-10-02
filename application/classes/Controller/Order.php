@@ -1,15 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Order extends Controller {
-	public function befroe()
-	{
-		$session = Session::instance();
-		if (!isset($_SESSION['UserID']))
-		{
-			$_SESSION['UserID'] = MD5(microtime());
-		}
-	}
+class Controller_Order extends Controller_Front {
 	
+
 	public function action_index()
 	{
 		$session = Session::instance();
@@ -19,13 +12,13 @@ class Controller_Order extends Controller {
 			$_SESSION['time'] = $_POST['time'];
 			$_SESSION['place'] = $_POST['place'];
 		}
-		$this->response->body(View::factory('order/showorder')
+		$this->content = View::factory('order/showorder')
 			->set('title', "Ваш заказ")
 			->set('order', $_SESSION['order'])
 			->set('summ', $_SESSION['summ'])
 			->set('d_date',$_SESSION['date'])
 			->set('d_time',$_SESSION['time'])
-			->set('place',$_SESSION['place']));
+			->set('place',$_SESSION['place']);
 	}
 	public function action_makeorder()
 	{
@@ -48,11 +41,11 @@ class Controller_Order extends Controller {
 			$_SESSION['order'] = $order;
 			$_SESSION['summ'] = $summ;
 			
-			$this->response->body(View::factory('order/order')
+			$this->content = View::factory('order/order')
 				->set('title', "Подтвердите заказ")
 				->set('order', $order)
 				->set('summ', $summ)
-				->set('menu_date', $_POST['menu_date'])
+				->set('menu_date', $_POST['menu_date']
 				);
 		}
 		else die('Bad request');

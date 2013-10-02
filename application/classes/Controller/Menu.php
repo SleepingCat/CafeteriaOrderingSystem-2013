@@ -1,10 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Menu extends Controller {
+class Controller_Menu extends Controller_Front {
 
 	public function action_index()
 	{
-		$this->response->body(View::factory('menu/selectmenu')->set('title', "Выберите Меню"));
+		$this->content = View::factory('menu/selectmenu')->set('title', "Выберите Меню");
+				
 	}
 	
 	public function action_menuselect()
@@ -17,7 +18,8 @@ class Controller_Menu extends Controller {
 		{
 			$menu = 'menu_data_emulation2.php';
 		}
-		$this->response->body(View::factory('menu/menu')->set('menu', $menu)->set('title', $_POST['menu']));
+		$this->content = View::factory('menu/menu')->set('menu', $menu)->set('title', $_POST['menu']);
+		
 	}
 
 } // End Welcome
