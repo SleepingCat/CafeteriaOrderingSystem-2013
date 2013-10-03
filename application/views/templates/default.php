@@ -11,6 +11,7 @@
 <div class="MainArea">
 <header>
 	<div class="Personal"> <?php echo $user; ?></div>
+	
 	<?php echo HTML::image('media/image/MainTemplate/Logo.png', array('id' => 'Logo')); ?>  
 </header>
   
