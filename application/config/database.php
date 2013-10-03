@@ -19,9 +19,9 @@ return array
 			 * Ports and sockets may be appended to the hostname.
 			 */
 			'hostname'   => 'localhost',
-			'database'   => 'cos2013',
-			'username'   => 'cos2013',
-			'password'   => 'cos2013pswd',
+			'database'   => 'kohana',
+			'username'   => 'kohana',
+			'password'   => 'kohana',
 			'persistent' => FALSE,
 			'profiling'    => TRUE,
 		),

@@ -1,0 +1,48 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.pull-left
+{
+text-align:center;
+
+}
+
+a {font-size:16px; color:#ff6600; font-weight:bold}
+a:hover {font-size:16px; color:#ff0000; font-weight:bold}
+.dashboard
+{
+
+margin:30px ;
+padding:45;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:16px;
+text-align:left;
+
+}
+.login{
+margin:30px auto 0;
+background-color:#5FF253;
+padding:30px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+
+.login td{
+padding:5px;
+text-align:center;	
+}
+
+
+.login th{    
+	text-align:center;	
+	color: red;
+}
+
+.login td{
+text-align:center;
+color: red;
+
+
+}
+

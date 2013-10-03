@@ -51,9 +51,7 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Информация об авторизации текущего пользователя.
 	 * @var object
 	 */
-	public $auth = NULL;
-
-	
+	public $auth = NULL;	
 	/**
 	 * Выполняется до вызова загрузки основного контрола (шаблона) web-сайта.
 	 * @see Kohana_Controller_Template::before()
@@ -64,11 +62,23 @@ class Controller_Front extends Kohana_Controller_Template {
 		// Вызываем родительский метод
 		parent::before();
 		// Получаем информацию о текущем пользователе
-		$this->a2 = A2::instance('a2');
 		
+		if(Auth::instance()->logged_in())
+		{
+			$user = Auth::instance()->get_user()->as_array();
+			$this->user = 'Здорово,'.' '.$user['username'];
+		}
+		else
+			
+		{			
+			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться';		
+			
+		}		
 		
-		//$this->auth = $this->a2->a1;
-		$this->user = $this->a2->get_user();
+		//$this->a2 = A2::instance('a2'); Это почему-то не работает	
+		
+		//$this->auth = $this->a2->a1;Это почему-то не работает
+		//$this->user = $this->a2->get_user();Это почему-то не работает
 	} 
 	
 	/**

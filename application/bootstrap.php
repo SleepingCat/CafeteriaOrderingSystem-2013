@@ -105,7 +105,7 @@ if (isset($_SERVER['KOHANA_ENV']))
 Kohana::init(array(
 	'base_url'   => '/',
     'index_file' => FALSE,
-    'errors'	 => TRUE,
+    
 ));
 
 
@@ -140,8 +140,20 @@ Kohana::modules(array(
 	'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	'unittest'   => MODPATH.'unittest',   // Unit testing
 	'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+	  'pagination' => MODPATH.'pagination', // Pagination module
 	));
-
+	
+		/**
+	Route: Для администратора ,которому разрешен вход в админ.панель
+	*/
+	
+	Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')	
+	->defaults(array(
+		'directory'  => 'admin',
+		'controller' => 'main',
+		'action'     => 'index',
+	));		
+	
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
@@ -152,6 +164,7 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'action'     => 'index',
 	));
 
+
 /**
  * Static file serving (CSS, JS, images)
  */
@@ -160,4 +173,6 @@ Route::set('media', '(media(/<file>))',array('file'=>'.+'))
 		'action'	=>	'index',
 		'file'		=>	NULL,
 	));
+	
+	
 	

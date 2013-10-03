@@ -4,7 +4,7 @@ class Controller_createMenu extends Controller_Front {
 
 	public function action_index()
 	{
-		$this->content = View::factory('createMenu/createMenu')->set('title', " Укажите дату меню");
+		$this->content = View::factory('createMenu/createMenu')->set('title', " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 
 	}
 
@@ -18,7 +18,7 @@ class Controller_createMenu extends Controller_Front {
 		{
 			$regOfFood = 'registrOfFoodEmulation.php1';
 		}
-		$this->content = View::factory('createMenu/registerOfFood')->set('regOfFood', $regOfFood)->set('title', "Список блюд");
+		$this->content = View::factory('createMenu/registerOfFood')->set('regOfFood', $regOfFood)->set('title', "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 	}
 
 } // End Welcome
