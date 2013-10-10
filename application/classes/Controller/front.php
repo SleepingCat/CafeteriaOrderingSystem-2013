@@ -62,17 +62,14 @@ class Controller_Front extends Kohana_Controller_Template {
 		// Вызываем родительский метод
 		parent::before();
 		// Получаем информацию о текущем пользователе
-		
 		if(Auth::instance()->logged_in())
 		{
-			$user = Auth::instance()->get_user()->as_array();
+     		$user = Auth::instance()->get_user()->as_array();
 			$this->user = 'Здорово,'.' '.$user['username'];
-		}
-		else
-			
-		{			
-			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться';		
-			
+		}		
+		else			
+		{		
+			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться';
 		}		
 		
 		//$this->a2 = A2::instance('a2'); Это почему-то не работает	
@@ -86,6 +83,9 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * @see Kohana_Controller_Template::after()
 	 */
 	public function after() {
+	
+	
+	
 		// Если включен автоматический рендеринг
 		if ($this->auto_render)
 		{
@@ -109,6 +109,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->user = $this->user;
 		$this->template->content = $this->content;
 		
+			
 		// вызываем родительский метод
 		parent::after();
 	}

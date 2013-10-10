@@ -1,17 +1,17 @@
 	<?php defined('SYSPATH') or die('No direct script access.');
 
+	/**
+	 * Класс авторизации пользователей
+	 * @author Babur
+	 *
+	 */
 	class Controller_Auth extends Controller_Front{
-/*
-
-Объявляю template чтобы не было зацикливания redirecta
-
-*/
-	 // пока закомичю public $template='templates/default';	
 
 		public function action_index()
-		{				
-		$data=array(); 			
-		$auth=Auth::instance();		
+		{
+							
+			$data=array(); 			
+			$auth=Auth::instance();		
 		
 		 if($auth->logged_in())		 
 		 {      

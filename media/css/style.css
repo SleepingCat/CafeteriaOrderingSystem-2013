@@ -22,10 +22,19 @@ text-align:left;
 }
 .login{
 margin:30px auto 0;
-background-color:#5FF253;
+
 padding:30px;
 font-family:Verdana, Arial, Helvetica, sans-serif;
 font-size:12px;
+}
+
+.table_users{
+border:1px;
+margin:30px auto 0;
+padding:10px;
+border-collapse: collapse;
+width:500px;
+
 }
 
 .login td{
@@ -36,12 +45,12 @@ text-align:center;
 
 .login th{    
 	text-align:center;	
-	color: red;
+	color: white;
 }
 
 .login td{
 text-align:center;
-color: red;
+color: white;
 
 
 }

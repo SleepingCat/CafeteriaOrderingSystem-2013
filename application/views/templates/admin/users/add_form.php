@@ -1,8 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 ?>
-<form action="<?php echo URL::site('/admin/users/save') ?>" method="post" name="user-form" class="user-form">       
-                 <h3 class="pull-left"><?php echo __('Редактирование пользователя: :user', array(':user' => Arr::get($item, 'username'))) ?></h1>
+<form action="" method="post" name="user-form" class="user-form"> 
+<h3 class="pull-left"><?php echo __('Добавление пользователя') ?></h1>   
+                
                 <div class="control-group<?php if (Arr::get($errors, 'username')) : ?> error<?php endif; ?>">
 		            <label for="username" class="control-label"><?php echo __('Логин') ?>:</label>
 	                <div class="controls">
@@ -133,7 +134,7 @@
 		<div class="span12 form-actions">
             <div class="pull-right">
                 <input type="submit" name="back" class="btn" value="<?php echo __('Отмена') ?>" />
-                <input type="submit" name="save"  id="input1" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
+                <input type="submit" name="subm"  id="input1" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
             </div>
 		</div>
 

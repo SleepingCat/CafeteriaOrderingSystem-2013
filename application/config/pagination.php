@@ -16,7 +16,7 @@ return array(
 	'admin' => array(
 		'current_page'      => array('source' => 'route', 'key' => 'id'), // source: "query_string" or "route"
 		'total_items'       => 0,
-		'items_per_page'    => 1,
+		'items_per_page'    => 2,
 		'view'              => 'templates/admin/pagination',
 		'auto_hide'         => false,
 		'first_page_in_url' => false,

@@ -1,21 +1,23 @@
-<?if(isset($regok)){?>
-	<p style="text-align:center; color:green;">
-		Регистрация прошла успешно
-	</p>
-<?}?>
-<form action="" method="post">
+
+<form action="<?php echo URL::site('/admin/users/save') ?>" method="post">				
+				
 				<table class="login">
 					<tr>
 						<th colspan="2" style="padding-bottom:10px;">Регистрация пользователя</th>
 					</tr>
 					<tr>
 						<td>Логин:</td>
-						<td><input type="text" name="username" value="<?php echo Arr::get($item, 'username') ?>"/>
+						<th>
+						<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
+						<input type="text" name="username" value="<?php echo Arr::get($item, 'username') ?>"/>
 						<?php if (Arr::get($errors, 'username')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'username') ?></div>
-	                    <?php endif; ?>
-						 </td>									
-					</tr>
+                            <div class="help-block"><?php echo Arr::get($errors, 'username') ?></div>					
+									
+	                    <?php endif; ?>						
+                            
+						 </th>									
+					</tr>			
+						   
 					<tr>
 						<td>Пароль:</td>
 						<td><input type="password" name="password" id="password"/>
@@ -28,9 +30,10 @@
 						<td><input type="text" name="email" value="<?php echo Arr::get($item, 'email') ?>"/>
 						 <?php if (Arr::get($errors, 'email')) : ?>
                             <div class="help-block"><?php echo Arr::get($errors, 'email') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
+	                    <?php endif; ?>
+	                    <input type="hidden" name="email_old" value="<?php echo Arr::get($item, 'email') ?>"/></td>
+	                    
+					</tr>					
 					<tr>
 						<td style="text-align:right;">Фамилия:</td>
 						<td><input type="text" name="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
@@ -84,14 +87,14 @@
 						 <?php if (Arr::get($errors, 'personnel_number')) : ?>
                             <div class="help-block"><?php echo Arr::get($errors, 'personnel_number') ?></div>
 	                    <?php endif; ?></td>
+	                    <td><input type="hidden" name="personnel_number_old" value="<?php echo Arr::get($item, 'personnel_number') ?>"/>
 					</tr>
 					
 					<th colspan="2" style="text-align:right"><input type="submit" value="OK" style="width:170px; height:30px" name="subm"></th>
 				</table>
 							      
 	           
-		        <div class="span3" align="center" >
-	       
+		        <div class="span3" align="center" >	       
 	            <legend><?php echo __('Роли пользователя:') ?></legend>
 		        <div class="control-group">
 			        <label class="control-label"><?php echo __('Выберите роли:') ?></label>
@@ -104,5 +107,7 @@
 			        <?php endforeach; ?>
 		        </div>	       
 	    </div>
+		
+        <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">
 	    </div>
 </form>
