@@ -6,15 +6,15 @@
 					</tr>
 					<tr>
 						<td>Логин:</td>
-						<td><input type="text" name="login">
+						<td><input type="text" id="login" name="login">
 						<td>
 					</tr>
 					<tr>
 						<td>Пароль:</td>
-						<td><input type="password" name="password">				
+						<td><input type="password" id="password" name="password">				
 						</td>
 					</tr>
-					<th colspan="2" style="text-align:right"><input type="submit" value="Войти" style="width:170px; height:30px" name="subm">
+					<th colspan="2" style="text-align:right"><input type="submit"  id="submit" value="Войти" style="width:170px; height:30px" name="subm">
 									<?php if(isset($error)){?>
 <p style="color:red">Логин или пароль введены неверно.</p><?}?></th>
 				</table>

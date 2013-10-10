@@ -154,7 +154,8 @@ class Controller_Admin_Users extends Controller_Checkinput {
 		->set(array(
 			'item' => array_merge($user->as_array(), $item),
 			'roles' => $roles,
-		));
+		))
+		->set('errors','');
 		
 		$this->styles = array('media/css/style.css' => 'screen');
 		$this->title ="Редактирование пользователя";									
@@ -195,7 +196,6 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
 			->rule('username', 'alpha_dash')		
-		
 			->rule('surname', 'not_empty')
 			->rule('name', 'not_empty')
 			->rule('patronymic', 'not_empty')
@@ -208,16 +208,17 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,	$email_old))
 			->rule('personnel_number', 'not_empty')
+			->rule('personnel_number', 'digit')
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
+			
 			
 		
 		if (!empty($post['password']))
 		{
 			$post	
 			
-			->rule('password', 'Model_Valid::login_valid',array($login ,$password))
-			->rule('password_confirm', 'Model_Userrs::user_email')
+			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
 			->rule('password', 'Model_Valid::preg_match')

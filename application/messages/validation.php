@@ -1,4 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+/**
+ * Перевод правил валидации на понятный язык
+ */
 return array
 (		
 	'password'	=> 	array(			
@@ -38,6 +41,7 @@ return array
 				'not_empty' => 'Не введен табельный номер',
 			'Model_Valid::tab_number'=> 'Неккоректный табельный номер: он имеет значения 6 символов с 111111 по 999999',
 			'Model_Valid::tab_number_unique'=>'Такой табельный номер уже существует',
+			'digit'=>'Введеные числа могут быть только целыми ',
 		),	
 	
 		
