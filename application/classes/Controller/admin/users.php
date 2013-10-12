@@ -67,18 +67,18 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			{			
 				$this->redirect('/admin');
 			}
+			
 			 $register= new Model_Regandraduser();		 
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
 		 	 $surname=Arr::get($_POST,'surname','');
-		     $tab_numb=Arr::get($_POST,'personnel_number','');
-		  
-			$post = Validation::factory($_POST)	
+		     $tab_numb=Arr::get($_POST,'personnel_number','');		     	     
+		     $email=Arr::get($_POST,'email','');
+	
+		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
-			->rule('username', 'alpha_dash')		
 			->rule('username', 'Model_Valid::user_unique',array(':value',''))
-			->rule('password', 'not_empty')
-			->rule('password', 'Model_Valid::preg_match')
+			->rule('username', 'alpha_dash')		
 			->rule('surname', 'not_empty')
 			->rule('name', 'not_empty')
 			->rule('patronymic', 'not_empty')
@@ -86,13 +86,26 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('floors', 'not_empty')
 			->rule('number', 'not_empty')
 			->rule('personnel_number', 'not_empty')
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))			
-		    ->rule('password', 'Model_Valid::login_valid',array($login ,$password))		
-			->rule('email', 'not_empty')
-            ->rule('password', 'min_length', array(':value', 6))   
-			->rule('password', 'max_length', array(':value', 16))
+			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',''))	
+			->rule('email', 'not_empty')          
 			->rule('email', 'email')
-			->rule('email', 'Model_Valid::email_unique',array(':value',	''));	
+			->rule('email', 'Model_Valid::email_unique',array($email,''))
+			->rule('personnel_number', 'not_empty')		
+			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
+			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));			
+		
+		if (!empty($post['password']))
+		{
+			$post	
+			
+			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
+			->rule('password', 'min_length', array(':value', 6))
+			->rule('password', 'max_length', array(':value', 16))
+			->rule('password', 'Model_Valid::preg_match')
+			->rule('password_confirm', 'not_empty')
+			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));
+			
+		}
 			
   if (isset($_POST['subm']))
        {
@@ -180,8 +193,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
         if ($this->request->post('back'))
         {
            $this->redirect('/admin/users');
-        }	
-		
+        }		
         
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
@@ -189,10 +201,9 @@ class Controller_Admin_Users extends Controller_Checkinput {
 		$password=Arr::get($_POST,'password','');		
 		$email_old=Arr::get($_POST,'email_old','');
 		$email=Arr::get($_POST,'email','');
-		$tab_numb_old=Arr::get($_POST,'personnel_number_old','');
+		$tab_numb_old=Arr::get($_POST,'personnel_number_old','');		
 		
-		$post = Validation::factory($_POST)	
-			
+		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
 			->rule('username', 'alpha_dash')		
@@ -207,8 +218,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('email', 'not_empty')          
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,	$email_old))
-			->rule('personnel_number', 'not_empty')
-			->rule('personnel_number', 'digit')
+			->rule('personnel_number', 'not_empty')		
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			

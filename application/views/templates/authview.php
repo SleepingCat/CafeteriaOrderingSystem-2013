@@ -15,6 +15,7 @@
 						</td>
 					</tr>
 					<th colspan="2" style="text-align:right"><input type="submit"  id="submit" value="Войти" style="width:170px; height:30px" name="subm">
+									
 									<?php if(isset($error)){?>
 <p style="color:red">Логин или пароль введены неверно.</p><?}?></th>
 				</table>

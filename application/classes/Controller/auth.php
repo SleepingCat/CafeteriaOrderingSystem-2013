@@ -40,7 +40,8 @@
  				 
 			    }				 
 			}				
-			 $this->content=View::factory('templates/authview',$data);
+			
+			$this->content=View::factory('templates/authview',$data);
 			 $this->styles = array('media/css/style.css' => 'screen');
 			$this->title ="Авторизация";        
            	
@@ -49,10 +50,8 @@
 		public function action_logout()
 		{
 	       $auth=Auth::instance();	
-	        $auth->logout();
-	        $this->content= "Разлогинились";
-	        $this->title = 'Разлогинились';	
-			$this->user = "Вы теперь гость";
+	        $auth->logout();	       
+			$this->redirect('');
            			
 		}	
 	        public function action_hash()

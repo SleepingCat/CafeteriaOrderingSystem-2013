@@ -5,11 +5,11 @@ class Controller_Welcome extends Controller_Front {
 	public function action_index()
 	{
 		
-		$auth = Auth::instance();
-		if($auth->logged_in())
+		//$auth = Auth::instance();
+		//if($auth->logged_in())
 		$this->content = View::factory('welcome/index');
-		else
-		if($auth->logged_in() == 0)  $this->redirect('auth');                  
+		//else
+		//if($auth->logged_in() == 0)  $this->redirect('auth');                  
 
        
 	}

@@ -65,11 +65,11 @@ class Controller_Front extends Kohana_Controller_Template {
 		if(Auth::instance()->logged_in())
 		{
      		$user = Auth::instance()->get_user()->as_array();
-			$this->user = 'Здорово,'.' '.$user['username'];
+			$this->user = 'Здорово,'.' '.$user['surname'].' '.$user['name'].' '.$user['patronymic'].View::factory('templates/logout_button');
 		}		
 		else			
 		{		
-			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться';
+			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/log_buton');
 		}		
 		
 		//$this->a2 = A2::instance('a2'); Это почему-то не работает	

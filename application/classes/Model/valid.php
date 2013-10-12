@@ -78,7 +78,7 @@ class Model_Valid
   
   public static function tab_number($num)
    {		
-		if($num >= 111111 and $num <=999999 )
+		if($num >= 100000  and $num <=999999 )
 	   {   
 	   return TRUE;   
 	   }
@@ -104,10 +104,11 @@ class Model_Valid
     
     public static function tab_number_unique($tab,$oldtab)
     {
-    	$usertemp= ORM::factory('user',array('personnel_number'=> $tab));
     
-    	if ($tab <> $oldtab)
+    	if ($tab != $oldtab)
     	{
+    		$usertemp= ORM::factory('user',array('personnel_number'=> $tab));
+    		
     		if($usertemp->loaded())
     		{
     
