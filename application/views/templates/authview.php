@@ -1,23 +1,19 @@
+<?php echo HTML::style('media/css/authview.css');?>
 
-<form action="" method="post">
-				<table class="login">
-					<tr>
-						<th colspan="2" style="padding-bottom:10px;">Авторизация</th>
-					</tr>
-					<tr>
-						<td>Логин:</td>
-						<td><input type="text" id="login" name="login">
-						<td>
-					</tr>
-					<tr>
-						<td>Пароль:</td>
-						<td><input type="password" id="password" name="password">				
-						</td>
-					</tr>
-					<th colspan="2" style="text-align:right"><input type="submit"  id="submit" value="Войти" style="width:170px; height:30px" name="subm">
-									
-									<?php if(isset($error)){?>
-<p style="color:red">Логин или пароль введены неверно.</p><?}?></th>
-				</table>
-
+<form class="Login" action="" method="post">
+<div class="FormTopBorder">Введите ваши имя пользователя и пароль</div>
+<div class="FormArea">
+	Имя пользователя: <br>
+    <input type="text" class="TextBox" /> <br>
+    <p></p>
+    Пароль: <br>
+    <input type="password" class="TextBox" /> <br>
+    <?php if(isset($error)){?>
+    	<p></p>
+    	<span id="fail">Имя пользователя или пароль введены неверно!</span>
+    <?}?>
+</div>
+<div class="FormBottomBorder">
+	<input type="submit" class="EntBut EntBut-color" id="EntAuth" value="Войти" name="subm" />
+</div>				
 </form>

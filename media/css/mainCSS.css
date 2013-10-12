@@ -58,74 +58,25 @@ header{
 	margin-left: 15%;
 	margin-right: 15%;
 	padding-top: 15px;
-	/*min-height:*/
-	height: 1500px;
+	min-height: 720px;	
 	display: block;
 	border-radius: 30px;
-	background-image: url(/media/image/MainTemplate/WoodTexture.jpg);
-	/*Временно*/
+	background-image: url(/media/image/MainTemplate/WoodTexture.jpg);	
 	color: #F5D694;
 	text-align: center;
 	font-size: large;
 }
 
-/*Главная панель, предположительно, для навигации по системе*/
+/*Главная панель, для навигации по системе*/
 .MainPanel{
 	margin-left: 15px;
 	margin-right: 15px;
 	border-style: solid;
-	background-color: #666666;
+	background-color: rgba(0,0,0,0);
 	border-radius: 15px;
 	height: 50px;
 	vertical-align: middle;
 	border-width: 3px;	
-}
-
-/*Кнопка на главной панели*/
-.MainPanelButton{
-	width: 100px;
-	height: 50px;
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
-	border-right-width: thin;
-	border-right-style: solid;
-	border-color: #FFFFFF;
-	text-decoration: none;
-	background-color: #00CCFF;
-	color: #0000FF;
-	position: static;
-}
-.MainPanelButton:hover{
-	background-color: #000099;
-	color: #FFFFFF;
-}
-
-/*Отдельный класс для левой кнопки со скругленными углами*/
-.LeftButton{
-	border-top-left-radius: 11px;
-	border-bottom-left-radius: 11px;
-}
-
-/*Отдельный класс для кнопки, соответствующей открытой странице*/
-.ActiveButton{
-	background-color: #33CC33;
-	color: #666666;
-}
-.ActiveButton:hover{
-	background-color: #006600;
-	color: #FFFFFF;
-}
-
-/*Классы таблиц*/
-table{
-		
-}
-tr{
-	
-}
-td{
-	
 }
 
 /*Нижняя часть страницы*/

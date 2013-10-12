@@ -94,7 +94,8 @@ class Controller_Front extends Kohana_Controller_Template {
 			// Добавляем стили, используемые на каждой странице web-сайта
 			$styles = array(
 				$media->uri(array('file' => 'css/jquery-ui.css')) => 'screen',
-				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen'
+				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen',
+				$media->uri(array('file' => 'css/buttons.css')) => 'screen'
 			);
 			// Добавляем скрипты, используемые на каждой странице web-сайта
 			$scripts = array(

@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+#imgBG{
+	display:none;	
+}
+
+/*Главная рабочая область*/
+.WorkArea{
+	margin-left: 5%;
+	margin-right: 5%;	
+}
+

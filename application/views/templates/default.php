@@ -16,6 +16,14 @@
 </header>
   
 <div class="WorkArea">
+<div class="MainPanel">
+    
+<!-- Кнопки главной панели -->	
+    <a href="https://www.google.ru/" class="MainPanelButton LeftButton ActiveButton">Кнопка</a>
+    <a href="https://www.youtube.com/" class="MainPanelButton">Кнопка2</a>
+<!--  -->
+                   
+</div>
 
 <?php echo $content; ?>
 </div>

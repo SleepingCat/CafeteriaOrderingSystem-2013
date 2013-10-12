@@ -1,0 +1,97 @@
+@charset "utf-8";
+
+/*Кнопка на главной панели*/
+.MainPanelButton{
+	width: 100px;
+	height: 50px;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	border-right-width: thin;
+	border-right-style: solid;
+	border-color: #F5D694;
+	text-decoration: none;
+	background-color: rgba(0,0,0,0.35);
+	color: #F5D694;
+	position: static;
+}
+.MainPanelButton:hover{
+	background-color: rgba(255,255,255,0.35);
+	color: #492B23;
+}
+
+/*Отдельный класс для левой кнопки со скругленными углами*/
+.LeftButton{
+	border-top-left-radius: 11px;
+	border-bottom-left-radius: 11px;
+}
+
+/*Отдельный класс для кнопки, соответствующей открытой странице*/
+.ActiveButton{
+color: #F5D694;
+background: #000000;	
+
+background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.35) 65%, rgba(255,255,255,0.35) 100%);
+
+background: -webkit-gradient(radial, center center, 0px, center center, 0%, color-stop(65%,rgba(0,0,0,0.35)), color-stop(100%,rgba(255,255,255,0.35)));
+
+background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.35) 65%,rgba(255,255,255,0.35) 100%);
+
+background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 50%,rgba(255,255,255,0.35) 100%);
+}
+
+.ActiveButton:hover{
+	background: rgba(255,255,255,0.35);
+	color: #492B23;
+}
+
+
+/*EntBut - кнопка подтверждения ввода*/
+.EntBut{
+	outline: none;
+	text-align: center;
+	color: #EEE0D0;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+	box-shadow: 0 0 .05em rgba(0,0,0,0.4);
+	-moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
+	-moz-border-radius: .3em;
+	border-radius: .3em;
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	padding: 0.5em 2.5em;
+}
+
+.EntBut:hover
+{
+    box-shadow: 0 0 .1em rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
+}
+
+.EntBut:active
+{    
+    position: relative;
+    top: 1px;
+}
+
+.EntBut-color
+{
+	background: #664F37;
+    background: -webkit-gradient(linear, left top, left bottom, from(#664F37), to(#967452) );
+    background: -moz-linear-gradient(-90deg, #967452, #967452);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#81a8cb', endColorstr='#4477a1');
+}
+
+.EntBut-color:hover
+{
+    background: #F5D694;
+    background: -webkit-gradient(linear, left top, left bottom, from(#967452), to(#664F37) );
+    background: -moz-linear-gradient(-90deg, #967452, #664F37);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');            
+}
+
+.EntBut-color:active
+{
+	background: #664F37;
+}
