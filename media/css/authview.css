@@ -41,11 +41,11 @@
 	outline:none;
 }
 
-#fail{
+.fail{
 	color: #FF3737;
 	font-size: large;
 }
 
-#EntAuth{
+.EntAuth{
 	margin-top: 5px;
 }
