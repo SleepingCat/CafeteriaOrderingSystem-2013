@@ -75,12 +75,12 @@
 	                </div>
 	            	</div>
 	            	
-	            	<div class="control-group<?php if (Arr::get($errors, 'number')) : ?> error<?php endif; ?>">
+	            	<div class="control-group<?php if (Arr::get($errors, 'num_office')) : ?> error<?php endif; ?>">
 			        <label for="number" class="control-label"><?php echo __('Номер кабинета') ?>:</label>
                     <div class="controls">
-		                <input type="text" name="number" id="number" value="<?php echo Arr::get($item, 'number') ?>"/>
-	                    <?php if (Arr::get($errors, 'building')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'number') ?></div>
+		                <input type="text" name="num_office" id="number" value="<?php echo Arr::get($item, 'num_office') ?>"/>
+	                    <?php if (Arr::get($errors, 'num_office')) : ?>
+                            <div class="help-block"><?php echo Arr::get($errors, 'num_office') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
 	            	</div>

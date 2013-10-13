@@ -10,7 +10,7 @@ public function reg()
 		{	      
 			$user = ORM::factory('user', Arr::get($_POST, 'id'));			
             // update user			
-			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floors','number','personnel_number'))->save();
+			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floors','num_office','personnel_number'))->save();
 			//remove all roles
 			$user->remove('roles');
 			

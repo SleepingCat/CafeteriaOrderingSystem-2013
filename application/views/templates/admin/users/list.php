@@ -33,7 +33,7 @@
 								<td><?php echo $item->surname ?></td>  	
 				                <td><?php echo $item->patronymic ?></td> 
 							    <td><?php echo $item->building ?></td> 
-						        <td><?php echo $item->floors ?></td>					       
+						        <td><?php echo $item->floors ?></td>
 								<td><?php echo $item->num_office ?></td> 
 							    <td><?php echo $item->personnel_number ?></td> 
 									                            

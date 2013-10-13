@@ -186,8 +186,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
         if ($this->request->post('back'))
         {
            $this->redirect('/admin/users');
-        }		
-        
+        }        
+       
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
 		$tab_numb=Arr::get($_POST,'personnel_number','');		
@@ -205,7 +205,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 			->rule('patronymic', 'not_empty')
 			->rule('building', 'not_empty')
 			->rule('floors', 'not_empty')
-			->rule('number', 'not_empty')
+			->rule('num_office', 'not_empty')
 			->rule('personnel_number', 'not_empty')
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))	
 			->rule('email', 'not_empty')          
@@ -239,18 +239,24 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 			{			
 		       $this->redirect('/admin/users');	    
 			}	
-						
-		}		  
+			else 
+			
+			{
+				$data['errors']	='bsnbfmnbsn';	
+			
+			}
+		}		
 		// Errors list
         View::set_global('errors', $post->errors('validation'));		
 		$roles = $register->find_role();  
 			
-		$this->content= View::factory('templates/admin/users/add_form')
+		$this->content= View::factory('templates/admin/users/form')
 		->set(array(
 				'item' => $post->data(),
 				'roles' => $roles,
 			)
-		);	
+		);
+	
 	  	
 		$this->styles = array('media/css/style.css' => 'screen');		
 
