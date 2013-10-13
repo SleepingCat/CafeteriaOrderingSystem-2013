@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Main extends Controller_Checkinput  {
+class Controller_Admin_Main extends Controller_Checkinputadmin  {
    
 	
 	public function action_index()

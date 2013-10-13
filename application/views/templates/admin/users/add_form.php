@@ -2,7 +2,7 @@
 
 ?>
 <form action="" method="post" name="user-form" class="user-form"> 
-<h3 class="pull-left"><?php echo __('Добавление пользователя') ?></h1>   
+<h3 class="pull-left"><?php echo __('Добавление пользователя') ?> 
                 
                 <div class="control-group<?php if (Arr::get($errors, 'username')) : ?> error<?php endif; ?>">
 		            <label for="username" class="control-label"><?php echo __('Логин') ?>:</label>

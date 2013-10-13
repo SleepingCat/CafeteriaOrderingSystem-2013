@@ -59,21 +59,21 @@ class Controller_Front extends Kohana_Controller_Template {
 	public function before() {
 		// Определяем файл базового шаблона
 		$this->template = 'templates' . DIRECTORY_SEPARATOR . 'default';
-		// Вызываем родительский метод
-		parent::before();
+		// Вызываем родительский метод	
+		parent::before();	
+		
 		// Получаем информацию о текущем пользователе
 		if(Auth::instance()->logged_in())
 		{
      		$user = Auth::instance()->get_user()->as_array();
-			$this->user = 'Здорово,'.' '.$user['surname'].' '.$user['name'].' '.$user['patronymic'].View::factory('templates/logout_button');
+			$this->user = 'Здорово,'.' '.$user['surname'].' '.$user['name'].' '.$user['patronymic'].View::factory('templates/auth/logout_button');
 		}		
 		else			
 		{		
-			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/log_buton');
+			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
 		}		
 		
-		//$this->a2 = A2::instance('a2'); Это почему-то не работает	
-		
+		//$this->a2 = A2::instance('a2'); Это почему-то не работает			
 		//$this->auth = $this->a2->a1;Это почему-то не работает
 		//$this->user = $this->a2->get_user();Это почему-то не работает
 	} 
@@ -82,10 +82,7 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Выполняется после загрузки основного контрола (шаблона) web-сайта.
 	 * @see Kohana_Controller_Template::after()
 	 */
-	public function after() {
-	
-	
-	
+	public function after() {		
 		// Если включен автоматический рендеринг
 		if ($this->auto_render)
 		{

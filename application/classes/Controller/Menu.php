@@ -4,8 +4,7 @@ class Controller_Menu extends Controller_Front {
 
 	public function action_index()
 	{
-		$this->content = View::factory('menu/selectmenu')->set('title', "Выберите Меню");
-				
+		$this->content = View::factory('menu/selectmenu')->set('title', "Выберите Меню");				
 	}
 	
 	public function action_menuselect()

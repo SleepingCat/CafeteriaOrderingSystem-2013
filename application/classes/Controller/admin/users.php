@@ -1,16 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Users extends Controller_Checkinput {
+class Controller_Admin_Users extends Controller_Checkinputadmin {
 
     /**
      * Users List Action
-     */
-   
+     */   
     public function action_index()
     {	   
         // Load users list query
         $users = ORM::factory('user')
             ->reset(FALSE);
+		
 		// Create pagination object
        $pagination = Pagination::factory(array(
 	        'group' => 'admin',
@@ -29,27 +29,26 @@ class Controller_Admin_Users extends Controller_Checkinput {
             'items' => $users,
              'pagination'=>$pagination,			
 		
-        ));
-      $this->styles = array('media/css/bootstrap.css' => 'screen');
-	  
-     $this->title ="Список пользователей";
+        ));      
+       $this->styles = array('media/css/bootstrap.css' => 'screen');	  
+       $this->title ="Список пользователей";
     }
 
 	/**
 	 * Delete user action
 	 */
 	public function action_delete()
-	{		// Get user id
+	{	// Get user id
 		$user_id = $this->request->param('id');
 		if (!$user_id)
 		{
-			throw new HTTP_Exception_404('User not found.');
+			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		// Get user
 		$user = ORM::factory('user', $user_id);
 		if (!$user->loaded())
 		{
-			throw new HTTP_Exception_404('User not found.');
+			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		// Delete user
 		$user->delete();
@@ -66,8 +65,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			if ($this->request->post('back'))
 			{			
 				$this->redirect('/admin');
-			}
-			
+			}						
 			 $register= new Model_Regandraduser();		 
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
@@ -95,29 +93,25 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));			
 		
 		if (!empty($post['password']))
-		{
-			$post	
-			
+		{	$post			
 			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
-			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));
-			
-		}
-			
-  if (isset($_POST['subm']))
-       {
+			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
+		}			
+ 		 if (isset($_POST['subm']))
+       	{
 		// check validation
 		if ($post->check())
-		{			
-			if($register->reg())
-			{			
-		       $this->redirect('/admin/users/index');	    
-			}
-		}
-	}	
+		  {			
+		  			if($register->reg())
+				{			
+		      		 $this->redirect('/admin/users');	    
+				}
+		  }
+	    }	
 			View::set_global('errors', $post->errors('validation'));   
         
 			$roles = $register->find_role(); 
@@ -125,7 +119,8 @@ class Controller_Admin_Users extends Controller_Checkinput {
 				->set(array(
 				'item' => array_merge( array('roles' => array())),
 				'roles' => $roles,
-				));		
+				));	
+					
 			$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
 	}
@@ -136,21 +131,20 @@ class Controller_Admin_Users extends Controller_Checkinput {
      * @throws HTTP_Exception_404
      */
     public function action_edit()
-	{	
-		
+	{		
 		// Get user id
 		$user_id = $this->request->param('id');
 		
 		if (!$user_id)
 		{
-			throw new HTTP_Exception_404('User not found.');
+			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		
 		// Get user
 		$user = ORM::factory('user', $user_id);
 		if (!$user->loaded())
 		{
-			throw new HTTP_Exception_404('User not found.');
+			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		
 		// User roles
@@ -172,8 +166,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 		
 		$this->styles = array('media/css/style.css' => 'screen');
 		$this->title ="Редактирование пользователя";									
-	}
-	
+	}	
     /**
      * Save user action
      *
@@ -222,9 +215,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			
-			
-		
-		if (!empty($post['password']))
+			if (!empty($post['password']))
 		{
 			$post	
 			
@@ -235,8 +226,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 			->rule('password_confirm', 'not_empty')
 			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));
 			
-		}
-				
+		}				
 			// remove password if empty
             if (empty($_POST['password']))
             {
@@ -247,7 +237,7 @@ class Controller_Admin_Users extends Controller_Checkinput {
 		{
 			if($register->reg( $login))
 			{			
-		       $this->redirect('/admin/users/index');	    
+		       $this->redirect('/admin/users');	    
 			}	
 						
 		}		  
@@ -260,10 +250,9 @@ class Controller_Admin_Users extends Controller_Checkinput {
 				'item' => $post->data(),
 				'roles' => $roles,
 			)
-		);		
+		);	
 	  	
-		$this->styles = array('media/css/style.css' => 'screen');
-		
+		$this->styles = array('media/css/style.css' => 'screen');		
 
 	}
 } // End Admin Users

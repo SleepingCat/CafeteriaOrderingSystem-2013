@@ -8,31 +8,46 @@
 	class Controller_Auth extends Controller_Front{
 
 		public function action_index()
-		{
-							
+		{					
 			$data=array(); 			
 			$auth=Auth::instance();		
 		
+			/**
+			 * Если пол=й авторизован,то на гл. страницу его редиеректим
+			 */
 		 if($auth->logged_in())		 
 		 {      
-		  $this->redirect('');		
-		 }	
-
+		 	
+		  $this->redirect('');	
+		  	
+		 }
 		 else		  
-		  {     if (isset($_POST['subm']))
+		  {     /**
+		  		* Если пользователь нажал кнопку type="submit" но форме авторизации
+		  		*/
+		  		if (isset($_POST['subm']))
+		  			
 				{ 
+					/**
+					Запоминаем переменные с текстовых полей
+					 */
 				  $login=Arr::get($_POST,'login','');
 				  
 				  $password=Arr::get($_POST,'password','');
-				  
+				  /**
+				   * Авторизуем пл-ля с помощью модуль auth, обращаемся к методу login
+				   */
 				  if($auth->login( $login,$password))
-				{				
-				 $session = Session::instance();
-				 $auth_redirect=$session ->get('auth_redirect','');
-				 $session-> delete('auth_redirect');				  
-				 $this->redirect(URL::site($auth_redirect));	             	  
+				{		/**
+						Если авторизация прошла успешно, редиректим рользователя на нужный контролл(на который он заходил когда не был авторизован)
+						*/					 
+					$session = Session::instance();
+				 	$auth_redirect=$session ->get('auth_redirect','');
+					 $session-> delete('auth_redirect');				  
+					$this->redirect($auth_redirect);			
 				  
-				}				
+				}	
+							
 				else
 				 { 
 				   $data["error"]="error"; 
@@ -41,12 +56,14 @@
 			    }				 
 			}				
 			
-			$this->content=View::factory('templates/authview',$data);
+			$this->content=View::factory('templates/auth/authview',$data);
 			 $this->styles = array('media/css/style.css' => 'screen');
 			$this->title ="Авторизация";        
            	
 		}				
-		
+		/**
+		 * Разлогиниваемся
+		 */
 		public function action_logout()
 		{
 	       $auth=Auth::instance();	
@@ -54,9 +71,12 @@
 			$this->redirect('');
            			
 		}	
+		/**
+		 * Хэш-фукция пароля admin,оставлю в отладочных целях
+		 */
 	        public function action_hash()
 		{
-	       $auth=Auth::instance();	
+	       $auth=Auth::instance();
 	      
 			$pass1=$auth->hash_password('admin');
 	        $this->content=$pass1 ;		

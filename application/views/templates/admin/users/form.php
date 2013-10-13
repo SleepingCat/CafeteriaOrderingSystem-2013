@@ -2,7 +2,7 @@
 
 ?>
 <form action="<?php echo URL::site('/admin/users/save') ?>" method="post" name="user-form" class="user-form">       
-                 <h3 class="pull-left"><?php echo __('Редактирование пользователя: :user', array(':user' => Arr::get($item, 'username'))) ?></h1>
+                 <h3 class="pull-left"><?php echo __('Редактирование пользователя: :user', array(':user' => Arr::get($item, 'username'))) ?>
                 <div class="control-group<?php if (Arr::get($errors, 'username')) : ?> error<?php endif; ?>">
 		            <label for="username" class="control-label"><?php echo __('Логин') ?>:</label>
 	                <div class="controls">
