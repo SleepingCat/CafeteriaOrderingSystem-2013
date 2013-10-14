@@ -17,7 +17,7 @@ body{
 }
 
 /*Фоновое изображение*/
-#imgBG{
+.imgBG{
 	display:block;
 	position:absolute;
 	top:50px;
@@ -35,7 +35,7 @@ header{
 }
 
 /*Логотип*/
-#Logo{
+.Logo{
 	width: 45%;
 	height: auto;
 	position: relative;	

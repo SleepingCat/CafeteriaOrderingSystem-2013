@@ -12,7 +12,7 @@
 <header>
 	<div class="Personal"> <?php echo $user; ?></div>
 	
-	<?php echo HTML::image('media/image/MainTemplate/Logo.png', array('id' => 'Logo')); ?>  
+	<?php echo HTML::image('media/image/MainTemplate/Logo.png', array('class' => 'Logo')); ?>  
 </header>
   
 <div class="WorkArea">
@@ -30,7 +30,8 @@
  
 <footer class="Underground">Подвал</footer>
 
-<?php echo HTML::image('media/image/MainTemplate/Background.png', array('id' => 'imgBG')); ?>
+<?php echo HTML::image('media/image/MainTemplate/Background.png', array('class' => 'imgBG', 'id' => 'lowerBG')); ?>
+<?php echo HTML::image('media/image/MainTemplate/BackgroundUpper.png', array('class' => 'imgBG')); ?>
 </div>
 </body>
 </html>
