@@ -1,7 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<?php echo HTML::style('media/css/adminCSS.css');?>
-
  <h1 class="pull-left"><?php echo __('Список пользователей') ?></h1>    
         	
 <div id="container">

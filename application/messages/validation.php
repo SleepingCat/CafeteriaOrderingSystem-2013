@@ -33,7 +33,7 @@ return array
 		),
 		
 	
-	'number'	=> 	array(
+	'num_office'	=> 	array(
 				'not_empty' => 'Не введен номер кабинета',
 		),
 		
