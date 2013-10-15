@@ -10,8 +10,5 @@ return array(
 		'view'              => 'pagination/basic',
 		'auto_hide'         => TRUE,
 		'first_page_in_url' => FALSE,
-	),
-	
-	
-		
+	),		
 );

@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 3.5.1
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 13 2013 г., 20:44
+-- Время создания: Окт 15 2013 г., 18:24
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -31,7 +31,14 @@ CREATE TABLE IF NOT EXISTS `deliverytimes` (
   `DeliveryTime` time NOT NULL,
   `DeliveryLimit` int(11) NOT NULL,
   PRIMARY KEY (`DeliveryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `deliverytimes`
+--
+
+INSERT INTO `deliverytimes` (`DeliveryId`, `DeliveryTime`, `DeliveryLimit`) VALUES
+(1, '00:00:11', 11);
 
 -- --------------------------------------------------------
 
@@ -123,7 +130,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `FKOrders930409` (`UserId`),
   KEY `FKOrders579408` (`SubscriptionSubsId`),
   KEY `FKOrders640533` (`DeliveryTimesDeliveryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`OrderId`, `UserId`, `DeliveryTimesDeliveryId`, `OrderDate`, `DeliveryDate`, `DeliveryPoint`, `OrderStatus`, `TotalPrice`, `SubscriptionSubsId`) VALUES
+(2, 1, 1, '2013-10-01', '2013-10-02', '', 'Заказ_принят', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -224,7 +238,14 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
   `status` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`SubsId`),
   KEY `FKSubscripti750367` (`UsersUserId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `subscriptions`
+--
+
+INSERT INTO `subscriptions` (`SubsId`, `UsersUserId`, `StartDate`, `EndDate`, `status`) VALUES
+(1, 1, '2013-10-07', '2013-10-08', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(255) NOT NULL,
   `PaymentType` bit(1) NOT NULL DEFAULT b'0',
   `Discount` int(2) DEFAULT NULL,
-  `UserStatus` bit(1) DEFAULT NULL,
+  `UserStatus` tinyint(1) DEFAULT NULL,
   `logins` int(10) NOT NULL DEFAULT '0',
   `last_login` int(10) DEFAULT NULL,
   `building` varchar(50) DEFAULT NULL,
@@ -249,17 +270,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `personnel_number` int(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `patronymic` varchar(255) DEFAULT NULL,
+  `delivery` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `PaymentType`, `Discount`, `UserStatus`, `logins`, `last_login`, `building`, `floors`, `num_office`, `personnel_number`, `surname`, `patronymic`) VALUES
-(1, 'admin', 'a13de8d3294a909283ad79e7bf7ba631d87b5b47bdbff1dec8238e6a7ef16d53', 'babur@ya.ru', 'Дмитрий', b'0', NULL, NULL, 0, 0, '5Б', 1, 38, 111111, 'Бабурин', 'Владимирович');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `PaymentType`, `Discount`, `UserStatus`, `logins`, `last_login`, `building`, `floors`, `num_office`, `personnel_number`, `surname`, `patronymic`, `delivery`) VALUES
+(1, 'admin', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur@ya.ru', 'Дмитрий', b'1', NULL, 0, 8, 1381846274, '5Б', 1, 38, 111111, 'Бабурин', 'Владимирович', NULL);
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -269,8 +291,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `PaymentType
 -- Ограничения внешнего ключа таблицы `ingredients`
 --
 ALTER TABLE `ingredients`
-  ADD CONSTRAINT `FKIngredient951298` FOREIGN KEY (`ProductProductId`) REFERENCES `products` (`ProductId`),
-  ADD CONSTRAINT `FKIngredient645192` FOREIGN KEY (`DishDishId`) REFERENCES `dishes` (`DishId`);
+  ADD CONSTRAINT `FKIngredient645192` FOREIGN KEY (`DishDishId`) REFERENCES `dishes` (`DishId`),
+  ADD CONSTRAINT `FKIngredient951298` FOREIGN KEY (`ProductProductId`) REFERENCES `products` (`ProductId`);
 
 --
 -- Ограничения внешнего ключа таблицы `menurecords`
@@ -283,30 +305,30 @@ ALTER TABLE `menurecords`
 -- Ограничения внешнего ключа таблицы `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `FKOrders640533` FOREIGN KEY (`DeliveryTimesDeliveryId`) REFERENCES `deliverytimes` (`DeliveryId`),
   ADD CONSTRAINT `FKOrders579408` FOREIGN KEY (`SubscriptionSubsId`) REFERENCES `subscriptions` (`SubsId`),
-  ADD CONSTRAINT `FKOrders930409` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FKOrders640533` FOREIGN KEY (`DeliveryTimesDeliveryId`) REFERENCES `deliverytimes` (`DeliveryId`),
+  ADD CONSTRAINT `FKOrders930409` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `ordersrecords`
 --
 ALTER TABLE `ordersrecords`
-  ADD CONSTRAINT `FKOrdersReco354374` FOREIGN KEY (`MenuRecordMenuId`, `MenuRecordDishId`) REFERENCES `menurecords` (`MenuId`, `DishId`),
-  ADD CONSTRAINT `FKOrdersReco198862` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`OrderId`);
+  ADD CONSTRAINT `FKOrdersReco198862` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`OrderId`),
+  ADD CONSTRAINT `FKOrdersReco354374` FOREIGN KEY (`MenuRecordMenuId`, `MenuRecordDishId`) REFERENCES `menurecords` (`MenuId`, `DishId`);
 
 --
 -- Ограничения внешнего ключа таблицы `rolesbuttons`
 --
 ALTER TABLE `rolesbuttons`
-  ADD CONSTRAINT `FKRolesButto297520` FOREIGN KEY (`menuButtonsid`) REFERENCES `menubuttons` (`id`),
-  ADD CONSTRAINT `FKRolesButto163567` FOREIGN KEY (`RolesRoleId`) REFERENCES `roles` (`id`);
+  ADD CONSTRAINT `FKRolesButto163567` FOREIGN KEY (`RolesRoleId`) REFERENCES `roles` (`id`),
+  ADD CONSTRAINT `FKRolesButto297520` FOREIGN KEY (`menuButtonsid`) REFERENCES `menubuttons` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `roles_users`
 --
 ALTER TABLE `roles_users`
-  ADD CONSTRAINT `FKRoles_User256956` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `FKRoles_User121825` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+  ADD CONSTRAINT `FKRoles_User121825` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
+  ADD CONSTRAINT `FKRoles_User256956` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `subscriptions`

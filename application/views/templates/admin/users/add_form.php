@@ -137,5 +137,6 @@
                 <input type="submit" name="subm"  id="input" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
             </div>
 		</div>
+		<input id="UserStatus" type="hidden" name="UserStatus" value="0">
 	</div>
 </form>

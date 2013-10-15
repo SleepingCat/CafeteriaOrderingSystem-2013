@@ -1,7 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
  <h1 class="pull-left"><?php echo __('Список пользователей') ?></h1>    
-        	
+<p>Введите табельный номер для поиска пользователей:</p>	
+
+<?php echo $search?>
+<br>
+ 
 <div id="container">
 
     <div id="content" class="container">
@@ -48,14 +52,13 @@
 						    <?php endforeach; ?>
 					    <?php else: ?>
 		                    <tr>
-		                        <td colspan="6"><?php echo __('No items') ?></td>
+		                        <td colspan="6"><?php echo __('Пользователей нет') ?></td>
 		                    </tr>
 					    <?php endif; ?>
                     </tbody>
 					 <tfoot>
 	                    <tr>
-	                        <td colspan="9"><?php echo $pagination ?></td>
-							
+	                        <td colspan="9"><?php echo $pagination ?></td>							
 	                        <td class="cell-middle"><?php echo __('Всего пользователей: :count', array(':count' => $pagination->total_items)) ?></td>
 	                    </tr>
                     </tfoot>

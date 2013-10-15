@@ -1,39 +1,34 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Users extends Controller_Checkinputadmin {
-
-    /**
+class Controller_Admin_Users extends Controller_Checkinputadmin 
+{  	  /**
      * Users List Action
      */   
     public function action_index()
     {	   
         // Load users list query
         $users = ORM::factory('user')
-            ->reset(FALSE);
-		
+            ->reset(FALSE);		
 		// Create pagination object
        $pagination = Pagination::factory(array(
 	        'group' => 'admin',
             'total_items' => $users->count_all(),
-        ));	
-
+        ));
         // Modify users list query
         $users = $users
         ->order_by('username', 'ASC')           
         ->offset($pagination->offset)
         ->limit($pagination->items_per_page)
-        ->find_all();
-				
+        ->find_all();				
         // Set content template
        $this->content=View::factory('templates/admin/users/list', array(
             'items' => $users,
-             'pagination'=>$pagination,			
-		
+             'pagination'=>$pagination,
+       		'search'=>View::factory('templates/admin/users/sereachview'),
         ));      
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";
     }
-
 	/**
 	 * Delete user action
 	 */
@@ -53,19 +48,18 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 		// Delete user
 		$user->delete();
 		// Redirect to base page
-		   $this->redirect('admin');
+		   $this->redirect('admin/users');
 	}
-
     /**
      * Create user action
      */
     public function action_new()
-	{    
-			// Back
+	{		// Back
 			if ($this->request->post('back'))
 			{			
 				$this->redirect('/admin');
-			}						
+			}
+								
 			 $register= new Model_Regandraduser();		 
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
@@ -100,7 +94,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
 			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
-		}			
+		}
+					
  		 if (isset($_POST['subm']))
        	{
 		// check validation
@@ -112,19 +107,16 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 				}
 		  }
 	    }	
-			View::set_global('errors', $post->errors('validation'));   
-        
+			View::set_global('errors', $post->errors('validation'));        
 			$roles = $register->find_role(); 
 			$this->content=View::factory('templates/admin/users/add_form')
 				->set(array(
 				'item' => array_merge( array('roles' => array())),
 				'roles' => $roles,
-				));	
-					
+				));					
 			$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
-	}
-
+   }
     /**
      * Edit user action
      *
@@ -186,7 +178,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
         if ($this->request->post('back'))
         {
            $this->redirect('/admin/users');
-        }        
+        }
        
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
@@ -195,7 +187,6 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 		$email_old=Arr::get($_POST,'email_old','');
 		$email=Arr::get($_POST,'email','');
 		$tab_numb_old=Arr::get($_POST,'personnel_number_old','');		
-		
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
@@ -215,18 +206,17 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			
-			if (!empty($post['password']))
-		{
-			$post	
-			
+		if (!empty($post['password']))			
+		{				
+			$post			
 			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
-			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));
-			
-		}				
+			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
+			}	
+						
 			// remove password if empty
             if (empty($_POST['password']))
             {
@@ -235,26 +225,73 @@ class Controller_Admin_Users extends Controller_Checkinputadmin {
 				
 		if ($post->check())
 		{
-			if($register->reg( $login))
-			{			
-		       $this->redirect('/admin/users');	    
-			}
-			
-		}	
-			
+			if($register->reg($login))			
+			{
+			   $usertemp= ORM::factory('user',array('username'=> $login));
+			   $user=$usertemp->UserStatus;
+			  
+			   if ($user == 1)			   
+			   { 	
+			   		DB::query(Database::UPDATE, 'update Orders set OrderStatus=:status  where UserID=:ID ')
+			   		->param(':status', 'Заказ_отменен')	
+			   		->param(':ID', Arr::get($_POST, 'id'))
+			   		->execute();
+			   		$this->redirect('/admin/users');
+			   }
+			   
+			   else 
+			   
+			   {	
+			   			   	
+			   	$this->redirect('/admin/users');
+			   	
+			   }
+		}
+				
 		// Errors list
         View::set_global('errors', $post->errors('validation'));		
-		$roles = $register->find_role();  
-			
+		$roles = $register->find_role();			
 		$this->content= View::factory('templates/admin/users/form')
 		->set(array(
 				'item' => $post->data(),
 				'roles' => $roles,
-			)
-		);
+					)
+		);	  	
+		$this->styles = array('media/css/style.css' => 'screen');
+	}
+}
 	
-	  	
-		$this->styles = array('media/css/style.css' => 'screen');		
-
+	public function action_search()	
+	{	
+		$tab_numb=Arr::get($_POST,'search','');
+		// Load users list query
+		$users = ORM::factory('user')
+		->where('personnel_number', "LIKE ", '%'. $tab_numb .'%')
+		->reset(FALSE);
+	
+		// Create pagination object
+		$pagination = Pagination::factory(array(
+				'group' => 'admin',
+				'total_items' => $users->count_all(),
+		));
+	
+		// Modify users list query
+		$users = $users
+		->order_by('username', 'ASC')
+		->offset($pagination->offset)
+		->limit($pagination->items_per_page)
+		->find_all();
+	
+		// Set content template
+		$this->content=View::factory('templates/admin/users/list', array(
+				'items' => $users,
+				'pagination'=>$pagination,
+				'search'=>View::factory('templates/admin/users/sereachview'),
+	
+		));
+		$this->styles = array('media/css/bootstrap.css' => 'screen');
+		$this->title ="Список пользователей";
+		
+		
 	}
 } // End Admin Users

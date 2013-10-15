@@ -11,9 +11,7 @@
 						<?php if (Arr::get($errors, 'username')) : ?>
 							<div class="help-block"><?php echo Arr::get($errors, 'username') ?></div>
 						<?php endif; ?>
-	                </div>
-	            
-
+	                </div> 
                 <div class="control-group<?php if (Arr::get($errors, 'email')) : ?> error<?php endif; ?>">
 			        <label for="email" class="control-label"><?php echo __('Email') ?>:</label>
                     <div class="controls">
@@ -23,8 +21,7 @@
 	                    <?php endif; ?>
 	                    <input type="hidden" name="email_old" value="<?php echo Arr::get($item, 'email') ?>"/>
 	                </div>
-	            </div>
-	            
+	            </div>	            
 	            <div class="control-group<?php if (Arr::get($errors, 'surname')) : ?> error<?php endif; ?>">
 			        <label for="surname" class="control-label"><?php echo __('Фамилия') ?>:</label>
                     <div class="controls">
@@ -33,8 +30,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'surname') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            </div>
-					
+	            </div>					
 					<div class="control-group<?php if (Arr::get($errors, 'name')) : ?> error<?php endif; ?>">
 			        <label for="name" class="control-label"><?php echo __('Имя') ?>:</label>
                     <div class="controls">
@@ -43,8 +39,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'name') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            	</div>
-	            
+	            	</div>	            
 	            <div class="control-group<?php if (Arr::get($errors, 'patronymic')) : ?> error<?php endif; ?>">
 			        <label for="patronymic" class="control-label"><?php echo __('Отчество') ?>:</label>
                     <div class="controls">
@@ -53,8 +48,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'patronymic') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            	</div>
-	            	
+	            	</div>	            	
 	            	<div class="control-group<?php if (Arr::get($errors, 'building')) : ?> error<?php endif; ?>">
 			        <label for="building" class="control-label"><?php echo __('Здание') ?>:</label>
                     <div class="controls">
@@ -63,8 +57,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'building') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            	</div>
-	            	
+	            	</div>	            	
 	            	<div class="control-group<?php if (Arr::get($errors, 'floors')) : ?> error<?php endif; ?>">
 			        <label for="floors" class="control-label"><?php echo __('Этаж') ?>:</label>
                     <div class="controls">
@@ -73,8 +66,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'floors') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            	</div>
-	            	
+	            	</div>	            	
 	            	<div class="control-group<?php if (Arr::get($errors, 'num_office')) : ?> error<?php endif; ?>">
 			        <label for="number" class="control-label"><?php echo __('Номер кабинета') ?>:</label>
                     <div class="controls">
@@ -83,8 +75,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'num_office') ?></div>
 	                    <?php endif; ?>	                    
 	                </div>
-	            	</div>
-	            	
+	            	</div>	            	
 	            	<label for="personnel_number" class="control-label"><?php echo __('Табельный номер') ?>:</label>
                     <div class="controls">
 		               		<input type="text" name="personnel_number" value="<?php echo Arr::get($item, 'personnel_number') ?>"/>
@@ -93,8 +84,7 @@
 	                    <?php endif; ?></td>
 	                    <input type="hidden" name="personnel_number_old" value="<?php echo Arr::get($item, 'personnel_number') ?>"/>                 
 	                </div>
-	            	</div> 				
-
+	            	</div>
                 <div class="control-group<?php if (Arr::get($errors, 'password')) : ?> error<?php endif; ?>">
 		            <label for="password" class="control-label"><?php echo __('Пароль') ?>:</label>
                     <div class="controls">
@@ -103,8 +93,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'password') ?></div>
 	                    <?php endif; ?>
                     </div>
-                </div>
-                
+                </div>                
                 <div class="control-group<?php if (Arr::get($errors, 'password_confirm')) : ?> error<?php endif; ?>">
 		            <label for="password_confirm" class="control-label"><?php echo __('Подтвердите пароль') ?>:</label>
                     <div class="controls">
@@ -115,8 +104,12 @@
                     </div> 
 	    			</div>
 	    			<br>
+	   			<?php echo 'Уволить сотрудника:' ?> <input id="UserStatus" type="checkbox" name="UserStatus" value="1"
+	    		<?php if ( Arr::get($item, 'UserStatus') ) : ?> checked="checked" <?php endif ?>/>
+	    	
 	    <div class="span3"  align=center>
-	              <legend><?php echo __('Выберите роль') ?></legend>
+	   			 <BR>
+	              <legend><?php echo __('Выберите роль:') ?></legend>
 		        <div class="control-group">
 			        <label class="control-label"><?php echo __('Roles') ?></label>
 					<?php foreach ($roles as $role) : ?>
@@ -124,12 +117,12 @@
 							<?php echo $role->name ?>
 					        <input id="role<?php echo $role->id ?>" type="checkbox" name="roles[]" value="<?php echo $role->id ?>"
 								<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>/>
-					    </label>
+					    </label>  
 			        <?php endforeach; ?>
 		        </div>	       
 	    		</div>
-	    		    		
-	<div class="row">
+	    		
+		<div class="row">
 		<div class="span12 form-actions">
             <div class="pull-right">
                 <input type="submit" name="back" class="btn" value="<?php echo __('Отмена') ?>" />

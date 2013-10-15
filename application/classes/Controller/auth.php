@@ -9,11 +9,11 @@
 
 		public function action_index()
 		{					
-			$data=array(); 			
-			$auth=Auth::instance();		
+			$data["error"]='';			
+			$auth=Auth::instance();
 		
 			/**
-			 * Если пол=й авторизован,то на гл. страницу его редиеректим
+			 * Если пол-й авторизован,то на гл. страницу его редиеректим
 			 */
 		 if($auth->logged_in())		 
 		 {      
@@ -25,27 +25,34 @@
 		  {     /**
 		  		* Если пользователь нажал кнопку type="submit" но форме авторизации
 		  		*/
-		  		if (isset($_POST['subm']))
-		  			
+		  		if (isset($_POST['subm']))		  			
 				{ 
 					/**
 					Запоминаем переменные с текстовых полей
 					 */
-				  $login=Arr::get($_POST,'login','');
+				  $login=Arr::get($_POST,'login','');				  
+				  $password=Arr::get($_POST,'password','');				  
+				  $usertemp= ORM::factory('user',array('username'=> $login));				
+				  $user=$usertemp->UserStatus;				  
+
+				  if ($user != 0)
+				  {
+				  	 $data["error"]="looser";
+				  }
 				  
-				  $password=Arr::get($_POST,'password','');
+				  else
+				  {				  	
 				  /**
 				   * Авторизуем пл-ля с помощью модуль auth, обращаемся к методу login
 				   */
-				  if($auth->login( $login,$password))
+				  if($auth->login($login,$password))
 				{		/**
 						Если авторизация прошла успешно, редиректим рользователя на нужный контролл(на который он заходил когда не был авторизован)
 						*/					 
 					$session = Session::instance();
 				 	$auth_redirect=$session ->get('auth_redirect','');
-					 $session-> delete('auth_redirect');				  
-					$this->redirect($auth_redirect);			
-				  
+					$session-> delete('auth_redirect');				  
+					$this->redirect($auth_redirect);
 				}	
 							
 				else
@@ -54,22 +61,20 @@
 				 }
  				 
 			    }				 
-			}				
-			
-			$this->content=View::factory('templates/auth/authview',$data);
-			 $this->styles = array('media/css/style.css' => 'screen');
-			$this->title ="Авторизация";        
-           	
+			}		
+		  }	
+			$this->content=View::factory('templates/auth/authview')
+			->set('error',$data["error"]);
+			 $this->styles = array('media/css/authview.css' => 'screen');
+			$this->title ="Авторизация";
 		}				
 		/**
 		 * Разлогиниваемся
 		 */
 		public function action_logout()
-		{
-	       $auth=Auth::instance();	
-	        $auth->logout();	       
-			$this->redirect('');
-           			
+		{   $auth=Auth::instance();	
+	      	$auth->logout();	       
+			$this->redirect('');           			
 		}	
 		/**
 		 * Хэш-фукция пароля admin,оставлю в отладочных целях
