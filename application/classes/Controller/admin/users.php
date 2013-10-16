@@ -105,6 +105,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,''))
 			->rule('personnel_number', 'not_empty')		
+			->rule('personnel_number', 'max_length', array(':value', 6))
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));			
 		
@@ -217,8 +218,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('username', 'max_length', array(':value', 16))
 			->rule('surname', 'not_empty')
 			->rule('name', 'not_empty')
-			->rule('patronymic', 'not_empty')
-			
+			->rule('patronymic', 'not_empty')			
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
@@ -228,7 +228,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,	$email_old))
 			->rule('personnel_number', 'not_empty')		
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
+			->rule('personnel_number', 'max_length', array(':value', 6))
+			->rule('personnel_number', 'Model_Valid::tab_number',array(':value'))
 			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			
 		if (!empty($post['password']))			

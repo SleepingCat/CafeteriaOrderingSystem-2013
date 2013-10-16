@@ -103,8 +103,7 @@ class Model_Valid
     } 
     
     public static function tab_number_unique($tab,$oldtab)
-    {
-    
+    {    
     	if ($tab != $oldtab)
     	{
     		$usertemp= ORM::factory('user',array('personnel_number'=> $tab));
