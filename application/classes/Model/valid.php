@@ -110,10 +110,8 @@ class Model_Valid
     		$usertemp= ORM::factory('user',array('personnel_number'=> $tab));
     		
     		if($usertemp->loaded())
-    		{
-    
-    			return FALSE;
-    
+    		{    
+    			return FALSE;    
     		}
     
     		else

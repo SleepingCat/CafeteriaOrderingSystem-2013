@@ -41,5 +41,19 @@ public function reg()
  	return $roles;  
  }
  
+ public  function changeorderstatus()
+ {
+ 	
+ 	DB::query(Database::UPDATE, 'update Orders set OrderStatus=:status  where UserID=:ID ')
+ 	->param(':status', 'Заказ_отменен')
+ 	->param(':ID', Arr::get($_POST, 'id'))
+ 	->execute();
+ 	
+ 	
+ }
+ 
+ 
+ 
+ 
 			 
 }

@@ -33,22 +33,42 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 	 * Delete user action
 	 */
 	public function action_delete()
-	{	// Get user id
+	{	
+		// Get user id
 		$user_id = $this->request->param('id');
+
 		if (!$user_id)
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		// Get user
 		$user = ORM::factory('user', $user_id);
+		
 		if (!$user->loaded())
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
+		
+		
+		$useridord= ORM::factory('order',array('USerId'=> $user_id));
+		
+		$useridorder=$useridord->UserId=1;
+		
+		$this->title=$useridorder;
+		
+		if ($user_id != $useridorder )
+		{	
 		// Delete user
 		$user->delete();
 		// Redirect to base page
-		   $this->redirect('admin/users');
+		 $this->redirect('admin/users');
+		}
+		
+		else 
+		{			
+			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к совершил заказ');
+			
+		}		
 	}
     /**
      * Create user action
@@ -70,13 +90,15 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value',''))
-			->rule('username', 'alpha_dash')		
+			->rule('username', 'alpha_dash')
+			->rule('username', 'min_length', array(':value', 6))
+			->rule('username', 'max_length', array(':value', 16))
 			->rule('surname', 'not_empty')
 			->rule('name', 'not_empty')
 			->rule('patronymic', 'not_empty')
-			->rule('building', 'not_empty')
-			->rule('floors', 'not_empty')
-			->rule('num_office', 'not_empty')
+			//->rule('building', 'not_empty')
+			//->rule('floors', 'not_empty')
+			//->rule('num_office', 'not_empty')
 			->rule('personnel_number', 'not_empty')
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',''))	
 			->rule('email', 'not_empty')          
@@ -190,13 +212,16 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
-			->rule('username', 'alpha_dash')		
+			->rule('username', 'alpha_dash')
+			->rule('username', 'min_length', array(':value', 6))
+			->rule('username', 'max_length', array(':value', 16))
 			->rule('surname', 'not_empty')
 			->rule('name', 'not_empty')
 			->rule('patronymic', 'not_empty')
-			->rule('building', 'not_empty')
-			->rule('floors', 'not_empty')
-			->rule('num_office', 'not_empty')
+			
+			//->rule('building', 'not_empty')
+			//->rule('floors', 'not_empty')
+			//->rule('num_office', 'not_empty')
 			->rule('personnel_number', 'not_empty')
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))	
 			->rule('email', 'not_empty')          
@@ -228,26 +253,22 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			if($register->reg($login))			
 			{
 			   $usertemp= ORM::factory('user',array('username'=> $login));
-			   $user=$usertemp->UserStatus;
-			  
+			   $user=$usertemp->UserStatus;			  
+
 			   if ($user == 1)			   
 			   { 	
-			   		DB::query(Database::UPDATE, 'update Orders set OrderStatus=:status  where UserID=:ID ')
-			   		->param(':status', 'Заказ_отменен')	
-			   		->param(':ID', Arr::get($_POST, 'id'))
-			   		->execute();
+			   		$register->changeorderstatus();
 			   		$this->redirect('/admin/users');
 			   }
 			   
-			   else 
-			   
+			   else			   
 			   {	
 			   			   	
 			   	$this->redirect('/admin/users');
 			   	
 			   }
-		}
-				
+			}	
+		}			
 		// Errors list
         View::set_global('errors', $post->errors('validation'));		
 		$roles = $register->find_role();			
@@ -257,8 +278,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'roles' => $roles,
 					)
 		);	  	
-		$this->styles = array('media/css/style.css' => 'screen');
-	}
+		$this->styles = array('media/css/style.css' => 'screen');	
 }
 	
 	public function action_search()	
