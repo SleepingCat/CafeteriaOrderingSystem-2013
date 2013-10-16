@@ -2,25 +2,28 @@
 
 class Controller_Admin_Users extends Controller_Checkinputadmin 
 {  	  /**
-     * Users List Action
+     * Список пол-й
      */   
     public function action_index()
     {	   
-        // Load users list query
+        // Запрашиваем список пол-й
         $users = ORM::factory('user')
             ->reset(FALSE);		
-		// Create pagination object
+		
+		// Создаем объект пагинации(страничная навигация)
        $pagination = Pagination::factory(array(
 	        'group' => 'admin',
             'total_items' => $users->count_all(),
         ));
-        // Modify users list query
+       
+        // Получаем список пол-й и количеств страниц пагинации
         $users = $users
         ->order_by('username', 'ASC')           
         ->offset($pagination->offset)
         ->limit($pagination->items_per_page)
-        ->find_all();				
-        // Set content template
+        ->find_all();		
+        		
+        // Передаем в представление
        $this->content=View::factory('templates/admin/users/list', array(
             'items' => $users,
              'pagination'=>$pagination,
@@ -29,8 +32,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";
     }
+    
 	/**
-	 * Delete user action
+	 * Удаляем пол-й
 	 */
 	public function action_delete()
 	{	
@@ -47,46 +51,45 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		if (!$user->loaded())
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
+		}		
+		
+		// Обращаемся к модели order, считываем USerID в таблице orders 
+		$useridord= ORM::factory('order',array('UserId'=> $user_id));
+		
+		$useridorder=$useridord->UserId;
+		
+
+		// Если UserId в таблице orders отсутсвует,то удаляем пол-ля
+			if ($user_id != $useridorder )
+		{
+			// Удаляем пол-ля
+			$user->delete();
+			// Redirect admin/users
+			 $this->redirect('admin/users');
 		}
-		
-		
-		$useridord= ORM::factory('order',array('USerId'=> $user_id));
-		
-		$useridorder=$useridord->UserId=1;
-		
-		$this->title=$useridorder;
-		
-		if ($user_id != $useridorder )
-		{	
-		// Delete user
-		$user->delete();
-		// Redirect to base page
-		 $this->redirect('admin/users');
-		}
-		
+				
 		else 
 		{			
-			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к совершил заказ');
-			
+			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');			
 		}		
 	}
+	
     /**
-     * Create user action
+     * Создание нового пол-ля
      */
     public function action_new()
-	{		// Back
-			if ($this->request->post('back'))
-			{			
-				$this->redirect('/admin');
-			}
-								
+		{	
+			// Объект модели Regandraduser
 			 $register= new Model_Regandraduser();		 
+			
+			// Записываем в переменные значения с текстбоксов
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
 		 	 $surname=Arr::get($_POST,'surname','');
 		     $tab_numb=Arr::get($_POST,'personnel_number','');		     	     
 		     $email=Arr::get($_POST,'email','');
 	
+		     // правила валидации вызываем
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value',''))
@@ -118,20 +121,32 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('password_confirm', 'not_empty')
 			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
 		}
-					
+
+		// Пользователей нажал кнопку submit
  		 if (isset($_POST['subm']))
        	{
-		// check validation
+		// ЗАпускаем ручнуб вадлидацию
 		if ($post->check())
-		  {			
-		  			if($register->reg())
+		  {		//Добавляем пол-ля,если все OK , то переходим на контролл admin/users
+		  		if($register->reg())
 				{			
 		      		 $this->redirect('/admin/users');	    
 				}
 		  }
 	    }	
-			View::set_global('errors', $post->errors('validation'));        
+	    
+	    // Кнопка назад
+	    if ($this->request->post('back'))
+	    {
+	    	$this->redirect('/admin/users');
+	    }
+	    
+	   		 // Список ошибок валидации, хранится в файле messages/validation.php
+			View::set_global('errors', $post->errors('validation'));    
+			    
+			// Получаем список ролей
 			$roles = $register->find_role(); 
+			
 			$this->content=View::factory('templates/admin/users/add_form')
 				->set(array(
 				'item' => array_merge( array('roles' => array())),
@@ -139,51 +154,59 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				));					
 			$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
-   }
+   		}
     /**
-     * Edit user action
+     * Редактирование пользователя
      *
      * @throws HTTP_Exception_404
      */
     public function action_edit()
-	{		
-		// Get user id
+	{	
+		// Объект модели Regandraduser
+		$register = new Model_Regandraduser();	
+		
+		// Получаем id пол-ля
 		$user_id = $this->request->param('id');
 		
+		// Если id не удоось получить ,то ошибка
 		if (!$user_id)
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		
-		// Get user
+		// Получаем пользователя по id
 		$user = ORM::factory('user', $user_id);
+		
+		// Если не нажали на кнопку редактирвоание ,то ошибка
 		if (!$user->loaded())
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}
 		
-		// User roles
+		// Получаем роли пол-лей
 		$item['roles'] = array();
+		
 		foreach ($user->roles->find_all() as $role)
 		{
 			$item['roles'][] = $role->id;
-		}	    
+		}   
 		
-		// Roles list
-		$roles = ORM::factory('role')->order_by('name', 'ASC')->find_all();
+		// ПОлучаем список ролей
+		$roles = $register->find_role();	
+		
 		// Set content template
 		$this->content=View::factory('templates/admin/users/form')
 		->set(array(
 			'item' => array_merge($user->as_array(), $item),
 			'roles' => $roles,
 		))
-		->set('errors','');
-		
+		->set('errors','');		
 		$this->styles = array('media/css/style.css' => 'screen');
 		$this->title ="Редактирование пользователя";									
 	}	
+	
     /**
-     * Save user action
+     * Сохранение отредактирвоанных значений полей, все почти аналогично экшену создания пол-ля
      *
      * @throws HTTP_Exception_404
      */
@@ -196,12 +219,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		if ($this->request->method() !== Request::POST)
 		{
 			throw new HTTP_Exception_404('Page not found.');
-		}		 
-        // Back
-        if ($this->request->post('back'))
-        {
-           $this->redirect('/admin/users');
-        }
+		}        
        
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
@@ -210,6 +228,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$email_old=Arr::get($_POST,'email_old','');
 		$email=Arr::get($_POST,'email','');
 		$tab_numb_old=Arr::get($_POST,'personnel_number_old','');		
+
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
@@ -247,16 +266,24 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
             if (empty($_POST['password']))
             {
                 unset($_POST['password']);
-            }		
+            }	
+
+            // Функция для кнопки назад на вьюшке
+            if ($this->request->post('back'))
+            {
+            	$this->redirect('/admin/users');
+            }
 				
 		if ($post->check())
 		{
 			if($register->reg($login))			
-			{
+			{ 
+				//Считываем статус пол-ля
 			   $usertemp= ORM::factory('user',array('username'=> $login));
 			   $user=$usertemp->UserStatus;			  
-
-			   if ($user == 1)			   
+				
+				// Если статус пол-ля уволен,то вызываем метод который выполняет SQL-запрос на смену статуса в таблице orders
+				 if ($user == 1)			   
 			   { 	
 			   		$register->changeorderstatus();
 			   		$this->redirect('/admin/users');
@@ -270,8 +297,10 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			   }
 			}	
 		}			
-		// Errors list
-        View::set_global('errors', $post->errors('validation'));		
+		
+		// Список ошибок валидации, хранится в файле messages/validation.php
+        View::set_global('errors', $post->errors('validation'));
+        		
 		$roles = $register->find_role();			
 		$this->content= View::factory('templates/admin/users/form')
 		->set(array(
@@ -284,26 +313,27 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 	
 	public function action_search()	
 	{	
+		// Записываем значения таб-го номера
 		$tab_numb=Arr::get($_POST,'search','');
-		// Load users list query
+		
+		// Запршиваем пол-й
 		$users = ORM::factory('user')
 		->where('personnel_number', "LIKE ", '%'. $tab_numb .'%')
 		->reset(FALSE);
 	
-		// Create pagination object
+		// Создаем объект пагинациии
 		$pagination = Pagination::factory(array(
 				'group' => 'admin',
 				'total_items' => $users->count_all(),
 		));
 	
-		// Modify users list query
+		// Получаем список пол-й
 		$users = $users
 		->order_by('username', 'ASC')
 		->offset($pagination->offset)
 		->limit($pagination->items_per_page)
-		->find_all();
-	
-		// Set content template
+		->find_all();	
+		
 		$this->content=View::factory('templates/admin/users/list', array(
 				'items' => $users,
 				'pagination'=>$pagination,
@@ -311,8 +341,6 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 	
 		));
 		$this->styles = array('media/css/bootstrap.css' => 'screen');
-		$this->title ="Список пользователей";
-		
-		
+		$this->title ="Список пользователей";		
 	}
 } // End Admin Users

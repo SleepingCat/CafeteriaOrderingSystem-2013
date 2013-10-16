@@ -4,6 +4,10 @@
 class Model_Regandraduser  
 {
 
+	/**
+	 * Метод который выполняет добавление записей о пользователе !
+	 * @return boolean
+	 */
 public function reg()
  {	try
 		{     
@@ -15,17 +19,28 @@ public function reg()
 			//remove all roles
 			$user->remove('roles');			
 			
+			// Устанавлием пол-лю статус 0(т.е false, что он не уволен)
 			$user->UserStatus=0;		
 			
+			// Записываем статус в таблицу Users
 			$user->save();			
 
+			// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й уволен)
 			$user->values($_POST, array('UserStatus'))->save();
+			
+			// Вытаскиваем запись где роль='login'
+			$rolelogins=ORM::factory('role')
+			->where('name', '=', 'login')
+			->find();
+			// Записываем роль login для пользователя,чтобы он мог логинится как рядовой пользователь
+			$user->add('roles', $rolelogins);		
 					
-			// add new roles
+			// Добавление новых ролей с нажатого чекбокса
 			foreach (Arr::get($_POST, 'roles', array()) as $role)
 			{				
 				$user->add('roles', $role);				
-			}		
+			}
+					
 		    return true;	
            }		
 		
@@ -35,21 +50,27 @@ public function reg()
 			}     		
  }
  
+ /**
+  *  Вытаскиваем список ролей кроме роли login
+  * @return роли 
+  */
  public  function find_role()
  {
- 	$roles=ORM::factory('role')->order_by('name', 'ASC')->find_all(); 
+ 	$roles=ORM::factory('role')
+ 	->where('name', '!=', 'login')
+ 	->order_by('name', 'ASC')->find_all(); 
  	return $roles;  
  }
  
+ /**
+  * Метод который выполняет SQL-запрос на смену статуса в таблице orders
+  */
  public  function changeorderstatus()
- {
- 	
+ {	
  	DB::query(Database::UPDATE, 'update Orders set OrderStatus=:status  where UserID=:ID ')
  	->param(':status', 'Заказ_отменен')
  	->param(':ID', Arr::get($_POST, 'id'))
- 	->execute();
- 	
- 	
+ 	->execute(); 	
  }
  
  
