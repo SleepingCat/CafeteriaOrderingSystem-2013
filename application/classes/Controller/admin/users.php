@@ -28,7 +28,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
             'items' => $users,
              'pagination'=>$pagination,
        		'search'=>View::factory('templates/admin/users/sereachview'),
-        ));      
+        ));  
+           
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";
     }
@@ -55,9 +56,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		
 		// Обращаемся к модели order, считываем USerID в таблице orders 
 		$useridord= ORM::factory('order',array('UserId'=> $user_id));
-		
-		$useridorder=$useridord->UserId;
-		
+		//Записываем UserID в переменную
+		$useridorder=$useridord->UserId;		
 
 		// Если UserId в таблице orders отсутсвует,то удаляем пол-ля
 			if ($user_id != $useridorder )
@@ -133,14 +133,12 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		      		 $this->redirect('/admin/users');	    
 				}
 		  }
-	    }	
-	    
+	    }	    
 	    // Кнопка назад
 	    if ($this->request->post('back'))
 	    {
 	    	$this->redirect('/admin/users');
-	    }
-	    
+	    }	    
 	   		 // Список ошибок валидации, хранится в файле messages/validation.php
 			View::set_global('errors', $post->errors('validation'));    
 			    
@@ -286,6 +284,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				 if ($user == 1)			   
 			   { 	
 			   		$register->changeorderstatus();
+			   		$register->changesubscriptionsstatus();
+			   		
 			   		$this->redirect('/admin/users');
 			   }
 			   
@@ -337,9 +337,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$this->content=View::factory('templates/admin/users/list', array(
 				'items' => $users,
 				'pagination'=>$pagination,
-				'search'=>View::factory('templates/admin/users/sereachview'),
-	
+				'search'=>View::factory('templates/admin/users/sereachview'),	
 		));
+		
 		$this->styles = array('media/css/bootstrap.css' => 'screen');
 		$this->title ="Список пользователей";		
 	}

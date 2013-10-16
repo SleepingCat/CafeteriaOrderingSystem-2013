@@ -2,15 +2,14 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Model_Regandraduser  
-{
-
+ {
 	/**
 	 * Метод который выполняет добавление записей о пользователе !
 	 * @return boolean
 	 */
-public function reg()
- {	try
-		{     
+	public function reg()
+	{		try
+		 {     
 			$user = ORM::factory('user', Arr::get($_POST, 'id'));			
 
             // update user			
@@ -48,7 +47,7 @@ public function reg()
 			{		
 				return false;		
 			}     		
- }
+ 	}
  
  /**
   *  Вытаскиваем список ролей кроме роли login
@@ -63,7 +62,7 @@ public function reg()
  }
  
  /**
-  * Метод который выполняет SQL-запрос на смену статуса в таблице orders
+  * Метод который выполняет SQL-запрос на смену статуса заказа в таблице orders
   */
  public  function changeorderstatus()
  {	
@@ -73,8 +72,15 @@ public function reg()
  	->execute(); 	
  }
  
- 
- 
- 
+ /**
+  * Метод который выполняет SQL-запрос на смену статуса подписки в таблице subscriptions
+  */
+ public  function changesubscriptionsstatus()
+ {
+ 	DB::query(Database::UPDATE, 'update subscriptions set status=:status  where UsersUserId=:ID ')
+ 	->param(':status', 'Подписка_отменена')
+ 	->param(':ID', Arr::get($_POST, 'id'))
+ 	->execute();
+ }
 			 
 }

@@ -4,10 +4,8 @@
 <p>Введите табельный номер для поиска пользователей:</p>	
 
 <?php echo $search?>
-<br>
- 
+<br> 
 <div id="container">
-
     <div id="content" class="container">
       	    <div class="row">
 		    <div class="span12">
