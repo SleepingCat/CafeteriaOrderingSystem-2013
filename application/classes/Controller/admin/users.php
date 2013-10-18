@@ -72,8 +72,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		{			
 			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');			
 		}		
-	}
-	
+	}	
     /**
      * Создание нового пол-ля
      */
@@ -110,7 +109,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('personnel_number', 'not_empty')		
 			->rule('personnel_number', 'max_length', array(':value', 6))
 			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
-			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));			
+			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));		
 		
 		if (!empty($post['password']))
 		{	$post			
@@ -316,11 +315,14 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		// Записываем значения таб-го номера
 		$tab_numb=Arr::get($_POST,'search','');
 		
-		// Запршиваем пол-й
-		$users = ORM::factory('user')
+		// Запрашиваем пол-й
+		$users = ORM::factory('user')		
 		->where('personnel_number', "LIKE ", '%'. $tab_numb .'%')
+		->or_where('surname', "LIKE ", '%'. $tab_numb .'%')
+		->or_where('name', "LIKE ", '%'. $tab_numb .'%')
+		->or_where('patronymic', "LIKE ", '%'. $tab_numb .'%')
 		->reset(FALSE);
-	
+			
 		// Создаем объект пагинациии
 		$pagination = Pagination::factory(array(
 				'group' => 'admin',

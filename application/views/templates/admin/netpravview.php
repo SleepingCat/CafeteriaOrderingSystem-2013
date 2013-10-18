@@ -1,2 +1,2 @@
-<p style="text-align:center"> Нет прав </p>
+<p style="text-align:center"> Не пущю :)) </p>
 

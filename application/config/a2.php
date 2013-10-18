@@ -35,7 +35,7 @@ return array(
 	'roles' => array
 	(
 		// ADD YOUR OWN ROLES HERE
-		'user'	=>	'guest'
+		'user'	=>	'login'
 	),
 
 	/*
@@ -67,23 +67,22 @@ return array(
 	(
 		'allow' => array
 		(
-			/*
-			 * ADD YOUR OWN ALLOW RULES HERE 
-			 *
+			
+			 
 			'ruleName1' => array(
-				'role'      => 'guest',
-				'resource'  => 'blog',
+				'role'      => 'manager',
+				'resource'  => 'menu',
 				'privilege' => 'read'
 			),
 			'ruleName2' => array(
 				'role'      => 'admin'
 			),
 			'ruleName3' => array(
-				'role'      => array('user','manager'),
+				'role'      => array('login','manager'),
 				'resource'  => 'blog',
 				'privilege' => array('delete','edit')
 			)
-			 */
+			 
 		),
 		'deny' => array
 		(

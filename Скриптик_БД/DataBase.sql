@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Окт 15 2013 г., 18:24
+-- Время создания: Окт 18 2013 г., 23:36
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `1`
+-- База данных: `2`
 --
 
 -- --------------------------------------------------------
@@ -130,14 +130,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `FKOrders930409` (`UserId`),
   KEY `FKOrders579408` (`SubscriptionSubsId`),
   KEY `FKOrders640533` (`DeliveryTimesDeliveryId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
 INSERT INTO `orders` (`OrderId`, `UserId`, `DeliveryTimesDeliveryId`, `OrderDate`, `DeliveryDate`, `DeliveryPoint`, `OrderStatus`, `TotalPrice`, `SubscriptionSubsId`) VALUES
-(2, 1, 1, '2013-10-01', '2013-10-02', '', 'Заказ_принят', NULL, NULL);
+(2, 1, 1, '2013-10-01', '2013-10-02', '', 'Заказ_отменен', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `roles`
@@ -187,7 +187,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`) VALUES
 (1, 'admin'),
-(2, 'login');
+(2, 'login'),
+(3, 'manager');
 
 -- --------------------------------------------------------
 
@@ -221,8 +222,8 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 --
 
 INSERT INTO `roles_users` (`role_id`, `user_id`) VALUES
-(1, 1),
-(2, 1);
+(2, 1),
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -245,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 --
 
 INSERT INTO `subscriptions` (`SubsId`, `UsersUserId`, `StartDate`, `EndDate`, `status`) VALUES
-(1, 1, '2013-10-07', '2013-10-08', NULL);
+(1, 1, '2013-10-07', '2013-10-08', 'Подписка_о');
 
 -- --------------------------------------------------------
 
@@ -265,8 +266,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `logins` int(10) NOT NULL DEFAULT '0',
   `last_login` int(10) DEFAULT NULL,
   `building` varchar(50) DEFAULT NULL,
-  `floors` int(100) DEFAULT NULL,
-  `num_office` int(255) DEFAULT NULL,
+  `floors` varchar(100) DEFAULT NULL,
+  `num_office` varchar(255) DEFAULT NULL,
   `personnel_number` int(255) DEFAULT NULL,
   `surname` varchar(255) DEFAULT NULL,
   `patronymic` varchar(255) DEFAULT NULL,
@@ -274,14 +275,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `PaymentType`, `Discount`, `UserStatus`, `logins`, `last_login`, `building`, `floors`, `num_office`, `personnel_number`, `surname`, `patronymic`, `delivery`) VALUES
-(1, 'admin', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur@ya.ru', 'Дмитрий', b'1', NULL, 0, 8, 1381846274, '5Б', 1, 38, 111111, 'Бабурин', 'Владимирович', NULL);
+(1, 'admin', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur@ya.ru', 'Дмитрий', b'1', NULL, 0, 0, NULL, '5Б', '1', '38', 111113, 'Бабурин', 'Владимирович', NULL);
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

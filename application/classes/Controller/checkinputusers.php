@@ -16,7 +16,19 @@ public function before()
 		 Проверяем если пользователь не авторизован, то редиректим его на контроллер авторизвции
 		 */
 		$auth = Auth::instance();
-		if($auth->logged_in() == 0)  $this->redirect('auth');		
+		
+		if($auth->logged_in() == 0)  $this->redirect('auth');
+		
+	//	if($auth->logged_in('manager') == 0)  $this->redirect('netprav');
+
+		if( ! Auth::instance()->logged_in('manager'))
+		{
+			throw new HTTP_Exception_403('Вы не имеете право редактировать запись');
+		}		
+		
+		
+		//if($auth->logged_in('login') == 0)  $this->redirect('netprav');
+		
 		return parent::before();		
 	}
 }

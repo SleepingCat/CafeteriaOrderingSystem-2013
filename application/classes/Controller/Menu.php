@@ -9,6 +9,7 @@ class Controller_Menu extends Controller_Front {
 	
 	public function action_menuselect()
 	{
+		
 		if($_POST['menu'] == "Меню1(19.03.2013)")
 		{
 			$menu = 'menu_data_emulation1.php';

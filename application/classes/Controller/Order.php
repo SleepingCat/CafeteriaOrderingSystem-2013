@@ -52,11 +52,12 @@ class Controller_Order extends Controller_Front {
 	}
 	
 	public function action_cancelorder()
-	{
+	{					
 		$session = Session::instance();
 		$_SESSION['order'] = null;
 		$_SESSION['UserID'] = MD5(microtime());
 		echo "Заказ отменен";
+		
 	}
 
 	

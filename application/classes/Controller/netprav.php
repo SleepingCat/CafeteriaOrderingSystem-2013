@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Netprav extends Controller_Checkinputusers {
+class Controller_Netprav extends Controller_Front {
 
 	//public $template='templates/default';	
 	public function action_index()
