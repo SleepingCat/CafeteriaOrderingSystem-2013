@@ -33,7 +33,7 @@
 				  $login=Arr::get($_POST,'login','');				  
 				  $password=Arr::get($_POST,'password','');				  
 				  $usertemp= ORM::factory('user',array('username'=> $login));				
-				  $user=$usertemp->UserStatus;				  
+				  $user=$usertemp->user_status;				  
 
 				  if ($user != 0)
 				  {

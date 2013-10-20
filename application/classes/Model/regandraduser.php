@@ -13,19 +13,19 @@ class Model_Regandraduser
 			$user = ORM::factory('user', Arr::get($_POST, 'id'));			
 
             // update user			
-			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floors','num_office','personnel_number'))->save();
+			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floors','num_office','employee_number'))->save();
 			
 			//remove all roles
 			$user->remove('roles');			
 			
 			// Устанавлием пол-лю статус 0(т.е false, что он не уволен)
-			$user->UserStatus=0;		
+			$user->user_status=0;		
 			
 			// Записываем статус в таблицу Users
 			$user->save();			
 
 			// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й уволен)
-			$user->values($_POST, array('UserStatus'))->save();
+			$user->values($_POST, array('user_status'))->save();
 			
 			// Вытаскиваем запись где роль='login'
 			$rolelogins=ORM::factory('role')
@@ -66,7 +66,7 @@ class Model_Regandraduser
   */
  public  function changeorderstatus()
  {	
- 	DB::query(Database::UPDATE, 'update Orders set OrderStatus=:status  where UserID=:ID ')
+ 	DB::query(Database::UPDATE, 'update Orders set order_status=:status  where user_id=:ID ')
  	->param(':status', 'Заказ_отменен')
  	->param(':ID', Arr::get($_POST, 'id'))
  	->execute(); 	
@@ -77,7 +77,7 @@ class Model_Regandraduser
   */
  public  function changesubscriptionsstatus()
  {
- 	DB::query(Database::UPDATE, 'update subscriptions set status=:status  where UsersUserId=:ID ')
+ 	DB::query(Database::UPDATE, 'update subscriptions set status=:status  where user_id=:ID ')
  	->param(':status', 'Подписка_отменена')
  	->param(':ID', Arr::get($_POST, 'id'))
  	->execute();

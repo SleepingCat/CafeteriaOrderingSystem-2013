@@ -106,7 +106,7 @@ class Model_Valid
     {    
     	if ($tab != $oldtab)
     	{
-    		$usertemp= ORM::factory('user',array('personnel_number'=> $tab));
+    		$usertemp= ORM::factory('user',array('employee_number'=> $tab));
     		
     		if($usertemp->loaded())
     		{    

@@ -23,13 +23,7 @@
                             <div class="help-block"><?php echo Arr::get($errors, 'password') ?></div>
 	                    <?php endif; ?></td>	                   
 					</tr>
-					<tr>
-						<td style="text-align:right;">Эл. почта:</td>
-						<td><input type="text" name="email" value="<?php echo Arr::get($item, 'email') ?>"/>
-						 <?php if (Arr::get($errors, 'email')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'email') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
+					
 					
 					<tr>
 						<td style="text-align:right;">Фамилия:</td>

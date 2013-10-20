@@ -8,8 +8,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
     {	   
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
-            ->reset(FALSE);		
-		
+            ->reset(FALSE);       
+        
 		// Создаем объект пагинации(страничная навигация)
        $pagination = Pagination::factory(array(
 	        'group' => 'admin',
@@ -21,7 +21,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
         ->order_by('username', 'ASC')           
         ->offset($pagination->offset)
         ->limit($pagination->items_per_page)
-        ->find_all();		
+        ->find_all();
+        		
         		
         // Передаем в представление
        $this->content=View::factory('templates/admin/users/list', array(
@@ -55,9 +56,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		}		
 		
 		// Обращаемся к модели order, считываем USerID в таблице orders 
-		$useridord= ORM::factory('order',array('UserId'=> $user_id));
+		$useridord= ORM::factory('order',array('user_id'=> $user_id));
 		//Записываем UserID в переменную
-		$useridorder=$useridord->UserId;		
+		$useridorder=$useridord->user_id;		
 
 		// Если UserId в таблице orders отсутсвует,то удаляем пол-ля
 			if ($user_id != $useridorder )
@@ -85,7 +86,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
 		 	 $surname=Arr::get($_POST,'surname','');
-		     $tab_numb=Arr::get($_POST,'personnel_number','');		     	     
+		     $tab_numb=Arr::get($_POST,'employee_number','');		     	     
 		     $email=Arr::get($_POST,'email','');
 	
 		     // правила валидации вызываем
@@ -101,15 +102,15 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
-			->rule('personnel_number', 'not_empty')
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',''))	
+			->rule('employee_number', 'not_empty')
+			->rule('employee_number', 'Model_Valid::tab_number',array(':value',''))	
 			->rule('email', 'not_empty')          
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,''))
-			->rule('personnel_number', 'not_empty')		
-			->rule('personnel_number', 'max_length', array(':value', 6))
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
-			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',''));		
+			->rule('employee_number', 'not_empty')		
+			->rule('employee_number', 'max_length', array(':value', 6))
+			->rule('employee_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
+			->rule('employee_number', 'Model_Valid::tab_number_unique',array(':value',''));		
 		
 		if (!empty($post['password']))
 		{	$post			
@@ -220,11 +221,11 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
        
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
-		$tab_numb=Arr::get($_POST,'personnel_number','');		
+		$tab_numb=Arr::get($_POST,'employee_number','');		
 		$password=Arr::get($_POST,'password','');		
 		$email_old=Arr::get($_POST,'email_old','');
 		$email=Arr::get($_POST,'email','');
-		$tab_numb_old=Arr::get($_POST,'personnel_number_old','');		
+		$tab_numb_old=Arr::get($_POST,'employee_number_old','');		
 
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
@@ -238,15 +239,15 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
-			->rule('personnel_number', 'not_empty')
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value',$tab_numb))	
+			->rule('employee_number', 'not_empty')
+			->rule('employee_number', 'Model_Valid::tab_number',array(':value',$tab_numb))	
 			->rule('email', 'not_empty')          
 			->rule('email', 'email')
 			->rule('email', 'Model_Valid::email_unique',array($email,	$email_old))
-			->rule('personnel_number', 'not_empty')		
-			->rule('personnel_number', 'max_length', array(':value', 6))
-			->rule('personnel_number', 'Model_Valid::tab_number',array(':value'))
-			->rule('personnel_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
+			->rule('employee_number', 'not_empty')		
+			->rule('employee_number', 'max_length', array(':value', 6))
+			->rule('employee_number', 'Model_Valid::tab_number',array(':value'))
+			->rule('employee_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			
 		if (!empty($post['password']))			
 		{				
@@ -277,7 +278,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			{ 
 				//Считываем статус пол-ля
 			   $usertemp= ORM::factory('user',array('username'=> $login));
-			   $user=$usertemp->UserStatus;			  
+			   $user=$usertemp->user_status;			  
 				
 				// Если статус пол-ля уволен,то вызываем метод который выполняет SQL-запрос на смену статуса в таблице orders
 				 if ($user == 1)			   
