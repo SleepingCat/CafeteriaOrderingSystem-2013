@@ -1,14 +1,19 @@
-<form action = "index" method = "POST">
-	Ваш заказ </br>
-	
-	<?php 
-		foreach($order as $key => $value){ echo $key." x".$value."<br>";}
-		echo "На сумму: ".$summ." рублей"
-		."<br>На <input name=\"date\" type=\"text\" value=".substr($menu_date,9).">"
-		."<br>Доставить в <input type=\"text\" name=\"time\">"
-		."<br>В путнкт <input type=\"text\" name=\"place\">"
-	?>
-	<input type = "submit" Value="Сохранить" name = "sbmt2">
+<div>
+	Ваши заказы:<br>
+<table>
+	<?php
+/**
+ * Вывод ВСЕХ заказов пользователя без возможности редактирования 
+ * с возможностью отменить заказ, если тот не в комплектовании
+ */
 
-</form>
-<a href="cancelorder"><button>Отменить заказ</button></a> 
+	$summ = 0;
+	foreach ($orders as $key => $value)
+	{
+		echo "<tr><td>".$value['order_id']."</td><td>".$value['order_date']."</td>
+				<td>".$value['order_date']."</td>
+			<td><a href=\"http://".$_SERVER['HTTP_HOST']."/order/cancel/".$value['order_id']."\">Отменить</a></td><td><a href=#>Изменить</a></td></tr>";
+	}
+?>
+</table>
+</div>

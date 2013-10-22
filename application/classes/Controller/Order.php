@@ -1,63 +1,69 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
-class Controller_Order extends Controller_Front {
+class Controller_Order extends Controller_Front
+{
+	private $tmpuser;
 	
-
+	public function before()
+	{
+		Session::instance();
+		$this->tmpuser = new Model_tmpuser();
+		parent::before();
+	}
+	
 	public function action_index()
 	{
-		$session = Session::instance();
-		if(isset($_POST['sbmt2']))
-		{
-			$_SESSION['date'] = $_POST['date'];
-			$_SESSION['time'] = $_POST['time'];
-			$_SESSION['place'] = $_POST['place'];
-		}
-		$this->content = View::factory('order/showorder')
-			->set('title', "Ваш заказ")
-			->set('order', $_SESSION['order'])
-			->set('summ', $_SESSION['summ'])
-			->set('d_date',$_SESSION['date'])
-			->set('d_time',$_SESSION['time'])
-			->set('place',$_SESSION['place']);
-	}
-	public function action_makeorder()
-	{
-		$session = Session::instance();
-		if (isset($_POST['smbt']))
-		{
-			$summ = 0;
-			// перепакуем данные
-			foreach($_POST['order'] as $key => $value)
-			{
-
-				if(ctype_digit($value))
-				{
-					$order[$key] = $value;
-					$summ = $summ + $_POST['order_price'][$key]*$value;
-				}
-			}
-			//$savecart = new Model_Savecart();
-			//$savecart->save($_SESSION['UserID'],$order);
-			$_SESSION['order'] = $order;
-			$_SESSION['summ'] = $summ;
-			
-			$this->content = View::factory('order/order')
-				->set('title', "Подтвердите заказ")
-				->set('order', $order)
-				->set('summ', $summ)
-				->set('menu_date', $_POST['menu_date']
-				);
-		}
-		else die('Bad request');
+		$orders = (new Model_Order())->get_orders($this->tmpuser->get_user()['Id']);
+		$this->content = View::factory('order/order')->bind('orders', $orders);
 	}
 	
-	public function action_cancelorder()
-	{					
-		$session = Session::instance();
+	public function action_cart()
+	{
+		$this->content = View::factory('order/cart');
+	}
+	
+	public function action_cancel()
+	{
+		$model_order = new Model_Order();
+		$model_order->cancel_order(Request::current()->param('id'), $this->tmpuser->get_user()['Id']);
+		$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
+	}
+	
+	public function action_clear()
+	{
 		$_SESSION['order'] = null;
-		$_SESSION['UserID'] = MD5(microtime());
-		echo "Заказ отменен";
-		
+		$this->redirect($_SERVER['HTTP_REFERER']);
+	}
+	
+	public function action_remove()
+	{
+		unset($_SESSION['order'][Request::current()->param('id')]);
+		$this->redirect($_SERVER['HTTP_REFERER']);
+	}
+	
+	public function action_confirm()
+	{
+		$model_order = new Model_Order();
+		$options = $model_order->get_delivery_periods();
+		$this->content = View::factory('order/confirm')->bind('options', $options);
+		if (isset($_POST['btn_confirm']))
+		{
+			//TODO: сделать валидацию
+			$_SESSION['type_payment'] = $_POST['type_payment'];
+			if ($_POST['type_payment'] == 2) {
+				$_SESSION['delivery_time'] = $_POST['delivery_time'];
+			}
+
+			$model_order->make_order($_SESSION['order'], $this->tmpuser->get_user()['Id'],$_SESSION['menu_id'], $_SESSION['menu_date'],$this->tmpuser->get_user()['Dislocation'], $_POST['delivery_time']);
+			$_SESSION['order'] = null;
+			$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
+		}
+	}
+	
+	public function desu($data)
+	{
+		echo '<pre>';
+		print_r($data);
+		echo '</pre>';
 	}
 	
 	public function  action_findorder()

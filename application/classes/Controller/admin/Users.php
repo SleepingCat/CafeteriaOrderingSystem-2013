@@ -5,7 +5,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
      * Список пол-й
      */   
     public function action_index()
-    {	   
+    {
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
             ->reset(FALSE);       
@@ -54,26 +54,32 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		{
 			throw new HTTP_Exception_404('Вы не выбрали пользователя');
 		}		
-		
-		// Обращаемся к модели order, считываем USerID в таблице orders 
-		$useridord= ORM::factory('order',array('user_id'=> $user_id));
-		//Записываем UserID в переменную
-		$useridorder=$useridord->user_id;		
-
+	
+		// Обращаемся к модели order, считываем USerID в таблице orders		
+		$useridord= DB::query(Database::SELECT, 'SELECT user_id FROM orders   where user_id=:ID ') 		
+ 			->param(':ID', $user_id)
+ 			->execute()
+			->get('user_id', 0);
 		// Если UserId в таблице orders отсутсвует,то удаляем пол-ля
-			if ($user_id != $useridorder )
-		{
-			// Удаляем пол-ля
-			$user->delete();
+		if ($user_id != $useridord )
+			{
+				DB::query(Database::DELETE, 'Delete FROM roles_users   where user_id=:ID ') 		
+				->param(':ID', $user_id)
+				->execute(); 
+			/*DB::query(Database::DELETE, 'Delete FROM users  where id=:ID ') 			
+			->param(':ID', $user_id)
+			->execute();*/		
+			// Удаляем пол-ля			
+				$user->delete();
 			// Redirect admin/users
-			 $this->redirect('admin/users');
-		}
+				$this->redirect('admin/users');
+			}
 				
-		else 
-		{			
+			else 
+			{			
 			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');			
-		}		
-	}	
+			}	
+		}	
     /**
      * Создание нового пол-ля
      */
@@ -150,7 +156,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'item' => array_merge( array('roles' => array())),
 				'roles' => $roles,
 				));					
-			$this->styles = array('media/css/style.css' => 'screen');
+			//$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
    		}
     /**
@@ -159,8 +165,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
      * @throws HTTP_Exception_404
      */
     public function action_edit()
-	{	
-		// Объект модели Regandraduser
+	{	// Объект модели Regandraduser
 		$register = new Model_Regandraduser();	
 		
 		// Получаем id пол-ля
@@ -199,7 +204,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			'roles' => $roles,
 		))
 		->set('errors','');		
-		$this->styles = array('media/css/style.css' => 'screen');
+		//$this->styles = array('media/css/style.css' => 'screen');
 		$this->title ="Редактирование пользователя";									
 	}	
 	
@@ -284,16 +289,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				 if ($user == 1)			   
 			   { 	
 			   		$register->changeorderstatus();
-			   		$register->changesubscriptionsstatus();
-			   		
+			   		$register->changesubscriptionsstatus();		   		
 			   		$this->redirect('/admin/users');
 			   }
 			   
 			   else			   
-			   {	
-			   			   	
-			   	$this->redirect('/admin/users');
-			   	
+			   {			   			   	
+			   	$this->redirect('/admin/users');			   	
 			   }
 			}	
 		}			
@@ -308,7 +310,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'roles' => $roles,
 					)
 		);	  	
-		$this->styles = array('media/css/style.css' => 'screen');	
+		//$this->styles = array('media/css/style.css' => 'screen');	
 }
 	
 	public function action_search()	
@@ -318,7 +320,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		
 		// Запрашиваем пол-й
 		$users = ORM::factory('user')		
-		->where('personnel_number', "LIKE ", '%'. $tab_numb .'%')
+		->where('employee_number', "LIKE ", '%'. $tab_numb .'%')
 		->or_where('surname', "LIKE ", '%'. $tab_numb .'%')
 		->or_where('name', "LIKE ", '%'. $tab_numb .'%')
 		->or_where('patronymic', "LIKE ", '%'. $tab_numb .'%')
@@ -343,7 +345,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'search'=>View::factory('templates/admin/users/sereachview'),	
 		));
 		
+		
 		$this->styles = array('media/css/bootstrap.css' => 'screen');
 		$this->title ="Список пользователей";		
-	}
+	}	
+	
 } // End Admin Users

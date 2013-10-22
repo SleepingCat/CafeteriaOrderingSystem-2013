@@ -55,10 +55,12 @@ return array
 	'email'	=> 	array(
 	'not_empty' => 'Не введен email', 
 	'email'=>'E-mail имеет неправильный формат: username@hostname.domain' ,
-	'Model_Valid::email_unique'=>' Такой email уже существует'),
-		
-		'password_confirm'=>array(
+	'Model_Valid::email_unique'=>' Такой email уже существует'),		
+	'password_confirm'=>array(
 	'not_empty' => 'Вы не подтвердили пароль', 
 	'matches'=>'Пароль должен быть совпадать с полем подтвердения пароля' ),
+	
+	'password_old'=>array(
+	'Model_Valid::check_password' => 'Вы неправильно ввели старый пароль',)
 	
 );
