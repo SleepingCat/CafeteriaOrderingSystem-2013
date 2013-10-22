@@ -1,18 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-class Controller_Order extends Controller_Front
+
+class Controller_Order extends Controller_Checkinputusers
 {
-	private $tmpuser;
-	
 	public function before()
 	{
 		Session::instance();
-		$this->tmpuser = new Model_tmpuser();
 		parent::before();
 	}
 	
 	public function action_index()
 	{
-		$orders = (new Model_Order())->get_orders($this->tmpuser->get_user()['Id']);
+		$orders = (new Model_Order())->get_orders($this->user['id']);
 		$this->content = View::factory('order/order')->bind('orders', $orders);
 	}
 	
@@ -24,7 +22,7 @@ class Controller_Order extends Controller_Front
 	public function action_cancel()
 	{
 		$model_order = new Model_Order();
-		$model_order->cancel_order(Request::current()->param('id'), $this->tmpuser->get_user()['Id']);
+		$model_order->cancel_order(Request::current()->param('id'), $this->user['id']);
 		$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
 	}
 	
@@ -44,19 +42,24 @@ class Controller_Order extends Controller_Front
 	{
 		$model_order = new Model_Order();
 		$options = $model_order->get_delivery_periods();
-		$this->content = View::factory('order/confirm')->bind('options', $options);
+		$view = View::factory('order/confirm')->bind('options', $options);
+		if (!(empty($this->user['num_office']) && empty($this->user['floors']) && empty($this->user['building'])))
+		{
+			$view->set('delivery_point',"Здание ".$this->user['building']." Этаж ".$this->user['floors']." Офис ".$this->user['num_office']);
+		}
 		if (isset($_POST['btn_confirm']))
 		{
 			//TODO: сделать валидацию
-			$_SESSION['type_payment'] = $_POST['type_payment'];
-			if ($_POST['type_payment'] == 2) {
-				$_SESSION['delivery_time'] = $_POST['delivery_time'];
-			}
+			//$_SESSION['delivery_type'] = $_POST['delivery_type'];
+			//if ($_POST['type_payment'] == 2) {
+			//	$_SESSION['delivery_time'] = $_POST['delivery_time'];
+			//}
 
-			$model_order->make_order($_SESSION['order'], $this->tmpuser->get_user()['Id'],$_SESSION['menu_id'], $_SESSION['menu_date'],$this->tmpuser->get_user()['Dislocation'], $_POST['delivery_time']);
+			$model_order->make_order($_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			$_SESSION['order'] = null;
 			$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
 		}
+		$this->content = $view;
 	}
 	
 	public function desu($data)

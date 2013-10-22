@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Menu extends Controller_Front
+class Controller_Menu extends Controller_Checkinputusers
 {
 	private $error_code = 0;
 	private $view;
