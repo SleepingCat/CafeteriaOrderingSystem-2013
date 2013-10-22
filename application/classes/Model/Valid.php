@@ -121,6 +121,21 @@ class Model_Valid
     	else { return  TRUE; }
     	 
     }
+    
+    public static function check_password($password,$oldpas)
+    { 
+    	if ($password != $oldpas)
+    	{
+    		
+    		return FALSE;
+    	}
+    
+    	else
+    	{
+    		return TRUE;
+    	}  	
+    
+    }
    
 }
 

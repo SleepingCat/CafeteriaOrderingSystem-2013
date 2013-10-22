@@ -48,6 +48,28 @@ class Model_Regandraduser
 				return false;		
 			}     		
  	}
+ 	
+ 	
+ 	public function reg_profile()
+ 	{		try
+ 		{
+ 			$user = ORM::factory('user', Arr::get($_POST, 'id')); 	
+ 			// update user
+ 			$user->values($_POST, array('username','email', 'password','payment_type','name','surname','patronymic','building','floors','num_office','employee_number'))->save();
+ 		 		return true;
+ 		}
+ 	
+ 		catch(ORM_Validation_Exception $e)
+ 		{
+ 			return false;
+ 		}
+ 	
+ 	
+ 	}
+ 	
+ 	
+ 	
+ 	
  
  /**
   *  Вытаскиваем список ролей кроме роли login
