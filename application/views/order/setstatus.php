@@ -1,4 +1,4 @@
-<form action = "orderanswerstatus" method = "POST">
+<form action="/deliveryorder/orderanswerstatus" method="POST">
 <?php
 echo "Заказ №".$OrderNumb."</br>";
 ?>
@@ -11,5 +11,5 @@ echo "Заказ №".$OrderNumb."</br>";
      </select>
  </div>
 </label>
-<div align = "center"><input type = "submit" value = "ОК" id = "findButton" name = "findButton" ></div>
+<div align = "center"><input type = "submit" value = "ОК" id = "DOK" name = "DOK" ></div>
 </form>

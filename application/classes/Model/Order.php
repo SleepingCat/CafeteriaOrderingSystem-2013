@@ -91,7 +91,7 @@ class Model_Order extends Model
 	 */
 	public function setStatus($ID,$UpdStatus)
 	{
-		DB::query(Database::UPDATE, 'update Orders set order_status = :St where order_id = :ID')
+		DB::query(Database::UPDATE, "update `orders` set `order_status` = :St where order_id = :ID")
 		-> param(':ID', $ID)
 		-> param(':St', $UpdStatus)
 		-> execute();

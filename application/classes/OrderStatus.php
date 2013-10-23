@@ -7,11 +7,11 @@
  */
 class OrderStatus
 {
-	const NewOrder = "NewOrder";
-	const InComplectation = "InComplectation";
+    const NewOrder = "NewOrder";
+    const InComplectation = "InComplectation";
 	const Canceled = "Canceled";
-	const NotComplectated = "Не укомплектован";
-	const Complectated = "Укомплектован";
+	const NotDelivered = "Не доставлен";
+	const Delivered = "Доставлен";
 }
 
 ?>

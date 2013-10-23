@@ -1,16 +1,21 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 class Controller_deliveryorder  extends Controller_Checkinputusers
 {
+	public function before()
+	{
+		Session::instance();
+		parent::before();
+	}
+	
 	public function action_index()
 	{
-		$this->content = View::factory('order/findorder')
-		->set('title', "Поиск заказа");
+		$this->title = "Поиск заказа";
+		$this->content = View::factory('order/findorder');
 	}
 	
 	public  function  action_ordersetstatus()
-	{
-		$session = Session::instance();
-		if(isset($_POST['findButton']))
+	{	
+		if(isset($_POST["findButton"]))
 		{
 			$OrderNumb = $_POST["orderNumber"];
 			$register = new Model_Order();
@@ -22,7 +27,7 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 				$this->content = View::factory('order/setstatus')
 				->set('title', "Установить статус")
 				->set('OrderNumb',$OrderNumb)
-				->set('CurrentState',$CurrentState);
+				->set('CurrentState',$CurrentState);	
 			}
 			else
 			{
@@ -34,39 +39,48 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 	
 	public  function  action_orderanswerstatus()
 	{
-		$session = Session::instance();
 		$Statuses = new OrderStatus();
 		$CurrNumb = $_SESSION['orderForFind'];
 		$StateStatus1 = $_POST["ChosenStatus"];
 		$OldStatus = $_SESSION['StatusOrderVeryOld'];
 		if ($StateStatus1 == $OldStatus)
 		{
-			$this->redirect("deliveryorder");
+			$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
 		} 
 		else 
 		{
-			$register = new Model_Order();
+			//TODO: Переделать с перечислениями состояний пока некогда
 			if ($StateStatus1 == "Доставлен")
 			{
-				$Status = $StateStatus::Complectated;			
+				$Status = "Доставлен";
+				//$StateStatus::Complectated;			
 			} 		
 			elseif ($StateStatus1 == "Не доставлен")
 			{
-				$Status = $StateStatus::NotComplectated;
+				$Status = "Не доставлен";
+				//$StateStatus::NotComplectated;
 			}
 			else 
 			{
-				$this->redirect("deliveryorder");
+				$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
 			}
 			//$this->title='Подтверждение';
+			$_SESSION['StatusOrderVeryNew'] = $Status;
 			$this->content = View::factory('order/applySetStatus')
-			->set('CurrNumb',$OrderNumb)
+			->set('CurrNumb',$CurrNumb)
 			->set('Status',$Status);
-			if(isset($_POST['bOK']))
-			{
-			     $register ->setStatus($OrderNumb, $Status);
-			}
-		}		
+		}	
 	}
-
+	
+	public  function action_ordersetnewstatus()
+	{
+		if(isset($_POST['bOK']))
+		{
+			$CurrNumb = $_SESSION['orderForFind'];
+			$Status = $_SESSION['StatusOrderVeryNew'];
+			$register = new Model_Order();
+			$register->setStatus($CurrNumb, $Status);
+		}
+		$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
+	}
 }

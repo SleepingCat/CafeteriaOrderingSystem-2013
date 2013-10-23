@@ -1,4 +1,4 @@
-<form
+<form action="/deliveryorder/ordersetnewstatus" method="post">
   <div align = "center">
     <b>Изменить статус заказа</b>
   </div>
