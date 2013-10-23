@@ -76,13 +76,13 @@
 	                    <?php endif; ?>	                    
 	                </div>
 	            	</div>	            	
-	            	<label for="personnel_number" class="control-label"><?php echo __('Табельный номер') ?>:</label>
+	            	<label for="employee_number" class="control-label"><?php echo __('Табельный номер') ?>:</label>
                     <div class="controls">
-		               		<input type="text" name="personnel_number" value="<?php echo Arr::get($item, 'personnel_number') ?>"/>
-						 <?php if (Arr::get($errors, 'personnel_number')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'personnel_number') ?></div>
+		               		<input type="text" name="employee_number" value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+						 <?php if (Arr::get($errors, 'employee_number')) : ?>
+                            <div class="help-block"><?php echo Arr::get($errors, 'employee_number') ?></div>
 	                    <?php endif; ?></td>
-	                    <input type="hidden" name="personnel_number_old" value="<?php echo Arr::get($item, 'personnel_number') ?>"/>                 
+	                    <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>                 
 	                </div>
 	            	</div>
                 <div class="control-group<?php if (Arr::get($errors, 'password')) : ?> error<?php endif; ?>">
