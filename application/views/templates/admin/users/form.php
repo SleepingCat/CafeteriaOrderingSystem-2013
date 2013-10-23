@@ -104,14 +104,14 @@
                     </div> 
 	    			</div>
 	    			<br>
-	   			<?php echo 'Уволить сотрудника:' ?> <input id="UserStatus" type="checkbox" name="UserStatus" value="1"
-	    		<?php if ( Arr::get($item, 'UserStatus') ) : ?> checked="checked" <?php endif ?>/>
+	   			<?php echo 'Уволить сотрудника:' ?> <input id="UserStatus" type="checkbox" name="user_status" value="1"
+	    		<?php if ( Arr::get($item, 'user_status') ) : ?> checked="checked" <?php endif ?>/>
 	    	
 	    <div class="span3"  align=center>
 	   			 <BR>
 	              <legend><?php echo __('Выберите роль:') ?></legend>
 		        <div class="control-group">
-			        <label class="control-label"><?php echo __('Roles') ?></label>
+			        <label class="control-label"><?php echo __('Роли:') ?></label>
 					<?php foreach ($roles as $role) : ?>
 					    <label class="checkbox">
 							<?php echo $role->name ?>
@@ -125,8 +125,8 @@
 		<div class="row">
 		<div class="span12 form-actions">
             <div class="pull-right">
-                <input type="submit" name="back" class="btn" value="<?php echo __('Отмена') ?>" />
-                <input type="submit" name="save"  id="input1" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
+          		<input type="submit" name="save"  id="input1" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
+                <input type="submit" name="back" class="btn" value="<?php echo __('Отмена') ?>" />                
             </div>
 		</div>
 

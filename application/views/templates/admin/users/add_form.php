@@ -116,8 +116,8 @@
 	<div class="row">
 		<div class="span12 form-actions">
             <div class="pull-right">
-                <input type="submit" name="back" id="cancel" class="btn" value="<?php echo __('Отмена') ?>" />
-                <input type="submit" name="subm"  id="input" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
+            	<input type="submit" name="subm"  id="input" class="btn btn-primary" value="<?php echo __('Сохранить') ?>" />
+                <input type="submit" name="back" id="cancel" class="btn" value="<?php echo __('Отмена') ?>" />                
             </div>
 		</div>
 		<input id="UserStatus" type="hidden" name="UserStatus" value="0">
