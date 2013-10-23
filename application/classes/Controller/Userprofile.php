@@ -4,11 +4,8 @@ class Controller_Userprofile extends Controller_Checkinputusers
 { 
 
 public function action_index()	
-	{	
-		// Запрашиваем список пол-й		
-		$user = Auth::instance()->get_user()->as_array();		
-		$id=$user['id'];
-				
+	{				
+		$id=$this->user['id'];				
 		$users = ORM::factory('user')
 			->where('id', '=', $id);		
 		

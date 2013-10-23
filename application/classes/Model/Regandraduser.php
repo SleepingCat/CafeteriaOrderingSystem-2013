@@ -89,7 +89,7 @@ class Model_Regandraduser
  public  function changeorderstatus()
  {	
  	DB::query(Database::UPDATE, 'update Orders set order_status=:status  where user_id=:ID ')
- 	->param(':status', 'Заказ_отменен')
+ 	->param(':status', 'Canceled')
  	->param(':ID', Arr::get($_POST, 'id'))
  	->execute(); 	
  }

@@ -21,16 +21,14 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
         ->order_by('username', 'ASC')           
         ->offset($pagination->offset)
         ->limit($pagination->items_per_page)
-        ->find_all();
-        		
+        ->find_all();       		
         		
         // Передаем в представление
        $this->content=View::factory('templates/admin/users/list', array(
             'items' => $users,
              'pagination'=>$pagination,
        		'search'=>View::factory('templates/admin/users/sereachview'),
-        ));  
-           
+        ));             
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";
     }
