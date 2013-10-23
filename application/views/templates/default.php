@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -19,8 +20,8 @@
 <div class="MainPanel">
     
 <!-- Кнопки главной панели -->	
-    <a href="https://www.google.ru/" class="MainPanelButton LeftButton ActiveButton">Кнопка</a>
-    <a href="https://www.youtube.com/" class="MainPanelButton">Кнопка2</a>
+    <a href="<?php echo URL::site('/admin') ?>" class="MainPanelButton LeftButton ActiveButton">Администрирование</a>
+    <a href="<?php echo URL::site('/admin/users') ?>" class="MainPanelButton">Пользователи</a>
 <!--  -->
                    
 </div>

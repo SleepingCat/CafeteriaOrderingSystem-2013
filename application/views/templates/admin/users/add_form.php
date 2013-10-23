@@ -1,6 +1,6 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');?>
+<?php echo HTML::style('media/css/adminCSS.css') ?>
 
-?>
 <form action="" method="post" name="user-form" class="user-form"> 
 <h3 class="pull-left"><?php echo __('Добавление пользователя') ?></h3>   
           
