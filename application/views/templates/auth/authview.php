@@ -1,5 +1,5 @@
-<?php defined('SYSPATH') or die('No direct script access.');
-?>
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
 <form class="Login"  action="" method="post">
 <div class="FormTopBorder">Введите ваши имя пользователя и пароль</div>
 <div class="FormArea">

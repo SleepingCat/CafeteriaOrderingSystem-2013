@@ -8,6 +8,7 @@
 }
 
 .FormTopBorder{
+	border-color: #F5D694;
 	border-style: solid;
 	border-radius: 15px 15px 0px 0px;	
 	border-width: 2px;
@@ -16,6 +17,7 @@
 }
 
 .FormArea{
+	border-color: #F5D694;
 	text-align: left;
 	padding-left: 5%;
 	padding-right: 5%;
@@ -27,6 +29,7 @@
 }
 
 .FormBottomBorder{
+	border-color: #F5D694;
 	border-style: solid;
 	border-radius: 0px 0px 15px 15px;	
 	border-width: 2px;
@@ -35,17 +38,14 @@
 }
 
 .TextBox{
-	width: 60%;
-	border-color: #967452;
-	background-color: #D3BFA9;
-	outline:none;
+	width: 60%;	
 }
 
-.fail{
+#fail{
 	color: #FF3737;
 	font-size: large;
 }
 
-.EntAuth{
-	margin-top: 5px;
+.EntAuth{	
+	font-size: medium;
 }

@@ -1,7 +1,7 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');?>
 
+<?php echo HTML::style('media/css/adminCSS.css') ?>
 
-?>
  <h3><?php echo __('Управление учетными записями пользователей') ?></h3>
       <table class="dashboard">
         <tr>                               

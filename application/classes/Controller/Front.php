@@ -65,12 +65,12 @@ class Controller_Front extends Kohana_Controller_Template {
 		// Получаем информацию о текущем пользователе
 		if(Auth::instance()->logged_in())
 		{
-     		$user = Auth::instance()->get_user()->as_array();
-			$this->user = 'Здорово,'.' '.$user['surname'].' '.$user['name'].' '.$user['patronymic'].View::factory('templates/auth/logout_button');
+     		$this->user = Auth::instance()->get_user()->as_array();
+			$this->user_hello = $this->user['surname'].' '.$this->user['name'].' '.$this->user['patronymic'].View::factory('templates/auth/logout_button');
 		}		
 		else			
 		{		
-			$this->user = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
+			$this->user_hello = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
 		}		
 		
 		//$this->a2 = A2::instance('a2'); Это почему-то не работает			
@@ -92,7 +92,8 @@ class Controller_Front extends Kohana_Controller_Template {
 			$styles = array(
 				$media->uri(array('file' => 'css/jquery-ui.css')) => 'screen',
 				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen',
-				$media->uri(array('file' => 'css/buttons.css')) => 'screen'
+				$media->uri(array('file' => 'css/buttons.css')) => 'screen',
+				$media->uri(array('file' => 'css/elements.css')) => 'screen'
 			);
 			// Добавляем скрипты, используемые на каждой странице web-сайта
 			$scripts = array(
@@ -104,7 +105,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->scripts = Arr::merge($scripts, $this->scripts);
 		$this->template->styles = Arr::merge($styles, $this->styles);
 		$this->template->title = $this->title;
-		$this->template->user = $this->user;
+		$this->template->user = $this->user_hello;
 		$this->template->content = $this->content;
 		
 			

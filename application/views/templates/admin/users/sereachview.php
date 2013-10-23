@@ -1,5 +1,11 @@
-<?php defined('SYSPATH') or die('No direct script access.');
-?>
-<form class="Login"  action="<?php echo URL::site('admin/users/search') ?>" method="post">
-<input type="text" class="TextBox" id="search" name="search"/> <input type="submit"  id="submit" value="OK" style="width:35px; height:25px" name="submmit">
-</form>
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
+<?php echo HTML::style('media/css/searchview.css') ?>
+
+<form class="SearchForm"  action="<?php echo URL::site('admin/users/search') ?>" method="post">
+	<div id="search_label"><?php echo __('Поиск:') ?></div>
+	<div>
+		<input type="text" class="TextBox" id="search" name="search"/> 
+		<input type="submit" class="EntBut EntBut-color"  id="submit" value="OK" name="submmit">
+	</div>
+ </form>

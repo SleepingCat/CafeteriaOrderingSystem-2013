@@ -54,14 +54,14 @@ header{
 }
 
 /*Главная рабочая область*/
-.WorkArea{
+.WorkArea{	
 	margin-left: 15%;
 	margin-right: 15%;
 	padding-top: 15px;
 	min-height: 720px;	
 	display: block;
 	border-radius: 30px;
-	background-image: url(/media/image/MainTemplate/WoodTexture.jpg);	
+	background-image: url(../image/MainTemplate/WoodTexture.jpg);	
 	color: #F5D694;
 	text-align: center;
 	font-size: large;
@@ -76,7 +76,8 @@ header{
 	border-radius: 15px;
 	height: 50px;
 	vertical-align: middle;
-	border-width: 3px;	
+	border-width: 3px;
+	border-color: #F5D694;	
 }
 
 /*Нижняя часть страницы*/

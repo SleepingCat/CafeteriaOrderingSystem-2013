@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.WorkArea{
+	margin-left: 2%;
+	margin-right: 2%;			
+}
+
+#lowerBG{
+	display: none;
+}

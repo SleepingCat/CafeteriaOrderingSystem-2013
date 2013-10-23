@@ -37,7 +37,7 @@ return array
 				'not_empty' => 'Не введен номер кабинета',
 		),
 		
-	'personnel_number'	=> 	array(
+	'employee_number'	=> 	array(
 				'not_empty' => 'Не введен табельный номер',
 			'Model_Valid::tab_number'=> 'Неккоректный табельный номер: он имеет значения 6 символов с 100000 по 999999',
 			'Model_Valid::tab_number_unique'=>'Такой табельный номер уже существует',
