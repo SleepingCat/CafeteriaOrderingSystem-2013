@@ -24,9 +24,10 @@ class Controller_createMenu extends Controller_Front
 		$dishModel = new Model_MenuDBOperation();
 		
 		//проверяем существование меню на указанную дату
-		if($dishModel->checkMenu($_POST['Date'])) 
+		if($dishModel->checkMenu($_POST['Date'])) //если меню не существует
 		{
-			$dishModel->getDish();
+			$this->content = View::factory('createMenu/crtmMenu')
+			                 ->set('allDish', $dishModel->getDish());
 		}
 		else //если такое меню уже есть
 		{

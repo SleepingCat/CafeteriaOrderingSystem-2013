@@ -29,13 +29,13 @@ class Model_MenuDBOperation
 		$query = 'select D.dish_name as dishName, 
 				         DT.name as dishTypeName, 
 				         DC.name as dishCategName, 
-				         P.product_name as productName
+				         case when P.product_name is null then "-" else P.product_name end as productName
                   from dishes D
                   join dish_type DT on DT.id = D.dish_type_id
                   join dish_category DC on DC.id = D.dish_category_id
-                  join ingredients I on I.dish_Id = D.dish_id
-                  join products P on P.product_id = I.product_Id
-                  order by 2, 3, DC.order';	
+                  left join ingredients I on I.dish_Id = D.dish_id
+                  left join products P on P.product_id = I.product_Id
+                  order by 2 desc, DC.order';	
 		$dishes = DB::query(Database::SELECT, $query)
                   ->execute()
                   ->as_array(); 
