@@ -13,6 +13,10 @@ class Controller_Front extends Kohana_Controller_Template {
 	 */
 	public $template = '';
 	/**
+	 * Выводимое сообщение.
+	 */
+	public $message = '';
+	/**
 	 * Содержимое текущей web-страницы.
 	 * @var string
 	 */
@@ -107,6 +111,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->title = $this->title;
 		$this->template->user = $this->user_hello;
 		$this->template->content = $this->content;
+		$this->template->message = $this->message;
 		
 			
 		// вызываем родительский метод

@@ -1,12 +1,15 @@
-<form action = "order/orderanswerstatus" method = "POST">
+<form action = "orderanswerstatus" method = "POST">
 <?php
 echo "Заказ №".$OrderNumb."</br>";
 ?>
 <div align = "center">
-<select>
-    <option> disabled><?php echo $CurrentStatus ?></option>
-    <option>Доставлен</option>
-    <option>Не доставлен</option>
-</select> </div>
+<label>Статус заказа: 
+    <select name = "ChosenStatus" id = "ChosenStatus">
+        <option><?php echo $CurrentState ?></option>
+        <option>Доставлен</option>
+        <option>Не доставлен</option>
+     </select>
+ </div>
+</label>
 <div align = "center"><input type = "submit" value = "ОК" id = "findButton" name = "findButton" ></div>
 </form>

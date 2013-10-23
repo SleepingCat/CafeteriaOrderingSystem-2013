@@ -10,6 +10,8 @@ class OrderStatus
 	const NewOrder = "NewOrder";
 	const InComplectation = "InComplectation";
 	const Canceled = "Canceled";
+	const NotComplectated = "Не укомплектован";
+	const Complectated = "Укомплектован";
 }
 
 ?>

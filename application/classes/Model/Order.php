@@ -70,7 +70,6 @@ class Model_Order extends Model
 			}
 		}
 	}
-	
 	/**
 	 * Находит заказ по номеру возвращает его текущий статус
 	 * @param unknown $ID номер заказ
@@ -79,7 +78,9 @@ class Model_Order extends Model
 	public function findOrder($ID)
 	{
 		$OrderStatus = DB::query(Database::SELECT, 'select order_status from Orders where order_id = :ID')
-		-> param(':ID', $ID);
+		-> param(':ID', $ID)
+		-> execute()
+		->get('order_status');
 		return $OrderStatus;
 	}
 	
@@ -92,6 +93,7 @@ class Model_Order extends Model
 	{
 		DB::query(Database::UPDATE, 'update Orders set order_status = :St where order_id = :ID')
 		-> param(':ID', $ID)
-		-> param(':St', $UpdStatus);
+		-> param(':St', $UpdStatus)
+		-> execute();
 	}
 }

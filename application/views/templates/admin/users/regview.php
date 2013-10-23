@@ -93,7 +93,7 @@
 					
 					<tr>
 						<td style="text-align:right;">Табельный номер:</td>
-						<td><input type="text" name="employee_number" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+						<td><input type="text" name="employee_number"  value="<?php echo Arr::get($item, 'employee_number') ?>"/>
 						 <?php if (Arr::get($errors, 'employee_number')) : ?>
                             <div class="help-block"><?php echo Arr::get($errors, 'employee_number') ?></div>
 	                    <?php endif; ?>

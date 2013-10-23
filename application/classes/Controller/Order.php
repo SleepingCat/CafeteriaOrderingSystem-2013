@@ -68,37 +68,4 @@ class Controller_Order extends Controller_Checkinputusers
 		print_r($data);
 		echo '</pre>';
 	}
-	
-	public function  action_findorder()
-	{
-		$this->content = View::factory('order/findorder')
-		  ->set('title', "Поиск заказа");
-	}
-	
-	public  function  action_ordersetstatus()
-	{
-		$session = Session::instance();
-		if(isset($_POST['findButton']))
-		{
-		    $OrderNumb = $_POST["orderNumber"];
-		    $_SESSION['orderForFind'] = $OrderNumb;
-		    $register = new Model_Order();	
-		    $CurrentState = $register->findOrder($OrderNumb);
-		    if (CurrentStatus != "")
-		    {
-		    	$this->content = View::factory('order/setstatus')
-		    	  ->set('title', "Установить статус")
-		    	  ->set($OrderNumb)
-		    	  ->set($CurrentStatus);
-		    }
-		    else echo "Заказ не найден";
-		}
-		else die('Bad request');		
-	}
-
-	public  function  action_orderanswerstatus()
-	{
-		$CurrNumb = $_SESSION['orderForFind'];
-		//TODO не знаю как получить из combobox'a (ну тут это тег select)  выбранное значение :( Как разберусь так допишу
-	}
 } // End Welcome

@@ -23,10 +23,10 @@
     <a href="<?php echo URL::site('/admin') ?>" class="MainPanelButton LeftButton ActiveButton">Администрирование</a>
     <a href="<?php echo URL::site('/admin/users') ?>" class="MainPanelButton">Пользователи</a>
 <!--  -->
-                   
-</div>
 
-<?php echo $content; ?>
+    
+</div>
+   <?php echo $content; ?>
 </div>
  
 <footer class="Underground">Подвал</footer>
