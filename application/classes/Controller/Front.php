@@ -70,7 +70,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		if(Auth::instance()->logged_in())
 		{
      		$this->user = Auth::instance()->get_user()->as_array();
-			$this->user_hello = $this->user['surname'].' '.$this->user['name'].' '.$this->user['patronymic'].View::factory('templates/auth/logout_button');
+			$this->user_hello = View::factory('templates/profileview')->set('user',$this->user['surname'].' '.$this->user['name'].' '.$this->user['patronymic'].View::factory('templates/auth/logout_button'));
 		}		
 		else			
 		{		

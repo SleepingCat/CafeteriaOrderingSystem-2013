@@ -1,6 +1,11 @@
 
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**Модеель для добавления и редактировании данных пол-лей, а также профиля
+ * 
+ * @author Babur
+ *
+ */
 class Model_Regandraduser  
  {
 	/**
@@ -57,20 +62,12 @@ class Model_Regandraduser
  			// update user
  			$user->values($_POST, array('username','email', 'password','payment_type','name','surname','patronymic','building','floors','num_office','employee_number'))->save();
  		 		return true;
- 		}
- 	
+ 		} 	
  		catch(ORM_Validation_Exception $e)
  		{
  			return false;
- 		}
- 	
- 	
- 	}
- 	
- 	
- 	
- 	
- 
+ 		} 	
+ 	} 
  /**
   *  Вытаскиваем список ролей кроме роли login
   * @return роли 
@@ -87,9 +84,12 @@ class Model_Regandraduser
   * Метод который выполняет SQL-запрос на смену статуса заказа в таблице orders
   */
  public  function changeorderstatus()
- {	
- 	DB::query(Database::UPDATE, 'update Orders set order_status=:status  where user_id=:ID ')
- 	->param(':status', 'Canceled')
+ {
+ 	$orderstatus=new OrderStatus(); 	
+ 
+ 	DB::query(Database::UPDATE, 'update orders set order_status=:status  where user_id=:ID and order_status=:ordstatus  ' )
+ 	->param(':status',$orderstatus::Canceled)
+ 	->param(':ordstatus',$orderstatus::NewOrder)
  	->param(':ID', Arr::get($_POST, 'id'))
  	->execute(); 	
  }

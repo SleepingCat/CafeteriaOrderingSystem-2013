@@ -1,8 +1,6 @@
-<?if(isset($regok)){?>
-	<p style="text-align:center; color:green;">
-		Регистрация прошла успешно
-	</p>
-<?}?>
+<?php defined('SYSPATH') or die('No direct script access.');
+
+?>    
 <form action="<?php echo URL::site('/Userprofile/saveprofile') ?>" method="post">
 				<table class="login">
 					<tr >
@@ -85,7 +83,7 @@
 					
 					<tr>
 						<td style="text-align:right;">Номер кабинета:</td>
-						<td><input type="text" name="number" value="<?php echo Arr::get($item, 'num_office') ?>"/>
+						<td><input type="text" name="num_office" value="<?php echo Arr::get($item, 'num_office') ?>"/>
 						 <?php if (Arr::get($errors, 'num_office')) : ?>
                             <div class="help-block"><?php echo Arr::get($errors, 'num_office') ?></div>
 	                    <?php endif; ?></td>
@@ -93,10 +91,11 @@
 					
 					<tr>
 						<td style="text-align:right;">Табельный номер:</td>
-						<td><input type="text" name="employee_number"  value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+						<td><input type="text" name="employee_number1" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
 						 <?php if (Arr::get($errors, 'employee_number')) : ?>
                             <div class="help-block"><?php echo Arr::get($errors, 'employee_number') ?></div>
 	                    <?php endif; ?>
+	                      <input type="hidden" name="employee_number"  value="<?php echo Arr::get($item, 'employee_number') ?>"/>
 	                      <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>  </td>
 					</tr>
 					
