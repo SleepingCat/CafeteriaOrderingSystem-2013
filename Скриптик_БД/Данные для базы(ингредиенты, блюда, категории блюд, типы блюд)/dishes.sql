@@ -1,0 +1,13 @@
+INSERT INTO `dishes` VALUES (3, 'Солянка', 1, 1);
+INSERT INTO `dishes` VALUES (4, 'Грибной суп', 2, 1);
+INSERT INTO `dishes` VALUES (5, 'Мясной суп', 1, 1);
+INSERT INTO `dishes` VALUES (6, 'Салат \"Цезарь\"', 1, 5);
+INSERT INTO `dishes` VALUES (7, 'Салат \"из Кука\"', 1, 5);
+INSERT INTO `dishes` VALUES (8, 'Толстяк', 3, 25);
+INSERT INTO `dishes` VALUES (9, 'Bardahl', 3, 25);
+INSERT INTO `dishes` VALUES (10, 'Blitz', 3, 25);
+INSERT INTO `dishes` VALUES (11, 'Captain Morgan', 3, 25);
+INSERT INTO `dishes` VALUES (12, 'Coors', 3, 25);
+INSERT INTO `dishes` VALUES (13, 'Waggledance', 3, 25);
+INSERT INTO `dishes` VALUES (14, 'компот из сухофрукто', 1, 9);
+INSERT INTO `dishes` VALUES (15, 'компот яблочный', 1, 9);

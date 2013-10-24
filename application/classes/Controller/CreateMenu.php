@@ -22,16 +22,21 @@ class Controller_createMenu extends Controller_Front
 	public function action_getStandartMenu()
 	{
 		$dishModel = new Model_MenuDBOperation();
-		
-		//проверяем существование меню на указанную дату
-		if($dishModel->checkMenu($_POST['Date'])) //если меню не существует
+		if (isset($_POST))
 		{
-			$this->content = View::factory('createMenu/crtmMenu')
-			                 ->set('allDish', $dishModel->getDish());
-		}
-		else //если такое меню уже есть
-		{
-			$this->showErrorPage('Меню на указанную дату уже существует');
+			if (Valid::date($_POST['Date']))
+			{
+				//проверяем существование меню на указанную дату
+				if($dishModel->checkMenu($_POST['Date'])) //если меню не существует
+				{
+					$this->content = View::factory('createMenu/crtmMenu')
+					                 ->set('allDish', $dishModel->getDish());
+				}
+				else //если такое меню уже есть
+				{
+					$this->showErrorPage('Меню на указанную дату уже существует');
+				}
+			}
 		}
 	}
 

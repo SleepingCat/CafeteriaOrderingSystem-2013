@@ -1,0 +1,13 @@
+INSERT INTO `products` VALUES (1, 'лимон', 0);
+INSERT INTO `products` VALUES (2, 'колбаса копчёная', 0);
+INSERT INTO `products` VALUES (3, 'колбаса варёная', 0);
+INSERT INTO `products` VALUES (4, 'буженина', 0);
+INSERT INTO `products` VALUES (5, 'маслины', 0);
+INSERT INTO `products` VALUES (6, 'мясо(говядина)', 0);
+INSERT INTO `products` VALUES (7, 'креветки', 0);
+INSERT INTO `products` VALUES (8, 'майонез', 0);
+INSERT INTO `products` VALUES (9, 'гренки', 0);
+INSERT INTO `products` VALUES (10, 'листья салата', 0);
+INSERT INTO `products` VALUES (11, 'помидор', 0);
+INSERT INTO `products` VALUES (12, 'грибы', 0);
+INSERT INTO `products` VALUES (13, 'Кук', 0);
