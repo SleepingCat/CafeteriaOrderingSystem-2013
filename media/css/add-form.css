@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+.Field{		
+	vertical-align: top;
+	padding: 0.5em;	
+}
+
+.Field2{
+	vertical-align: top;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.Field3{
+	vertical-align: top;
+	padding: 0.5em 0em;	
+}
+
+#input1{
+	font-size: medium;
+	padding: 0.3em 1.3em;	
+}
+
+#cancel{
+	font-size: medium;
+	padding: 0.3em 2em;	
+}

@@ -2,11 +2,10 @@
 
 /*Кнопка на главной панели*/
 .MainPanelButton{
-	width: 100px;
+	width: auto;
 	height: 50px;
-	display: table-cell;
+	display: inline-block;
 	text-align: center;
-	vertical-align: middle;
 	border-right-width: thin;
 	border-right-style: solid;
 	border-color: #F5D694;
@@ -14,6 +13,7 @@
 	background-color: rgba(0,0,0,0.35);
 	color: #F5D694;
 	position: static;
+	line-height: 2.7em;
 	padding: 0em 0.5em;
 }
 .MainPanelButton:hover{

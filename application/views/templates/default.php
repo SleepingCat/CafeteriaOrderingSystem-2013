@@ -20,8 +20,11 @@
 <div class="MainPanel">
     
 <!-- Кнопки главной панели -->	
-    <a href="<?php echo URL::site('/admin') ?>" class="MainPanelButton LeftButton ActiveButton">Администрирование</a>
-    <a href="<?php echo URL::site('/admin/users') ?>" class="MainPanelButton">Пользователи</a>
+    <a href="<?php echo URL::site('/admin') ?>" class="MainPanelButton LeftButton ActiveButton">
+    Администрирование
+    </a><a href="<?php echo URL::site('/admin/users') ?>" class="MainPanelButton">
+    Пользователи
+    </a>
 <!--  -->
 
     

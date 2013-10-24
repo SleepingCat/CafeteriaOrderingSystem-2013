@@ -1,5 +1,13 @@
 @charset "utf-8";
 
+.InlineBlockClass{
+	display:inline-block;
+}
+
+.FontColor{
+	color: #F5D694;
+}
+
 /*Заголовок страницы*/
 .PageHeader{
 	text-align: center;
@@ -24,6 +32,57 @@
 	color: #F5D694;	
 }
 
+/*Форма*/
+.MyForm{
+	display: inline-block;
+	text-align: center;
+	margin-top: 50px;
+	color: #F5D694;
+}
+
+.FormTopBorder{
+	border-color: #F5D694;
+	border-style: solid;
+	border-radius: 15px 15px 0px 0px;	
+	border-width: 2px;
+	line-height: 40px;
+	background-color: rgba(0,0,0,0.35);		
+}
+
+.FormArea{
+	border-color: #F5D694;
+	text-align: left;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-width: 2px;
+	padding: 1em;		
+}
+
+.FormBottomBorder{
+	border-color: #F5D694;
+	border-style: solid;
+	border-radius: 0px 0px 15px 15px;	
+	border-width: 2px;
+	height: 40px;
+	background-color: rgba(0,0,0,0.35);
+	line-height: 40px;	
+}
+
+.TitledTextboxArea{
+	color: #F5D694;
+	padding: 0.5em;		
+}
+
+.FailText{
+	color: #FF3737;
+	font-size: large;
+}
+
+.Fieldset{	
+	color: #F5D694;
+	border-color: #D3BFA9;
+}
+
 /*Текстовое поле*/
 .TextBox{
 	border-color: #967452;
@@ -32,6 +91,7 @@
 	font-size: small;	
 }
 
+/*Таблица данных*/
 @media (min-width: 1500px) {
 	.DataTable{
 		font-size: large;
