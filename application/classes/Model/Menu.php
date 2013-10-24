@@ -44,7 +44,7 @@ class Model_Menu
 				FROM menu_records, dishes, dish_category
 				WHERE (dishes.dish_id = menu_records.dish_id) 
 				and (dishes.dish_category_id = dish_category.id)
-				and (menu_records.menu_id = 1)
+				and (menu_records.menu_id = :MenuId)
 				ORDER BY priority')
 				->param(':MenuId', $id)
 				->execute()
