@@ -76,7 +76,7 @@
         }
         //Добавляем очередной ингредиент блюда.
         echo $allDish[$i]['productName']."; ";
-        if($i == $totalCount)
+        if($i == $totalCount-1)
           echo "</td>
           		<td>
           		  <input type = \"text\" name = \"price\"".$i.">

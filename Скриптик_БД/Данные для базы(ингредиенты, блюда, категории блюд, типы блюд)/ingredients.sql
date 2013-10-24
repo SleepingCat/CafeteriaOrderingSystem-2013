@@ -1,0 +1,14 @@
+INSERT INTO `ingredients` VALUES (3, 1, 0);
+INSERT INTO `ingredients` VALUES (3, 2, 0);
+INSERT INTO `ingredients` VALUES (3, 3, 0);
+INSERT INTO `ingredients` VALUES (3, 4, 0);
+INSERT INTO `ingredients` VALUES (3, 5, 0);
+INSERT INTO `ingredients` VALUES (3, 6, 0);
+INSERT INTO `ingredients` VALUES (4, 12, 0);
+INSERT INTO `ingredients` VALUES (5, 6, 0);
+INSERT INTO `ingredients` VALUES (6, 7, 0);
+INSERT INTO `ingredients` VALUES (6, 8, 0);
+INSERT INTO `ingredients` VALUES (6, 9, 0);
+INSERT INTO `ingredients` VALUES (6, 10, 0);
+INSERT INTO `ingredients` VALUES (6, 11, 0);
+INSERT INTO `ingredients` VALUES (7, 13, 0);
