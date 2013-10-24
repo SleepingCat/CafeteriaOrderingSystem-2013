@@ -28,7 +28,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
             'items' => $users,
              'pagination'=>$pagination,
        		'search'=>View::factory('templates/admin/users/sereachview'),
-        ));             
+            ));             
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";
     }
@@ -64,12 +64,12 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				DB::query(Database::DELETE, 'Delete FROM roles_users   where user_id=:ID ') 		
 				->param(':ID', $user_id)
 				->execute(); 
-			/*DB::query(Database::DELETE, 'Delete FROM users  where id=:ID ') 			
-			->param(':ID', $user_id)
-			->execute();*/		
-			// Удаляем пол-ля			
+				/*DB::query(Database::DELETE, 'Delete FROM users  where id=:ID ') 			
+				->param(':ID', $user_id)
+				->execute();*/		
+				// Удаляем пол-ля			
 				$user->delete();
-			// Redirect admin/users
+				// Redirect admin/users				
 				$this->redirect('admin/users');
 			}
 				
@@ -165,7 +165,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
     public function action_edit()
 	{	// Объект модели Regandraduser
 		$register = new Model_Regandraduser();	
-		
+		$error=array();
 		// Получаем id пол-ля
 		$user_id = $this->request->param('id');
 		
@@ -199,10 +199,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$this->content=View::factory('templates/admin/users/form')
 		->set(array(
 			'item' => array_merge($user->as_array(), $item),
-			'roles' => $roles,
-		))
-		->set('errors','');		
-		//$this->styles = array('media/css/style.css' => 'screen');
+			'roles' => $roles,			
+		))		
+		->set('errors',$error);		
 		$this->title ="Редактирование пользователя";									
 	}	
 	
@@ -230,7 +229,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$email=Arr::get($_POST,'email','');
 		$tab_numb_old=Arr::get($_POST,'employee_number_old','');		
 
-		$post = Validation::factory($_POST)			
+		$post = Validation::factory($_POST)		
 			->rule('username', 'not_empty')
 			->rule('username', 'Model_Valid::user_unique',array(':value', $log_old))
 			->rule('username', 'alpha_dash')
@@ -254,13 +253,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			
 		if (!empty($post['password']))			
 		{				
-			$post			
-			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
+			$post	;		
+		/*	->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
-			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
+			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));	*/		
 			}	
 						
 			// remove password if empty
@@ -278,7 +277,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		if ($post->check())
 		{
 			if($register->reg($login))			
-			{ 
+			{ 				
 				//Считываем статус пол-ля
 			   $usertemp= ORM::factory('user',array('username'=> $login));
 			   $user=$usertemp->user_status;			  
@@ -292,9 +291,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			   }
 			   
 			   else			   
-			   {			   			   	
-			   	$this->redirect('/admin/users');			   	
-			   }
+			   {	
+			   	$this->redirect('/admin/users');			   
+			   }			 
 			}	
 		}			
 		
@@ -306,7 +305,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		->set(array(
 				'item' => $post->data(),
 				'roles' => $roles,
-					)
+			)
 		);	  	
 		//$this->styles = array('media/css/style.css' => 'screen');	
 }

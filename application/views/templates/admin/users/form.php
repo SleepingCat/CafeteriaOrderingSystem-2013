@@ -37,7 +37,7 @@
 				</div>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Фамилия:') ?><br>
-				    <input type="text" class="TextBox" size="25" maxlength="25" id="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="surname" id="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
 				</div>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Имя:') ?><br>
@@ -94,16 +94,25 @@
 
 
 <div align="center" class="FailText">
-	<?php echo 'Ошибка' ?> <br />
+	
+<?if(isset($errors)){?>
+		<?foreach($errors as $error){?>
+			<p style="color:red;"><?=$error?></p>
+		<?}?>
+<?}?>
+	
 </div>
-
 
 </div>
 
 <div class="FormBottomBorder">
 	<input type="submit" class="EntBut EntBut-color" name="save"  id="input1" value="<?php echo __('Сохранить') ?>" />
     <input type="submit" class="EntBut EntBut-color" name="back" id="cancel" value="<?php echo __('Отмена') ?>" />
-</div>				
+</div>		
+		<input type="hidden" name="email_old" value="<?php echo Arr::get($item, 'email') ?>"/>
+		<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
+        <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">	
+        <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>	
 </form>
 
 
@@ -116,7 +125,7 @@
                 <div class="control-group<?php if (Arr::get($errors, 'username')) : ?> error<?php endif; ?>">
 		            <label for="username" class="control-label"><?php echo __('Логин') ?>:</label>
 	                <div class="controls">
-	                		<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
+	                	
 	                    <input type="text" name="username"  id="username" value="<?php echo Arr::get($item, 'username') ?>"/>
 						<?php if (Arr::get($errors, 'username')) : ?>
 							<div class="help-block"><?php echo Arr::get($errors, 'username') ?></div>
@@ -241,6 +250,5 @@
             </div>
 		</div>
 
-        <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">
 	</div>
 </form>-->
