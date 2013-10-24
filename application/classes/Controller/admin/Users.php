@@ -253,13 +253,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			
 		if (!empty($post['password']))			
 		{				
-			$post	;		
-		/*	->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
+			$post		
+			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
-			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));	*/		
+			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
 			}	
 						
 			// remove password if empty
