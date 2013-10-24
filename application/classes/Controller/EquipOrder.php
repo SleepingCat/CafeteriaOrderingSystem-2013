@@ -4,8 +4,10 @@ class Controller_EquipOrder extends Controller_Front
 {
 	public function action_index()
 	{
-		$per = (new Model_EquipOrder())->get_period();
-		$ord = (new Model_EquipOrder())->get_orders();
+		$per = new Model_EquipOrder();
+		$periods = $per -> get_period();
+		
+		$ord = new Model_EquipOrder();
+		$orders = $ord -> get_orders();
 	}
-	
 }

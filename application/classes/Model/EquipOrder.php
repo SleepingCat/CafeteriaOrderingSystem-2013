@@ -1,4 +1,4 @@
-<?phpdefined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 class Model_EquipOrder
 {
 	public function get_period()
@@ -9,12 +9,20 @@ class Model_EquipOrder
 												AND Current_time >= delivery_time')
 														->execute()
 														->as_array();
-		
-		$periodOrder = $delivery[0] + ' - ' + $delivery[1];
+		if (!$delivery = null)
+		{
+			$firstTime = $delivery[0];
+			$secondTime = $delivery[1];
+		}
+		else 
+		{
+			$firstTime = "Нет заказов на текущий период";
+		}
 		
 		// Передаем в представление интервал времени
 		$this->content = View::factory('order/equipOrder')
-		->set('period',$periodOrder);
+		->set('startTime',$firstTime)
+		->set('endTime',$secondTime);
 	}
 	
 	public function get_orders()
@@ -32,9 +40,6 @@ class Model_EquipOrder
 		// Передаем в представление количество заказов на данный период
 		$this->content = View::factory('order/equipOrder')
 		->set('nowOrders',$numbOrders);
-		
-		$this->content = Controller::factory('EquipOrder')
-		->set('allOrders',$numbOrders);
 	}
 	
 }
