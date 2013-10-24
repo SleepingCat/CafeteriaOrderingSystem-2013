@@ -17,13 +17,13 @@ class Model_Menu
 	
 	public function get_menu($date)
 	{
-		$id = $this->get_menu_id($date)[0];
+		$id = $this->get_menu_id($date);
 		if (empty($id))
 		{
 			return null;
 		}
 		else 
-		{
+		{	$id = $id[0];
 			return DB::query(Database::SELECT, 
 				'SELECT menu_id, dishes.dish_id, dish_name, type, price, is_standart 
 				FROM menu_records, dishes

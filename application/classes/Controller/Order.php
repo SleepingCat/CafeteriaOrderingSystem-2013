@@ -10,7 +10,8 @@ class Controller_Order extends Controller_Checkinputusers
 	
 	public function action_index()
 	{
-		$orders = (new Model_Order())->get_orders($this->user['id']);
+		$model_order = new Model_Order();
+		$orders = $model_order->get_orders($this->user['id']);
 		$this->content = View::factory('order/order')->bind('orders', $orders);
 	}
 	

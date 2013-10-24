@@ -7,8 +7,8 @@ class Controller_Menu extends Controller_Checkinputusers
 	
 	public function before()
 	{
+		$session = Session::instance();
 		$this->view = View::factory('order/index')->bind('error_code', $this->error_code);
-		Session::instance();
 		parent::before();
 	}
 	
@@ -72,7 +72,8 @@ class Controller_Menu extends Controller_Checkinputusers
 	{
 		if (isset($_POST['smbt_make_order']))
 		{
-			$menu = (new Model_Menu())->get_menu($_SESSION['menu_date']);
+			$model_menu = new Model_Menu();
+			$menu = $model_menu->get_menu($_SESSION['menu_date']);
 			$order = $_POST['cart'];
 			foreach ($order as $key => $value)
 			{
