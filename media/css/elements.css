@@ -83,6 +83,12 @@
 	border-color: #D3BFA9;
 }
 
+.FailList{
+	list-style-position: outside;
+	list-style-type: square;
+	margin-left: 5%;
+}
+
 /*Текстовое поле*/
 .TextBox{
 	border-color: #967452;
