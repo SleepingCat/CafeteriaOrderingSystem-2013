@@ -60,11 +60,11 @@
 				</div>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Этаж:') ?><br>
-				    <input type="text" class="TextBox" size="6" maxlength="6" name="floors" id="floors" value="<?php echo Arr::get($item, 'floors') ?>"/>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="floor" id="floor" value="<?php echo Arr::get($item, 'floor') ?>"/>
 				</div>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Номер кабинета:') ?><br>
-				    <input type="text" class="TextBox" size="16" maxlength="6" name="num_office" id="number" value="<?php echo Arr::get($item, 'num_office') ?>"/>
+				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number" value="<?php echo Arr::get($item, 'office') ?>"/>
 				</div>
 			</fieldset></td>
 			<td class="Field3" rowspan="2">

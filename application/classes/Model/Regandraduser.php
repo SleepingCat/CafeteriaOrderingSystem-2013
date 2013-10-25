@@ -18,7 +18,7 @@ class Model_Regandraduser
 			$user = ORM::factory('user', Arr::get($_POST, 'id'));			
 
             // update user			
-			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floors','num_office','employee_number'))->save();
+			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floor','office','employee_number'))->save();
 			
 			//remove all roles
 			$user->remove('roles');			
@@ -52,15 +52,14 @@ class Model_Regandraduser
 			{		
 				return false;		
 			}     		
- 	}
- 	
+ 	}	
  	
  	public function reg_profile()
  	{		try
  		{
  			$user = ORM::factory('user', Arr::get($_POST, 'id')); 	
  			// update user
- 			$user->values($_POST, array('username','email', 'password','payment_type','name','surname','patronymic','building','floors','num_office','employee_number'))->save();
+ 			$user->values($_POST, array('username','email', 'password','payment_type','name','surname','patronymic','building','floor','office','employee_number'))->save();
  		 		return true;
  		} 	
  		catch(ORM_Validation_Exception $e)

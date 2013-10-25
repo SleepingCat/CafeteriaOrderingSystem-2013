@@ -75,17 +75,17 @@
 					
 					<tr>
 						<td style="text-align:right;">Этаж:</td>
-						<td><input type="text" name="floors" value="<?php echo Arr::get($item, 'floors') ?>"/>
-						 <?php if (Arr::get($errors, 'floors')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'floors') ?></div>
+						<td><input type="text" name="floor" value="<?php echo Arr::get($item, 'floor') ?>"/>
+						 <?php if (Arr::get($errors, 'floor')) : ?>
+                            <div class="help-block"><?php echo Arr::get($errors, 'floor') ?></div>
 	                    <?php endif; ?></td>
 					</tr>
 					
 					<tr>
 						<td style="text-align:right;">Номер кабинета:</td>
-						<td><input type="text" name="num_office" value="<?php echo Arr::get($item, 'num_office') ?>"/>
-						 <?php if (Arr::get($errors, 'num_office')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'num_office') ?></div>
+						<td><input type="text" name="office" value="<?php echo Arr::get($item, 'office') ?>"/>
+						 <?php if (Arr::get($errors, 'office')) : ?>
+                            <div class="help-block"><?php echo Arr::get($errors, 'office') ?></div>
 	                    <?php endif; ?></td>
 					</tr>
 					

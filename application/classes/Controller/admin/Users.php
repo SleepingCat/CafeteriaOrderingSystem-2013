@@ -260,13 +260,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
 			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
-			}	
+			}
 						
 			// remove password if empty
             if (empty($_POST['password']))
             {
                 unset($_POST['password']);
-            }	
+            }
 
             // Функция для кнопки назад на вьюшке
             if ($this->request->post('back'))

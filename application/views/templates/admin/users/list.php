@@ -37,8 +37,8 @@
     <td class="DataCell"><?php echo $item->name ?></td>
     <td class="DataCell"><?php echo $item->patronymic ?></td>
     <td class="DataCell"><?php echo $item->building ?></td>
-    <td class="DataCell"><?php echo $item->floors ?></td>
-    <td class="DataCell"><?php echo $item->num_office ?></td>
+    <td class="DataCell"><?php echo $item->floor ?></td>
+    <td class="DataCell"><?php echo $item->office ?></td>
     <td class="DataCell"><?php echo $item->employee_number ?></td>
     <td class="DataCell">
     	<div class="Double-btn">
