@@ -9,5 +9,9 @@ class Controller_EquipOrder extends Controller_Front
 		
 		$ord = new Model_EquipOrder();
 		$orders = $ord -> get_orders();
+		$this->title = "Поиск заказа";
+		//Незнаю что будет в nowOrders поэтому там заглушка
+		$this->content = View::factory('order/equipOrder')->set("startTime",$periods)
+		  ->set('nowOrders', '20' );
 	}
 }
