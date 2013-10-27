@@ -9,9 +9,29 @@ class Controller_EquipOrder extends Controller_Front
 		
 		$ord = new Model_EquipOrder();
 		$orders = $ord -> get_orders();
+		
 		$this->title = "Укомплектовать заказы";
-		//Незнаю что будет в nowOrders поэтому там заглушка
-		$this->content = View::factory('order/equipOrder')->set("startTime",$periods)
-		  ->set('nowOrders', $orders );
+		
+		$this->content = View::factory('order/equipOrder')
+		  ->set("startTime",$periods)
+		  ->set('nowOrders', $orders )
+		  ->set('leftOrders', $orders);
+	}
+	
+	public function action_equipOrGetContent()
+	{
+		if (@$_POST['getOrder'])
+		{
+			$status = new Model_EquipOrder();
+			$setStatus = $status -> immidiateOrder();
+			
+			$q = DB::query(Database::UPDATE, 'Update orders set order_status = "Укомплектован" where order_id = :id ')
+			->param(':id', $setStatus)
+			->execute();
+		}
+		else if (@$_POST['showOrder'])
+		{
+			
+		}
 	}
 }
