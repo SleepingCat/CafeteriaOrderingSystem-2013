@@ -56,8 +56,8 @@
 	</tr>
   <?php endif; ?>
   <tr>    
-    <td colspan="8" class="DataCell"><?php echo $pagination ?></td>
-    <td colspan="2" class="DataCell"><?php echo __('Всего пользователей: :count', array(':count' => $pagination->total_items)) ?></td>
+    <td id='pagination' colspan="8" class="DataCell"><?php echo $pagination ?></td>
+    <td id='total' colspan="2" class="DataCell"><?php echo __('Всего пользователей: :count', array(':count' => $pagination->total_items)) ?></td>
   </tr>
 </table>
 </div> 
