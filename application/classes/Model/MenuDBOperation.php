@@ -35,7 +35,7 @@ class Model_MenuDBOperation
                   join dish_category DC on DC.id = D.dish_category_id
                   left join ingredients I on I.dish_Id = D.dish_id
                   left join products P on P.product_id = I.product_Id
-                  order by 2 desc, DC.order';	
+                  order by 2 desc, DC.priority';	
 		$dishes = DB::query(Database::SELECT, $query)
                   ->execute()
                   ->as_array(); 
