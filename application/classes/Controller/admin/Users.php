@@ -250,15 +250,16 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('employee_number', 'not_empty')		
 			->rule('employee_number', 'max_length', array(':value', 6))
 			->rule('employee_number', 'Model_Valid::tab_number',array(':value'))
-			->rule('employee_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old))
-			->rule('password', 'not_empty');
+			->rule('employee_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
+			//->rule('password', 'not_empty');
 			
-		if (!empty($post['password']))			
+		if (!empty($post['password']) OR (!empty($post['password_confirm'])))			
 		{				
 			$post		
 			->rule('password', 'Model_Valid::login_valid',array($login ,$password))			
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
+			->rule('password', 'not_empty')
 			->rule('password', 'Model_Valid::preg_match')
 			->rule('password_confirm', 'not_empty')
 			->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));			
