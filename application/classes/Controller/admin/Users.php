@@ -5,7 +5,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
      * Список пол-й
      */   
     public function action_index()
-    {
+    { 	
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
             ->reset(FALSE);       
@@ -14,15 +14,21 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
        $pagination = Pagination::factory(array(
 	        'group' => 'admin',
             'total_items' => $users->count_all(),
-        ));
-       
+        ));      
         // Получаем список пол-й и количеств страниц пагинации
         $users = $users
         ->order_by('username', 'ASC')           
         ->offset($pagination->offset)
         ->limit($pagination->items_per_page)
-        ->find_all();       		
-        		
+        ->find_all();
+        
+        if ($this->request->post('back'))
+        {
+        
+        	throw new HTTP_Exception_404('Вы не выбрали пользователя');
+        
+        }
+       
         // Передаем в представление
        $this->content=View::factory('templates/admin/users/list', array(
             'items' => $users,
@@ -30,7 +36,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
        		'search'=>View::factory('templates/admin/users/sereachview'),
             ));             
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
-       $this->title ="Список пользователей";
+       $this->title ="Список пользователей";     
     }
     
 	/**
@@ -350,4 +356,38 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$this->title ="Список пользователей";		
 	}	
 	
+	
+	public function action_reports()
+	{	
+		/*require_once('D:\\library/odf.php');
+		$odf = new odf("D:\\1.odt");*/		
+		$odf = new Odtphp(APPPATH.'templates/users.odt');
+		
+	//	$odf->setVars('privet', 'Иван', $encode = TRUE, $charset='UTF-8');		
+		$users = ORM::factory('user');
+		$users = $users
+		->find_all();
+		$kvit = $odf->setSegment('articles');
+		
+		foreach ($users as $item){
+			$kvit->setVars('username', $item->username, true, 'utf-8');
+			$kvit->setVars('email', $item->email, true, 'utf-8');
+			$kvit->setVars('surname', $item->surname, true, 'utf-8');
+			$kvit->setVars('name', $item->name, true, 'utf-8');
+			$kvit->setVars('patronymic', $item->patronymic, true, 'utf-8');
+			$kvit->setVars('building', $item->building, true, 'utf-8');
+			$kvit->setVars('floor', $item->floor, true, 'utf-8');
+			$kvit->setVars('office', $item->office, true, 'utf-8');
+			$kvit->setVars('numb', $item->employee_number, true, 'utf-8');
+			$kvit->merge();
+		}
+		
+		$odf->mergeSegment($kvit);
+		
+		// We export the file
+		$odf->exportAsAttachedFile();
+		
+	}
+		
+		
 } // End Admin Users
