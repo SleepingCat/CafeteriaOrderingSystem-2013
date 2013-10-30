@@ -75,9 +75,14 @@ class Model_Order extends Model
 	 * @param unknown $ID номер заказ
 	 * @return Ambigous <$this, Database_Query>
 	 */
-	public function findOrder($ID)
+	public function findOrder($ID, $State = "")
 	{
-		$OrderStatus = DB::query(Database::SELECT, 'select order_status from Orders where order_id = :ID')
+		$Constrain = "";
+		if ($State <> "")
+		{
+		  $Constrain = " and order_status in (".$State.")"; 
+		}
+		$OrderStatus = DB::query(Database::SELECT, 'select order_status from Orders where order_id = :ID'.$Constrain)
 		-> param(':ID', $ID)
 		-> execute()
 		->get('order_status');

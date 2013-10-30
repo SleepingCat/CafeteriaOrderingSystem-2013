@@ -6,8 +6,8 @@ echo "Заказ №".$OrderNumb."</br>";
 <label>Статус заказа: 
     <select name = "ChosenStatus" id = "ChosenStatus">
         <option><?php echo $CurrentState ?></option>
-        <option>Доставлен</option>
-        <option>Не доставлен</option>
+        <option><?php if(!($CurrentState == $States::Delivered)) echo $States::Delivered; else echo $States::Complected;?></option>
+        <option><?php if(!($CurrentState == $States::NotDelivered)) echo $States::NotDelivered; else echo $States::Complected;?></option>
      </select>
  </div>
 </label>

@@ -7,8 +7,16 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 		parent::before();
 	}
 	
+	
 	public function action_index()
-	{
+	{ 
+		$Mes = "";
+		if (!empty($_SESSION['Mes']))
+		{
+		   $Mes = $_SESSION['Mes']; 
+		   $_SESSION['Mes'] = "";
+		}
+		$this->message = $Mes; 
 		$this->title = "Поиск заказа";
 		$this->content = View::factory('order/findorder');
 	}
@@ -18,20 +26,25 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 		if(isset($_POST["findButton"]))
 		{
 			$OrderNumb = $_POST["orderNumber"];
+			$States = new OrderStatus();
 			$register = new Model_Order();
-			$CurrentState = $register->findOrder($OrderNumb);
+			$Constr = "'".$States::Complected."','".$States::Delivered."','".$States::NotDelivered."'";
+			$CurrentState = $register->findOrder($OrderNumb,$Constr);
 			if ($CurrentState != "")
 			{
 				$_SESSION['orderForFind'] = $OrderNumb;
 				$_SESSION['StatusOrderVeryOld'] = $CurrentState;
+				$this->title = "Установить статус";
 				$this->content = View::factory('order/setstatus')
-				->set('title', "Установить статус")
 				->set('OrderNumb',$OrderNumb)
-				->set('CurrentState',$CurrentState);	
+				->set('CurrentState',$CurrentState)
+				->set('States' , $States);	
 			}
 			else
 			{
-				$this->redirect("deliveryorder");
+				$_SESSION['Mes'] = "Заказ не найден";
+				$this->title = "Поиск заказа";
+				$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
 			}
 		}
 		else die('Bad request');
@@ -45,27 +58,14 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 		$OldStatus = $_SESSION['StatusOrderVeryOld'];
 		if ($StateStatus1 == $OldStatus)
 		{
-			$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
+			$_SESSION['Mes'] = "Состояние заказа не изменено.";
+			$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
 		} 
 		else 
 		{
-			//TODO: Переделать с перечислениями состояний пока некогда
-			if ($StateStatus1 == "Доставлен")
-			{
-				$Status = "Доставлен";
-				//$StateStatus::Complectated;			
-			} 		
-			elseif ($StateStatus1 == "Не доставлен")
-			{
-				$Status = "Не доставлен";
-				//$StateStatus::NotComplectated;
-			}
-			else 
-			{
-				$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
-			}
-			//$this->title='Подтверждение';
+			$Status = $StateStatus1;
 			$_SESSION['StatusOrderVeryNew'] = $Status;
+			$this->title='Подтверждение';
 			$this->content = View::factory('order/applySetStatus')
 			->set('CurrNumb',$CurrNumb)
 			->set('Status',$Status);
@@ -81,6 +81,7 @@ class Controller_deliveryorder  extends Controller_Checkinputusers
 			$register = new Model_Order();
 			$register->setStatus($CurrNumb, $Status);
 		}
-		$this->redirect("http://".$_SERVER['HTTP_HOST']."/deliveryorder");
+		$_SESSION['Mes'] = "Состояние успешно изменено.";
+		$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
 	}
 }

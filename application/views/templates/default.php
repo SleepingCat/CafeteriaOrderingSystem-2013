@@ -29,7 +29,8 @@
 
     
 </div>
-   <?php echo $content; ?>
+<?php echo $message."<br>"; 
+   echo $content; ?>
 </div>
  
 <footer class="Underground">Подвал</footer>

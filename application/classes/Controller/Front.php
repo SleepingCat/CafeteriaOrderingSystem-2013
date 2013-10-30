@@ -63,9 +63,10 @@ class Controller_Front extends Kohana_Controller_Template {
 	public function before() {
 		// Определяем файл базового шаблона
 		$this->template = 'templates' . DIRECTORY_SEPARATOR . 'default';
+
 		// Вызываем родительский метод	
 		parent::before();	
-		
+
 		// Получаем информацию о текущем пользователе
 		if(Auth::instance()->logged_in())
 		{
@@ -106,12 +107,13 @@ class Controller_Front extends Kohana_Controller_Template {
 			);
 		}
 		// Assign variables to template variables
+		//$this->message = "RL";
 		$this->template->scripts = Arr::merge($scripts, $this->scripts);
 		$this->template->styles = Arr::merge($styles, $this->styles);
+		$this->template->message = $this->message;
 		$this->template->title = $this->title;
 		$this->template->user = $this->user_hello;
 		$this->template->content = $this->content;
-		$this->template->message = $this->message;
 		
 			
 		// вызываем родительский метод

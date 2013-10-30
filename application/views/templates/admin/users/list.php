@@ -1,6 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-
 <?php echo HTML::style('media/css/adminCSS.css') ?>
 
 <div class="PageHeader"><?php echo __('Список пользователей') ?></div>
@@ -58,6 +57,6 @@
   <tr>    
     <td id='pagination' colspan="8" class="DataCell"><?php echo $pagination ?></td>
     <td id='total' colspan="2" class="DataCell"><?php echo __('Всего пользователей: :count', array(':count' => $pagination->total_items)) ?></td>
-  </tr>
+   </tr>
 </table>
 </div> 
