@@ -59,11 +59,13 @@ class Model_EquipOrder
 	
 	public function getDishes($ID)
 	{
-		$dishes = DB::query(Database::SELECT, 'select dishes.dish_name
+		$dishes = DB::query(Database::SELECT, 'select distinct dishes.dish_name, CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office
 												from dishes
 												join menu_records MR on MR.dish_id = dishes.dish_id
 												join orders_records OrRec on OrRec.menu_record_menu_id = MR.menu_id
 												join orders on orders.order_id = OrRec.order_id
+												join subscriptions SUB on SUB.user_id = orders.user_id
+												join users on users.id = SUB.user_id
 												where orders.order_id = :id')
 												->param(':id',$ID)
 												->execute()

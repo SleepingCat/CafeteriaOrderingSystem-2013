@@ -69,6 +69,11 @@ class Controller_EquipOrder extends Controller_Front
 			$getDishes = new Model_EquipOrder();
 			$Dishes = $getDishes -> getDishes($getOrd);
 			
+			//Передаем полученные данные во вьюху
+			$this->content = View::factory('order/listOrder')
+			->set('orderID', $getOrd)
+			->set('owner', $Dishes);
+			
 		}
 	}
 }
