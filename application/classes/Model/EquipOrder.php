@@ -21,7 +21,7 @@ class Model_EquipOrder
 												left join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
 												WHERE (Current_date = delivery_date)
 												and (orders.delivery_times_delivery_id = (select delivery_id from delivery_times where Current_time < time(delivery_time +15 *100 ) 
-												AND Current_time >= delivery_time))')
+												AND Current_time >= delivery_time)) and (orders.delivery_point <> "0")')
 												->execute()
 		                                        ->get('COUNT');
 
@@ -59,7 +59,7 @@ class Model_EquipOrder
 	
 	public function getDishes($ID)
 	{
-		$dishes = DB::query(Database::SELECT, 'select distinct dishes.dish_name, CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office
+		$dishes = DB::query(Database::SELECT, 'select distinct dishes.dish_name, CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office, OrRec.servings_number, MR.price
 												from dishes
 												join menu_records MR on MR.dish_id = dishes.dish_id
 												join orders_records OrRec on OrRec.menu_record_menu_id = MR.menu_id
