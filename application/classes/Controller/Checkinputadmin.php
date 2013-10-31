@@ -22,8 +22,9 @@ public function before()
 		*/
 		if($auth->logged_in('admin') == 0)
 		$this->redirect('netprav');	
-			
-		return parent::before();
+		
+		return parent::before();		
+		
 	}
 	
 } // End Admin Layout Secure Controller

@@ -18,7 +18,8 @@ public function before()
 		$auth = Auth::instance();
 		
 		if($auth->logged_in() == 0)  $this->redirect('auth');		
+		
+		return parent::before();	
 			
-		return parent::before();		
 	}
 }

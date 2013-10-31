@@ -16,20 +16,34 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Выводимое сообщение.
 	 */
 	public $message = '';
+	
+	/**
+	 * 
+	 * Переменная панели навигации
+	 */
+	public $menu = array();
 	/**
 	 * Содержимое текущей web-страницы.
 	 * @var string
-	 */
+	 */	
+	
 	public $content = '';
+	/**
+	 * Переменная гость
+	 * @var unknown
+	 */
+	public $guest = '';
 	/**
 	 * Пути к подключаемым JavaScript'ам.
 	 * @var Array
-	 */
+	 *
+	 **/
 	public $scripts = array();
 	/**
 	 * Пути к подключаемым таблицам стилей CSS.
 	 * @var Array
 	 */
+
 	public $styles = array();
 	/**
 	 * Заголовок текущей страницы.
@@ -72,11 +86,20 @@ class Controller_Front extends Kohana_Controller_Template {
 		{
      		$this->user = Auth::instance()->get_user()->as_array();
 			$this->user_hello = View::factory('templates/profileview')->set('user',$this->user['surname'].' '.$this->user['name'].' '.$this->user['patronymic'].View::factory('templates/auth/logout_button'));
+			
+			// Создаем экземпляр модели
+			$link=new Model_Link();			
+			// Присваем переменной $links , ссылку и название ссылки
+			$links=$link->get_link($this->user['username']);			
+			$this->menu=$links;	
+			
 		}		
 		else			
-		{		
+		{
 			$this->user_hello = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
-		}		
+			$this->guest="Гость";		
+			
+		}	
 		
 		//$this->a2 = A2::instance('a2'); Это почему-то не работает			
 		//$this->auth = $this->a2->a1;Это почему-то не работает
@@ -114,6 +137,8 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->title = $this->title;
 		$this->template->user = $this->user_hello;
 		$this->template->content = $this->content;
+		$this->template->menu = $this->menu;
+		$this->template->guest = $this->guest;
 		
 			
 		// вызываем родительский метод
