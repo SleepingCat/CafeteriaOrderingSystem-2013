@@ -15,6 +15,6 @@
 	echo "Итого: ".$summ."<br>";
 }
 ?>
-<a href="<?php echo "http://".$_SERVER['HTTP_HOST']."/order/clear" ?>"><button>Очистить корзину</button></a>
+<a class="btn_submit" href="<?php echo "http://".$_SERVER['HTTP_HOST']."/order/clear" ?>"><button>Очистить</button></a>
 <a href="<?php echo "http://".$_SERVER['HTTP_HOST']."/order/confirm"?>"><button>Оформить</button></a>
 </div>

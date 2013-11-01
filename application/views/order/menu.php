@@ -28,7 +28,7 @@ if (isset($error_code) && $error_code > 0)
  					<td>".$value['dish_name']."</td>
 					<td>".$value['price']."</td>
 					<td><input type=\"number\" name=cart[".$key."] value=1></td>
-					<td><input type=\"submit\" name=\"smbt_make_order\" value=\"Заказать\"></td>
+					<td><input type=\"submit\" name=\"smbt_make_order\" id=\"btn_submit[".$key."]\" value=\"Заказать\"></td>
 				</form></tr>";
 		}
 	?>

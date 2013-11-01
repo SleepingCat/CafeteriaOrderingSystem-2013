@@ -9,11 +9,40 @@ class Model_Order extends Model
 				delivery_time
 				FROM `orders`,`delivery_times`
 				WHERE (user_id = :userId) and (delivery_id = delivery_times_delivery_id)
-				and (order_status != :status)")
-			->param(':status', OrderStatus::Canceled)
+				and ((order_status = :status1) or (order_status = :status2))")
+			->param(':status1', OrderStatus::NewOrder)
+			->param(':status2', OrderStatus::Complected)
 			->param(':userId', $UserId)
 			->execute()
 			->as_array('order_id');
+	}
+	
+	public function get_order($UserId, $OrderId)
+	{
+		$order_detail = DB::query(Database::SELECT,
+				"SELECT order_id, user_id, delivery_times_delivery_id, order_date, delivery_date,
+				delivery_point, order_status, total_price, subscription_subs_id,
+				delivery_time
+				FROM `orders`,`delivery_times`
+				WHERE (user_id = :UserId) and (delivery_id = delivery_times_delivery_id)
+				and (order_id = :OrderId)")
+					->param(':UserId', $UserId)
+					->param(':OrderId', $OrderId)
+					->execute()
+					->as_array();
+		if (!empty($order_detail))
+		{
+			$order_detail[0]['dishes'] = DB::query(Database::SELECT,
+					"SELECT dishes.dish_id,dish_name,servings_number,price
+					FROM orders_records, dishes, menu_records
+					WHERE (order_id = :OrderId)
+					AND dishes.dish_id = orders_records.menu_record_dish_id
+					AND dishes.dish_id = menu_records.dish_id")
+						->param(':OrderId', $OrderId)
+						->execute()
+						->as_array('dish_id');
+		}
+		return $order_detail[0];
 	}
 	
 	public function get_delivery_periods()
@@ -27,17 +56,37 @@ class Model_Order extends Model
 	
 	public function cancel_order($OrderId, $UserId)
 	{
-		$result = DB::query(Database::UPDATE,
-			"UPDATE `orders` SET order_status = :status
-			WHERE (order_id = :OrderId) and (user_id = :UserId)")
-					->param(':status', OrderStatus::Canceled)
-					->param(':OrderId', $OrderId)
-					->param(':UserId', $UserId)
-					->execute();
+		// проверяем не отправился статус заказа, а так же принадлежность заказа пользователю  
+		$result = DB::query(Database::SELECT,
+			"SELECT order_id 
+			FROM orders 
+			WHERE (user_id = :UserId) 
+			AND (order_id = :OrderId)
+			AND (order_status = :status1 OR order_status = :status2)")
+				->param(':status1', OrderStatus::NewOrder)
+				->param(':status2', OrderStatus::Complected)
+				->param(':OrderId', $OrderId)
+				->param(':UserId', $UserId)
+				->execute();
+		if($result->count() == 1) { $this->setStatus($OrderId, OrderStatus::Canceled); return 1;}
+		else {return 0;}
 	}
 	
 	public function make_order($Order, $UserId, $MenuId ,$Delivery_date, $Delivery_point = NULL, $Delivery_time = NULL)
 	{
+		//TODO: доделать проверку на количество заказов на данное время
+		$result = DB::query(Database::SELECT,
+			"SELECT delivery_times.delivery_id, COUNT(order_id), delivery_limit 
+			FROM orders, delivery_times 
+			WHERE (delivery_date = :DeliveryDate) 
+			AND (delivery_times.delivery_id = orders.delivery_times_delivery_id) 
+			AND (delivery_times.delivery_id = :DeliveryTime)
+			AND (orders.order_status in (:status1,:status2))")
+					->param(':DeliveryDate', $Delivery_date)
+					->param(':DeliveryTime', $Delivery_time)
+					->param(':status1', OrderStatus::NewOrder)
+					->param(':status2', OrderStatus::Complected)
+					->execute();
 		$Total_price = 0;
 		foreach ($Order as $key => $value)
 		{

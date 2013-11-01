@@ -52,6 +52,6 @@ if (isset($delivery_point))
 	?>
 	</select><br>
 </div>
-<input type = "submit" value = "Подтвердить заказ" name="btn_confirm">
+<input type = "submit" class="btn_submit" value = "Подтвердить заказ" name="btn_confirm">
 </form>
 </div>

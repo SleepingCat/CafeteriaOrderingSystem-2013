@@ -23,8 +23,16 @@ class Controller_Order extends Controller_Checkinputusers
 	public function action_cancel()
 	{
 		$model_order = new Model_Order();
-		$model_order->cancel_order(Request::current()->param('id'), $this->user['id']);
-		$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
+		$this->desu($model_order->cancel_order(Request::current()->param('id'), $this->user['id']));
+		//$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
+	}
+	
+	public function action_detail()
+	{
+		$order_id = Request::current()->param('id');
+		$model_order = new Model_Order();
+		$order = $model_order->get_order($this->user['id'],$order_id);
+		$this->content = View::factory('order/detail')->set('order_detail',$order);
 	}
 	
 	public function action_clear()
@@ -64,6 +72,12 @@ class Controller_Order extends Controller_Checkinputusers
 			$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
 		}
 		$this->content = $view;
+	}
+	
+	public function action_desu()
+	{
+		$m = new Model_Order();
+		$this->desu($m->get_order($this->user['id'], 11));
 	}
 	
 	public function desu($data)

@@ -7,7 +7,7 @@
 <form action="" method="post">
 	Дата меню:
 	<input type="text" name="menu_date">
-	<input type="submit" name="smbt">
+	<input type="submit" class="btn_submit" name="smbt">
 	<br>
 	<?php 
 	if (isset($error_code)) 

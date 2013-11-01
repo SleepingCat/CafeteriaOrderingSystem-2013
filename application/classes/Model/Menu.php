@@ -17,7 +17,7 @@ class Model_Menu
 	{
 		if ($date != null)
 		{
-			$this->menu_id = DB::query(Database::SELECT, 'SELECT menu_id FROM menus WHERE menu_date =:date')
+			$this->menu_id = DB::query(Database::SELECT, 'SELECT menu_id FROM menus WHERE menu_date =:date LIMIT 1')
 			->param(':date', $date)
 			->execute()
 			->as_array();		

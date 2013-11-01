@@ -18,7 +18,8 @@ td,table
 	{
 		echo "<tr><td>".$value['order_id']."</td><td>".$value['delivery_date']."</td>
 			<td>".$value['delivery_time']."</td><td>".$value['order_status']."</td>
-			<td><a href=\"http://".$_SERVER['HTTP_HOST']."/order/cancel/".$value['order_id']."\"><button>Отменить</button></a></td><td><a href=#><button>Изменить</button></a></td></tr>";
+			<td><a class=\"btn_submit[".$key."]\" href=http://".$_SERVER['HTTP_HOST']."/order/detail/".$key."><button>Подробнее</button></a></td></td></tr>";
+			//<td><a href=\"http://".$_SERVER['HTTP_HOST']."/order/cancel/".$value['order_id']."\"><button>Отменить</button></a></td><td><a href=#><button>Изменить</button></a></td></tr>";
 	}
 ?>
 </table>
