@@ -37,7 +37,7 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 				$inputDate = new DateTime($date);
 				if($inputDate < $currentDate)
 					$this->action_showMessageToUser("Введённая дата меньше текущей.");
-				else if(intval(abs($date - time()))/(3600*24) > 14)
+				else if(intval(abs(strtotime($date) - time()))/(3600*24) > 14)
 					$this->action_showMessageToUser("Введённая дата превышает текущую более чем на 14 дней.");
 				else
 				{
