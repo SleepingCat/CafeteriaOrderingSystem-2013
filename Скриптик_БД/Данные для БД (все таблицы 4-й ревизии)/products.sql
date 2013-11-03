@@ -1,0 +1,11 @@
+INSERT INTO `products` VALUES (1, 'Морковь', 150);
+INSERT INTO `products` VALUES (2, 'Капуста', 100);
+INSERT INTO `products` VALUES (3, 'Соль', 100);
+INSERT INTO `products` VALUES (4, 'Укроп', 150);
+INSERT INTO `products` VALUES (5, 'Петрушка', 200);
+INSERT INTO `products` VALUES (6, 'Баранина', 152);
+INSERT INTO `products` VALUES (7, 'Свинина', 100);
+INSERT INTO `products` VALUES (8, 'Кукятина', 1);
+INSERT INTO `products` VALUES (9, 'Перец черный', 22);
+INSERT INTO `products` VALUES (10, 'Макароны Макфа', 55);
+INSERT INTO `products` VALUES (11, 'Сахар', 100);

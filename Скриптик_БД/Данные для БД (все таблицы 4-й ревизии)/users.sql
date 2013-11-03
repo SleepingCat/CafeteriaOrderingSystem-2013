@@ -1,0 +1,4 @@
+INSERT INTO `users` VALUES (1, 'administrator', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur4iK@rambler.ru', 'Дмитрий', 111111, 1, NULL, 0, 16, 1382638819, 'Бабурин', 'Владимирович', '1', '38', '5б');
+INSERT INTO `users` VALUES (2, 'Xochenkov', 'e24c2ae5d2a72710f7a05306e24f1f13cf6feb9c4c80e7c44f47cdf4bc5be9af', 'xochenkov@rambler.ru', 'Алексей', 222222, 1, NULL, 0, 10, 1382546568, 'Хоченков', 'Евгеньевич', '4', '7', '11');
+INSERT INTO `users` VALUES (3, 'Umnov', 'e24c2ae5d2a72710f7a05306e24f1f13cf6feb9c4c80e7c44f47cdf4bc5be9af', 'umnov@oe-it.ru', 'Денис', 343, 0, 0, 0, 3, 1382535564, 'Умнов', 'Михайлович', '2', '1', '3');
+INSERT INTO `users` VALUES (5, 'galogen', '29cc30615f2e74ed6b333e127239d2c4ac4c363a6f51232422f3675bbb0f2a14', 'galogenIt@gmail.com', 'Эдуард ', 111112, 0, NULL, 0, 1, 1382639250, 'Галиаскаров', 'Геннадьевич', '2', '33', '6');

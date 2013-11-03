@@ -1,0 +1,15 @@
+INSERT INTO `delivery_times` VALUES (1, '11:00:00', 10);
+INSERT INTO `delivery_times` VALUES (2, '11:15:00', 10);
+INSERT INTO `delivery_times` VALUES (3, '11:30:00', 10);
+INSERT INTO `delivery_times` VALUES (4, '11:45:00', 10);
+INSERT INTO `delivery_times` VALUES (5, '12:00:00', 20);
+INSERT INTO `delivery_times` VALUES (6, '12:15:00', 20);
+INSERT INTO `delivery_times` VALUES (7, '12:30:00', 20);
+INSERT INTO `delivery_times` VALUES (8, '12:45:00', 20);
+INSERT INTO `delivery_times` VALUES (9, '13:00:00', 20);
+INSERT INTO `delivery_times` VALUES (10, '13:15:00', 20);
+INSERT INTO `delivery_times` VALUES (11, '13:30:00', 20);
+INSERT INTO `delivery_times` VALUES (12, '13:45:00', 10);
+INSERT INTO `delivery_times` VALUES (13, '14:00:00', 10);
+INSERT INTO `delivery_times` VALUES (14, '14:15:00', 10);
+INSERT INTO `delivery_times` VALUES (15, '14:30:00', 10);

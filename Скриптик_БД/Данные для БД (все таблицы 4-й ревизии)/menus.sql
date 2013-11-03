@@ -1,0 +1,3 @@
+INSERT INTO `menus` VALUES (1, '2013-11-7');
+INSERT INTO `menus` VALUES (2, '2013-11-8');
+INSERT INTO `menus` VALUES (3, '2013-11-14');
