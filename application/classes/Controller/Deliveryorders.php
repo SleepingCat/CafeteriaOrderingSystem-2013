@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-class Controller_deliveryorder  extends Controller_Checkinputusers
+class Controller_Deliveryorders  extends Controller_Checkinputusers
 {
 	public function before()
 	{
