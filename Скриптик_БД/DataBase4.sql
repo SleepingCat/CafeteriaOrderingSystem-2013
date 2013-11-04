@@ -214,8 +214,8 @@ INSERT INTO `menus` (`menu_id`, `menu_date`) VALUES
 
 CREATE TABLE IF NOT EXISTS `menu_buttons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
-  `name_link` varchar(50) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `name_link` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 

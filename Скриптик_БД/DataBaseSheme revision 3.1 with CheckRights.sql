@@ -9,7 +9,7 @@ CREATE TABLE products (product_id int(10) NOT NULL AUTO_INCREMENT, product_name 
 CREATE TABLE subscriptions (subs_id int(10) NOT NULL AUTO_INCREMENT, user_id int(10) NOT NULL, start_date date NOT NULL, end_date date, status varchar(10), PRIMARY KEY (subs_id));
 CREATE TABLE roles (id int(10) NOT NULL AUTO_INCREMENT, name varchar(20) NOT NULL UNIQUE, PRIMARY KEY (id));
 CREATE TABLE roles_users (role_id int(10) NOT NULL, user_id int(10) NOT NULL);
-CREATE TABLE menu_buttons (id int(11) NOT NULL AUTO_INCREMENT, name varchar(10) NOT NULL, name_link varchar(50) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE menu_buttons (id int(11) NOT NULL AUTO_INCREMENT, name varchar(150) NOT NULL, name_link varchar(50) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE roles_buttons (roles_role_Id int(10) NOT NULL, menu_buttons_id int(11) NOT NULL, PRIMARY KEY (roles_role_Id, menu_buttons_id));
 CREATE TABLE delivery_times (delivery_id int(10) NOT NULL AUTO_INCREMENT, delivery_time time NOT NULL, delivery_limit int(11) NOT NULL, PRIMARY KEY (delivery_id));
 CREATE TABLE dish_type (id int(10) NOT NULL AUTO_INCREMENT, name varchar(20) NOT NULL, PRIMARY KEY (id));
