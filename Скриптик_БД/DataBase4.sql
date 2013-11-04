@@ -224,8 +224,8 @@ CREATE TABLE IF NOT EXISTS `menu_buttons` (
 --
 
 INSERT INTO `menu_buttons` (`id`, `name`, `name_link`) VALUES
-(1, '/admin ', 'Администрирование'),
-(2, '/admin/use', 'Пользователи'),
+(1, '/admin', 'Администрирование'),
+(2, '/admin/users', 'Пользователи'),
 (3, '/menu', 'Меню'),
 (4, '/order', 'Заказы');
 
