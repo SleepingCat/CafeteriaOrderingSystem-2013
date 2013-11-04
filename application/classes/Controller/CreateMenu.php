@@ -123,6 +123,10 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$this->content = View::factory('createMenu/showMenu')
 		                 ->set('allDish', $_SESSION["crtm_dish_to_select"]);
 		}
+		else if(@$_POST["butToSetDate"])
+			$this->content = View::factory('createMenu/crtmSetDate')
+		                           ->set('title', "Создать меню");
+			
 	}
 	
 	

@@ -1,4 +1,5 @@
-<form>
+<form action= "../CreateMenu/RunAction" method = POST>
  <?php echo $errorText ?>
- <input type = "submit" value = "На главную" name = "butToMain">
+ <br>
+ <input type = "submit" value = "Повторить" name = "butToSetDate">
 </form>
