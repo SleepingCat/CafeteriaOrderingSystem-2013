@@ -34,6 +34,20 @@ class Model_Valid
 	  }		  
    }   
    
+   public static  function valid($name)
+   {   	
+	if (preg_match("/[^(\w)|(\x7F-\xFF)]/",$name))
+   	{
+   		return false;
+   	}
+   
+   	else
+   	{
+   		return true;
+   	}
+   	
+   }
+   
     public static function user_unique($username,$oldname)
    {  
 	    if ($username != $oldname) 

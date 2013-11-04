@@ -107,8 +107,11 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('username', 'min_length', array(':value', 6))
 			->rule('username', 'max_length', array(':value', 16))
 			->rule('surname', 'not_empty')
+			->rule('surname', 'Model_Valid::valid',array(':value'))
 			->rule('name', 'not_empty')
+			->rule('name', 'Model_Valid::valid',array(':value'))
 			->rule('patronymic', 'not_empty')
+			->rule('patronymic', 'Model_Valid::valid',array(':value'))
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
@@ -172,7 +175,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
     public function action_edit()
 	{	// Объект модели Regandraduser
 		$register = new Model_Regandraduser();	
-		$error=array();
+		$error=Array();
 		// Получаем id пол-ля
 		$user_id = $this->request->param('id');
 		
@@ -206,9 +209,10 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$this->content=View::factory('templates/admin/users/form')
 		->set(array(
 			'item' => array_merge($user->as_array(), $item),
-			'roles' => $roles,			
-		))		
-		->set('errors',$error);		
+			'roles' => $roles,
+			'errors' => $error,		
+		));
+			//->set('errors',$error);		
 		$this->title ="Редактирование пользователя";									
 	}	
 	
@@ -243,8 +247,11 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('username', 'min_length', array(':value', 6))
 			->rule('username', 'max_length', array(':value', 16))
 			->rule('surname', 'not_empty')
+			->rule('surname', 'Model_Valid::valid',array(':value'))		
 			->rule('name', 'not_empty')
-			->rule('patronymic', 'not_empty')			
+			->rule('name', 'Model_Valid::valid',array(':value'))
+			->rule('patronymic', 'not_empty')
+			->rule('patronymic', 'Model_Valid::valid',array(':value'))
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
