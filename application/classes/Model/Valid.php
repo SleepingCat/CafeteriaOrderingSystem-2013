@@ -36,7 +36,7 @@ class Model_Valid
    
    public static  function valid($name)
    {   	
-	if (preg_match("/[^(\w)|(\x7F-\xFF)]/",$name))
+	if (preg_match("/[^(\w-)|(\x7F-\xFF)]/",$name))
    	{
    		return false;
    	}
@@ -47,6 +47,22 @@ class Model_Valid
    	}
    	
    }
+
+   public static function valid_string($string)   
+   {  	
+   	$queryString=preg_replace('/\s{2,}+/', ' ', $string);
+
+   	if ($queryString == " ")
+   	{   		
+   		return false;
+   	}
+   	
+   	else 
+   	{   		
+   		return true;
+   	}   	
+   	 
+   }   
    
     public static function user_unique($username,$oldname)
    {  

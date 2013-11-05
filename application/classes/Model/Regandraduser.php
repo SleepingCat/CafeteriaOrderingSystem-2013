@@ -13,12 +13,24 @@ class Model_Regandraduser
 	 * @return boolean
 	 */
 	public function reg()
-	{		try
-		 {     
-			$user = ORM::factory('user', Arr::get($_POST, 'id'));			
+	{	try
+	
+		 {	
+		 	//Изменяем строки в полях: этаж,здание,номер кабинета,если пользователь вводит в роле больше двух пробелов 	 	
+		 	$floor=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'floor'));	
+		 	$building=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'building'));
+		 	$office=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'office'));
+		 	
+		 	$user = ORM::factory('user', Arr::get($_POST, 'id'));
+		 	//Записываем в поле таблицы: floor переменную $floor		 	
+		 	$user->floor=$floor;
+		 	//Записываем в поле таблицы: building переменную $building	
+		 	$user->building=$building;
+		 	//Записываем в поле таблицы: office переменную $office	
+		 	$user->office=$office;
 
             // update user			
-			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','building','floor','office','employee_number'))->save();
+			$user->values($_POST, array('username','email', 'password','name','surname','patronymic','employee_number'))->save();
 			
 			//remove all roles
 			$user->remove('roles');			
@@ -52,7 +64,7 @@ class Model_Regandraduser
 			{		
 				return false;		
 			}     		
- 	}	
+ 		}	
  	
  	public function reg_profile()
  	{		try

@@ -112,9 +112,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('name', 'Model_Valid::valid',array(':value'))
 			->rule('patronymic', 'not_empty')
 			->rule('patronymic', 'Model_Valid::valid',array(':value'))
-			->rule('building', 'Model_Valid::valid',array(':value'))
-			->rule('floor', 'Model_Valid::valid',array(':value'))
-			->rule('office', 'Model_Valid::valid',array(':value'))
+			->rule('building', 'Model_Valid::valid_string',array(':value'))
+			->rule('floor', 'Model_Valid::valid_string',array(':value'))
+			->rule('office', 'Model_Valid::valid_string',array(':value'))
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')
@@ -238,7 +238,8 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 	    $login=Arr::get($_POST,'username','');		
 		$log_old=Arr::get($_POST,'username_old','');		
 		$tab_numb=Arr::get($_POST,'employee_number','');		
-		$password=Arr::get($_POST,'password','');		
+		$password=Arr::get($_POST,'password','');	
+		$building=	Arr::get($_POST,'building','');	
 		$email_old=Arr::get($_POST,'email_old','');
 		$email=Arr::get($_POST,'email','');
 		$tab_numb_old=Arr::get($_POST,'employee_number_old','');		
@@ -255,9 +256,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			->rule('name', 'Model_Valid::valid',array(':value'))
 			->rule('patronymic', 'not_empty')
 			->rule('patronymic', 'Model_Valid::valid',array(':value'))
-			->rule('building', 'Model_Valid::valid',array(':value'))
-			->rule('floor', 'Model_Valid::valid',array(':value'))
-			->rule('office', 'Model_Valid::valid',array(':value'))
+			->rule('building', 'Model_Valid::valid_string',array(':value'))
+			->rule('floor', 'Model_Valid::valid_string',array(':value'))
+			->rule('office', 'Model_Valid::valid_string',array(':value'))
 			//->rule('building', 'not_empty')
 			//->rule('floors', 'not_empty')
 			//->rule('num_office', 'not_empty')

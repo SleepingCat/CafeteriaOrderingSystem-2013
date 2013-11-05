@@ -51,8 +51,7 @@ public function action_index()
 		
 		$hashpas=$pass;		
 		$auth=Auth::instance();
-		$hasholdpas=$auth->hash_password($password_old);
-		
+		$hasholdpas=$auth->hash_password($password_old);		
 	
 		$post = Validation::factory($_POST)
 		->rule('username', 'not_empty')
@@ -61,8 +60,14 @@ public function action_index()
 		->rule('username', 'min_length', array(':value', 6))
 		->rule('username', 'max_length', array(':value', 16))
 		->rule('surname', 'not_empty')
+		->rule('surname', 'Model_Valid::valid',array(':value'))		
 		->rule('name', 'not_empty')
+		->rule('name', 'Model_Valid::valid',array(':value'))		
 		->rule('patronymic', 'not_empty')
+		->rule('patronymic', 'Model_Valid::valid',array(':value'))
+		->rule('building', 'Model_Valid::valid_string',array(':value'))
+		->rule('floor', 'Model_Valid::valid_string',array(':value'))
+		->rule('office', 'Model_Valid::valid_string',array(':value'))		
 		//->rule('building', 'not_empty')
 		//->rule('floors', 'not_empty')
 		//->rule('num_office', 'not_empty')
