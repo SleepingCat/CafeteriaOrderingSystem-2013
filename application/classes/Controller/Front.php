@@ -80,7 +80,10 @@ class Controller_Front extends Kohana_Controller_Template {
 
 		// Вызываем родительский метод	
 		parent::before();	
-
+		
+		// Запускаем сессию
+		Session::instance();
+		
 		// Получаем информацию о текущем пользователе
 		if(Auth::instance()->logged_in())
 		{

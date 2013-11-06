@@ -33,7 +33,7 @@ class Model_Order extends Model
 		if (!empty($order_detail))
 		{
 			$order_detail[0]['dishes'] = DB::query(Database::SELECT,
-					"SELECT dishes.dish_id,dish_name,servings_number,price
+					"SELECT menu_records.menu_id, dishes.dish_id,dish_name,servings_number, price
 					FROM orders_records, dishes, menu_records
 					WHERE (order_id = :OrderId)
 					AND dishes.dish_id = orders_records.menu_record_dish_id
@@ -76,7 +76,7 @@ class Model_Order extends Model
 	{
 		//TODO: доделать проверку на количество заказов на данное время
 		$result = DB::query(Database::SELECT,
-			"SELECT delivery_times.delivery_id, COUNT(order_id), delivery_limit 
+			"SELECT COUNT(order_id) as orders_maked, delivery_limit 
 			FROM orders, delivery_times 
 			WHERE (delivery_date = :DeliveryDate) 
 			AND (delivery_times.delivery_id = orders.delivery_times_delivery_id) 
@@ -86,11 +86,13 @@ class Model_Order extends Model
 					->param(':DeliveryTime', $Delivery_time)
 					->param(':status1', OrderStatus::NewOrder)
 					->param(':status2', OrderStatus::Complected)
-					->execute();
+					->execute()
+					->as_array();
+		if ($result != null && $result[0]['orders_maked'] >= $result[0]['delivery_limit']){return 2;}
 		$Total_price = 0;
 		foreach ($Order as $key => $value)
 		{
-			$Total_price += $value['amount']*$value['price'];
+			$Total_price += $value['servings_number']*$value['price'];
 		}
 		$result = DB::query(Database::INSERT,
 		"INSERT INTO `orders`(order_date, delivery_date, delivery_times_delivery_id,
@@ -110,15 +112,63 @@ class Model_Order extends Model
 			{
 				DB::query(Database::INSERT,
 				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, servings_number)
-				VALUES(:dishId,:menuId,:orderId,:amount)")
+				VALUES(:dishId,:menuId,:orderId,:servings_number)")
 						->param(':dishId', $key)
 						->param(':menuId', $MenuId)
 						->param(':orderId', $result[0])
-						->param(':amount', $value['amount'])
+						->param(':servings_number', $value['servings_number'])
 						->execute();
 			}
 		}
+		else 
+		{
+			return 1;
+		}
+		return 0;
 	}
+	
+	public function update_order($OrderId, $Order, $UserId, $MenuId ,$Delivery_date, $Delivery_point = NULL, $Delivery_time = NULL)
+	{
+		$Total_price = 0;
+		foreach ($Order as $key => $value)
+		{
+			$Total_price += $value['servings_number']*$value['price'];
+		}
+		$result = DB::query(Database::UPDATE,
+			"UPDATE `orders` set order_date=NOW(), delivery_date=:date, delivery_times_delivery_id=:time,
+			delivery_point=:point, order_status=:status, total_price=:total, user_id=:user
+			WHERE order_id=:orderId and user_id = :user")
+				->param(':date', $Delivery_date)
+				->param(':time', $Delivery_time)
+				->param(':point', $Delivery_point)
+				->param(':status', OrderStatus::NewOrder)
+				->param(':total', $Total_price)
+				->param(':user', $UserId)
+				->param(':orderId', $OrderId)
+				->execute();
+		// Если вставилось, то обрабатываем дальше
+		if ($result[1] == 1)
+		{
+			foreach ($Order as $key => $value)
+			{
+				DB::query(Database::INSERT,
+				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, servings_number)
+				VALUES(:dishId,:menuId,:orderId,:servings_number)")
+					->param(':dishId', $key)
+					->param(':menuId', $MenuId)
+					->param(':orderId', $result[0])
+					->param(':servings_number', $value['servings_number'])
+					->execute();
+			}
+		}
+		else 
+		{
+			return 1;
+		}
+		return 0;
+	}
+	
+	
 	/**
 	 * Находит заказ по номеру возвращает его текущий статус
 	 * @param unknown $ID номер заказ

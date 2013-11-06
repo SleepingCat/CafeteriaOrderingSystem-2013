@@ -7,21 +7,31 @@ class Controller_Menu extends Controller_Checkinputusers
 	
 	public function before()
 	{
-		$session = Session::instance();
+		// Подключаем скрипт с датапикером
+		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->view = View::factory('order/index')->bind('error_code', $this->error_code);
 		parent::before();
 	}
 	
+	/**
+	 * экшэн, на котором предлагается выбрать дату меню
+	 */
 	public function action_index()
 	{
+		// если пользователь выбрал дату меню
 		if (isset($_POST['smbt']))
 		{
-			$input_date = trim($_POST['menu_date']);
+			// Указал ли пользователь дату?
+			if (isset($_POST['menu_date'])) {
+				$input_date = trim($_POST['menu_date']);
+			}
+			// если не указал возвращаемся с ошибкой
 			if(empty($input_date))
 			{
 				$this->error_code = 1;
 			}
-			elseif(preg_match('/^[0-3]{0,1}[0-9].[0-1]{0,1}[0-9].([0-9]{2})|([0-9]{4})$/', $input_date) < 1)
+			// Формат даты неверен?
+			elseif(!Valid::date($input_date))
 			{
 				$this->error_code = 2;
 			}
@@ -29,20 +39,24 @@ class Controller_Menu extends Controller_Checkinputusers
 			{
 				$input_date = date_parse($input_date);
 				$input_date_in_seconds = mktime(0,0,0,$input_date['month'],$input_date['day'],$input_date['year']);
+				
+				// Если введеная дата больше текущей на 2 недели
 				if ($input_date_in_seconds > time() + 60*60*24*14) {
 					$this->error_code = 3;
 				}
+				// Или если введенная дата меньше текущей
 				elseif ($input_date_in_seconds < time())
 				{
 					$this->error_code = 4;
 				}
 			}
+			// Если ошибок нет запихиваем меню в сессию и редиректим на отображение
 			if($this->error_code < 1)
 			{
 				$menu_date = $input_date['year'].'-'.$input_date['month'].'-'.$input_date['day'];
 				$model_menu = new Model_Menu();
 				$menu=$model_menu->get_menu($menu_date);
-				$_SESSION['menu_date'] = $menu_date;
+				$_SESSION['mk_order_menu_date'] = $menu_date;
 				$_SESSION['menu'] = $menu;
 				$_SESSION['menu_id'] = $model_menu->get_menu_id();
 				if (count($menu) < 1) {
@@ -50,7 +64,6 @@ class Controller_Menu extends Controller_Checkinputusers
 				}
 				else
 				{
-
 					$this->redirect("http://".$_SERVER['HTTP_HOST'].'/menu/show');
 				}
 			}
@@ -58,26 +71,40 @@ class Controller_Menu extends Controller_Checkinputusers
 		$this->content = $this->view;
 	}
 	
-	public function action_show($error_code = NULL)
+	
+	/**
+	 * Отображает меню для заказа блюд
+	 */
+	public function action_show()
 	{
-		if(isset($_SESSION['menu_date']))
+		if(isset($_SESSION['mk_order_menu_date']))
 		{
-			$this->content = View::factory('order/menu')
-			->set('menu', $_SESSION['menu'] )
-			->bind('error_code', $error_code );
+			if (isset($_SESSION['menu'])) {
+				$menu = $_SESSION['menu'];
+			}
+			else 
+			{
+				$model_menu = new Model_Menu();
+				$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
+			}
+			$this->content = View::factory('order/menu')->bind('menu', $menu);
 		}
 	}
 	
+	/**
+	 * Обработчик кнопки "Добавить"
+	 * Добавляет выбранное блюдо к заказу
+	 */
 	public function action_add_to_cart()
 	{
 		if (isset($_POST['smbt_make_order']))
 		{
 			$model_menu = new Model_Menu();
-			$menu = $model_menu->get_menu($_SESSION['menu_date']);
+			$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
 			$order = $_POST['cart'];
 			foreach ($order as $key => $value)
 			{
-				if (preg_match('/^[0-9]+$/', $value) != 1)
+				if (preg_match('/^[0-9]{1,2}$/', $value) != 1)
 				{
 					$this->error_code = 1;
 					break;
@@ -85,7 +112,7 @@ class Controller_Menu extends Controller_Checkinputusers
 				if ($value > 0)
 				{
 					$_SESSION['order'][$key] = $menu[$key];
-					$_SESSION['order'][$key]['amount'] = $value;
+					$_SESSION['order'][$key]['servings_number'] = $value;
 				}
 			}
 		}

@@ -1,36 +1,34 @@
-<script type="text/javascript">
-function show_time(bla)
-{
-	document.getElementById('delivery_time').style.visibility = (bla == 1) ? 'visible':'hidden';
-}
-</script>
-
+<?php
+	if(isset($error_code) && $error_code != 0)
+	{
+		switch ($error_code)
+		{
+			case 1: echo "Ошибка записи в БД";
+			case 2: echo "Превышен лимит доставки на данное время";
+		}
+	} 
+?>
 <div>
 	Ваш заказ:<br>
 <form action="" method="post">
 <?php
-/*
- * Вывод заказа без возможности редактирования 
- * с возможностью указать время доставки
- */
+	/*
+	 * Вывод заказа без возможности редактирования 
+	 * с возможностью указать время доставки
+	 */
 	$summ = 0;
 	foreach ($_SESSION['order'] as $key => $value)
 	{
-		echo $value['dish_name']."(".$value['price'].") x".$value['amount']."<br>";
-		$summ += $value['price']*$value['amount'];
+		echo $value['dish_name']."(".$value['price'].") x".$value['servings_number']."<br>";
+		$summ += $value['price']*$value['servings_number'];
 	}
 	echo "Итого: ".$summ."<br>";
+	echo "Выберите форму заказа:<br>";
 	
-	// заглушка для данных пользователя
-	// TODO: заменить на 
-	// $user = Auth::instance()->get_user()->as_array();
-	//<select name = "type_payment" onchange="show_time(this.options[this.selectedIndex].index)">
-echo "Выберите форму заказа:<br>";
-
-echo "<select name = \"delivery_point\">
-	<option value=\"none\">
-		Без доставки
-	</option>";
+	echo "<select name = \"delivery_point\">
+		<option value=\"none\">
+			Без доставки
+		</option>";
 
 
 if (isset($delivery_point))

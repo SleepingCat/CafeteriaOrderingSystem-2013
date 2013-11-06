@@ -9,8 +9,8 @@
 	$summ = 0;
 	foreach ($_SESSION['order'] as $key => $value)
 	{
-		echo $value['dish_name']."(".$value['price'].") x".$value['amount']."<a href=\"http://".$_SERVER['HTTP_HOST']."/order/remove/".$key."\">Удалить</a><br>";
-		$summ += $value['price']*$value['amount'];
+		echo $value['dish_name']."(".$value['price'].") x".$value['servings_number']."<a href=\"http://".$_SERVER['HTTP_HOST']."/order/remove/".$key."\">Удалить</a><br>";
+		$summ += $value['price']*$value['servings_number'];
 	}
 	echo "Итого: ".$summ."<br>";
 }

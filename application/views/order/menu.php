@@ -12,9 +12,9 @@ if (isset($error_code) && $error_code > 0)
 	echo $error_code;
 } 
 ?>
-	<div style="float: left; position: relative;">
-	<table>
-	<tr><td>Наименование</td><td>Цена(руб.)</td><td>Заказать</td></tr>
+<div style="float: left; position: relative;">
+<table>
+<tr><td>Наименование</td><td>Цена(руб.)</td><td>Заказать</td></tr>
 	<?php
 		$type = "none";
 		foreach ($menu as $key => $value)
@@ -27,15 +27,15 @@ if (isset($error_code) && $error_code > 0)
 			echo "<tr><form action=\"./add_to_cart\" method=\"post\">
  					<td>".$value['dish_name']."</td>
 					<td>".$value['price']."</td>
-					<td><input type=\"number\" name=cart[".$key."] value=1></td>
+					<td><input type=\"number\" min=\"1\" max = \"50\" maxlength=\"2\" name=cart[".$key."] value=1></td>
 					<td><input type=\"submit\" name=\"smbt_make_order\" id=\"btn_submit[".$key."]\" value=\"Заказать\"></td>
 				</form></tr>";
 		}
 	?>
-	</table>
-	</div>
-	<div style="margin-left:50px;float: left;;">
-	<?php 
-		echo View::factory('order/cart');
-	?>
-	</div>
+</table>
+</div>
+<div style="margin-left:50px;float: left;;">
+<?php 
+	echo View::factory('order/cart');
+?>
+</div>

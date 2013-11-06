@@ -4,9 +4,14 @@
  * и вывода ошибок
  */
 ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_datepicker').datepicker({ firstDay: 1, dateFormat: 'yy-mm-dd' });
+    });
+</script>
 <form action="" method="post">
 	Дата меню:
-	<input type="text" name="menu_date">
+	<input type="text" name="menu_date" id="menu_datepicker">
 	<input type="submit" class="btn_submit" name="smbt">
 	<br>
 	<?php 
