@@ -134,8 +134,9 @@ class Model_Order extends Model
 		{
 			$Total_price += $value['servings_number']*$value['price'];
 		}
-		$result = DB::query(Database::UPDATE,
-			"UPDATE `orders` set order_date=NOW(), delivery_date=:date, delivery_times_delivery_id=:time,
+
+		DB::query(Database::UPDATE,
+			"UPDATE `orders` SET order_date=NOW(), delivery_date=:date, delivery_times_delivery_id=:time,
 			delivery_point=:point, order_status=:status, total_price=:total, user_id=:user
 			WHERE order_id=:orderId and user_id = :user")
 				->param(':date', $Delivery_date)
@@ -146,9 +147,10 @@ class Model_Order extends Model
 				->param(':user', $UserId)
 				->param(':orderId', $OrderId)
 				->execute();
-		// Если вставилось, то обрабатываем дальше
-		if ($result[1] == 1)
-		{
+		DB::query(Database::DELETE,
+			"DELETE FROM `orders_records` WHERE order_id=:orderId")
+							->param(':orderId', $OrderId)
+							->execute();
 			foreach ($Order as $key => $value)
 			{
 				DB::query(Database::INSERT,
@@ -156,15 +158,10 @@ class Model_Order extends Model
 				VALUES(:dishId,:menuId,:orderId,:servings_number)")
 					->param(':dishId', $key)
 					->param(':menuId', $MenuId)
-					->param(':orderId', $result[0])
+					->param(':orderId', $OrderId)
 					->param(':servings_number', $value['servings_number'])
 					->execute();
 			}
-		}
-		else 
-		{
-			return 1;
-		}
 		return 0;
 	}
 	
