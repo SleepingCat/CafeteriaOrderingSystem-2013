@@ -33,9 +33,9 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$date = $_POST['Date'];
 			if (Valid::date($date))
 			{
-				$currentDate = new DateTime("now");
-				$inputDate = new DateTime($date);
-				if($inputDate < $currentDate)
+				//$currentDate = new DateTime("now");
+				//$inputDate = new DateTime($date);
+				if(strtotime($date) < mktime(0,0,0, date("m"), date("d"), date("Y")))
 					$this->action_showMessageToUser("Введённая дата меньше текущей.");
 				else if(intval(abs(strtotime($date) - time()))/(3600*24) > 14)
 					$this->action_showMessageToUser("Введённая дата превышает текущую более чем на 14 дней.");
@@ -157,9 +157,9 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			foreach ($checkedElements as $key => $value) //для каждого выбранного блюда
 			{
 				$result = false;
-				foreach ($currentMenu as $key_1 => $value) //проверка на дублирование
+				foreach ($currentMenu as $key_1 => $value_1) //проверка на дублирование
 				{
-					if(in_array($dishToSelect[$key]["dish_id"], $value))
+					if(in_array($dishToSelect[$key]["dish_id"], $value_1))
 						$result = TRUE;
 				}
 
