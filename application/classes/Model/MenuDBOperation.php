@@ -45,7 +45,7 @@ class Model_MenuDBOperation
 		$query = 'select id,
 				         name
 				  from dish_type';
-		$dishesCategories = DB::query(Database::SELECT, $query)
+		$typesOfDish = DB::query(Database::SELECT, $query)
 		                    ->execute()
 		                    ->as_array();
 		return($typesOfDish);
@@ -64,7 +64,7 @@ class Model_MenuDBOperation
 			$filter = "where";
 		
 		if ($type > 0)
-			$filter = $filter." DT.id = ".$type;
+			$filter = $filter." DT.id = ".$type." and ";
 		if($category > 0)
 			$filter =  $filter." DC.id = ".$category;
 		
@@ -140,10 +140,11 @@ class Model_MenuDBOperation
 	    	//добавляем строки
 	    	foreach ($menu as $key => $value) 
 	    	{
-	    		DB::query(Database::INSERT, 'insert into menu_records (dish_id,price,menu_id) 
-	    				                      value(:dish_id, :price, :menu_id)')
+	    		DB::query(Database::INSERT, 'insert into menu_records (dish_id, price, portion_type_id, menu_id) 
+	    				                      value(:dish_id, :price, :portion, :menu_id)')
 	    				  ->param(":dish_id", $value["dish_id"])
 	    				  ->param(":price", $value["price"])
+	    				  ->param(":portion", $value["dish_portion"])
 	    				  ->param(":menu_id", $menu_id)
 	    				  ->execute();                     
 	    	}
@@ -153,5 +154,17 @@ class Model_MenuDBOperation
     	{
     		return(0);
     	}
+    }
+
+    /**
+     * Метод возвращает все типы порций.
+     */
+    public function getAllPortionType()
+    {
+    	$query = 'select id, type_name from portion_type';
+    	$result =  DB::query(Database::SELECT, $query)
+    	    ->execute()
+    	    ->as_array();
+        return($result);	    
     }
 }

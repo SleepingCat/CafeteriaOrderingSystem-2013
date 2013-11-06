@@ -14,7 +14,7 @@
   <?php 
   for ($i = 0; $i < count($categoryOfDish); $i++)
   {
-  echo "<option value = ".$categoryOfDish[$i]["id"].">".$categoryOfDish[$i]["name"]."</option>";
+    echo "<option value = ".$categoryOfDish[$i]["id"].">".$categoryOfDish[$i]["name"]."</option>";
   }
   ?>
   </select>

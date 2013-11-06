@@ -50,9 +50,10 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 	                       $_SESSION["crtm_newmenu"] = array();
 	                       $_SESSION["crtm_dish_to_select"] = $allDish;
 	                       $_SESSION["crtm_menu_date"] = $date;
-	
-	                       $this->content = View::factory('createMenu/showMenu')
-	                                             ->set('allDish', $_SESSION["crtm_dish_to_select"]);
+	                       
+	                      $this->content = View::factory('createMenu/showMenu')
+	                                             ->set("allDish", $_SESSION["crtm_dish_to_select"])
+	                                             ->set("portionType", $dishModel->getAllPortionType());
 					}
 					else //если такое меню уже есть
 					{
@@ -121,7 +122,8 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$dishModel = new Model_MenuDBOperation();
 			$_SESSION["crtm_dish_to_select"] = $dishModel->getAllDish(0, $type, $category);
 			$this->content = View::factory('createMenu/showMenu')
-		                 ->set('allDish', $_SESSION["crtm_dish_to_select"]);
+		                 ->set('allDish', $_SESSION["crtm_dish_to_select"])
+			             ->set("portionType", $dishModel->getAllPortionType());
 		}
 		else if(@$_POST["butToSetDate"])
 			$this->content = View::factory('createMenu/crtmSetDate')
@@ -147,20 +149,26 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 		$dishToSelect = array();
 		//массив с ценами блюд
 		$dishPrice = array();
+		//массив с типом порции
+		$dishPortion = array();
 		
 		if(isset($_POST["checked_elements"])&& isset($_SESSION["crtm_dish_to_select"]))
 		{
 			$dishToSelect = $_SESSION["crtm_dish_to_select"];
 			$checkedElements = $_POST["checked_elements"];
 			$dishPrice = $_POST["price"];
+			$dishPortion = $_POST["type_of_portion"];
 			
 			foreach ($checkedElements as $key => $value) //для каждого выбранного блюда
 			{
 				$result = false;
 				foreach ($currentMenu as $key_1 => $value_1) //проверка на дублирование
 				{
-					if(in_array($dishToSelect[$key]["dish_id"], $value_1))
-						$result = TRUE;
+					//ищем блюдо по специальной ключевой последовательности(думаю такая не повториться) - "//dish_id?dish_portion_id\\"
+					if(in_array("//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]["value"]."\\", $value_1))
+					{	$result = TRUE;
+						break;
+					}
 				}
 
 				if (!$result)//проверяем что его ещё нет в меню
@@ -169,6 +177,8 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 					  {
 					    $dishToSelect[$key]["price"] = $dishPrice[$key];
 					  }
+					 $dishToSelect[$key]["dish_portion"] = $dishPortion[$key]["value"]; //указываем тип порции
+					 $dishToSelect[$key]["dishKey"] = "//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]["value"]."\\"; // указываем ключевую последовательность
 				  
 				    array_push($currentMenu, $dishToSelect[$key]);//добавляем в меню
 				}
