@@ -19,11 +19,44 @@ class Controller_Reestr extends Controller_Checkinputusers
 		
 	}
 	
-	public function action_delete($dish_id)
+	public function action_delete()
 	{
+		$dish_id = Request::current()->param('id');
 		$model_reestr = new Model_Reestr();
 		$model_reestr->delete_dish($dish_id);
-						
+		$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");				
+	}
+	
+	public function action_add()
+	{
+		$errcode = 0;
+		
+		$model_reestr = new Model_Reestr();
+		$categories = $model_reestr->get_categories();
+		$types = $model_reestr->get_types();
+		$ingridients = $model_reestr->get_ingredient();
+		
+		$view = View::factory('reestr/dish_add_edit')->bind('errcode',$errcode)
+													 ->bind('categories',$categories)
+													 ->bind('ingredient',$ingridients)
+													 ->bind('types',$types);
+		if (isset($_POST["btn_dish_add"]))
+		{
+			if ($errcode==0) 
+			{
+				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");	
+			
+			}
+			
+		}
+		$this->content=$view;
+	}
+	
+	public function action_update()
+	{	
+		$dish_id = Request::current()->param('id');
+		$model_reestr = new Model_Reestr();
+		$model_reestr->update_dish($dish_id);
 	}
 	
 }

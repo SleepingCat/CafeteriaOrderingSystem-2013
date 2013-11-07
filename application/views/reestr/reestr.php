@@ -38,12 +38,12 @@ foreach ($reestr as $key=>$value)
 	echo "<td>".$value['type']."</td>";
 	echo "<td>".$value['category']."</td>";
 	
-	echo "<td><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/delete/".$value['dish_id']."\"><button>Удалить</button></a></td><td><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/edit/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
+	echo "<td><a onclick=\"return confirm('?')\"  href=\"http://".$_SERVER['HTTP_HOST']."/reestr/delete/".$value['dish_id']."\"><button>Удалить</button></a></td><td><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/edit/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
 	echo "</tr>";
 }
 
 ?>
 
 </table>
-<a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/add/\"><button >Добавить</button></a> 
+<a href="<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/add"; ?>"><button >Добавить</button></a> 
 </div>

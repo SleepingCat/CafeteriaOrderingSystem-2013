@@ -43,11 +43,51 @@ class Model_Reestr extends Model
 		return DB::query(Database::SELECT, $query)->param(':dish_id', $dish_id) ->execute() ->as_array('portion_type_id');
 	}
 	
+	public  function get_categories()
+	{
+		
+		return DB::query(Database::SELECT, "select * from dish_category") ->execute() ->as_array('id');
+		
+	}
+	
+	public  function get_types()
+	{
+	
+		return DB::query(Database::SELECT, "select * from dish_type") ->execute() ->as_array('id');
+	
+	}
+	
+	public function get_ingredient()
+	{
+		return DB::query(Database::SELECT, "select * from products") ->execute()->as_array('product_id');
+	}
+	
 	public function delete_dish($dish_id)
 	{
 		$query = 'Delete from dishes where dish_id = :dish_id ';
 		return DB::query(Database::DELETE, $query)->param(':dish_id', $dish_id)->execute();
 	}
 	
+	
+	
+	public function update_dish($dish_id)
+	{
+		
+	}
+	
+	public function find_category($category_name)
+	{
+		
+	}
+	
+	public function find_type($type_name)
+	{
+		
+	}
+	
+	public function find_ingredients($ingridient_name)
+	{
+		
+	}
 	
 }
