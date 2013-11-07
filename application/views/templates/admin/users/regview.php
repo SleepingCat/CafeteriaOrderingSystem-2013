@@ -1,11 +1,10 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<?php echo HTML::style('media/css/adminCSS.css'); 
- echo HTML::style('media/css/add-form.css') ?>
+<?php echo HTML::style('media/css/add-form.css') ?>
 
 <form action="<?php echo URL::site('/Userprofile/saveprofile') ?>" method="post" name="user-form" class="MyForm">
 
-<div class="FormTopBorder"><?php echo __('Профиль клиента: :user', array(':user' => Arr::get($item, 'username'))) ?></div>
+<div class="FormTopBorder"><?php echo __('Мой профиль') ?></div>
 
 <div class="FormArea">
 	<table>
@@ -21,12 +20,12 @@
 			        <input type="text" class="TextBox" size="25" maxlength="25"  name="email" id="email" value="<?php echo Arr::get($item, 'email') ?>"/>
 			    </div>
 			    <div class="TitledTextboxArea">
-			        <?php echo __('Пароль:') ?><br>
-			        <input type="password" class="TextBox" size="25" maxlength="16" name="password" id="password"/>
+			        <?php echo __('Введите старый пароль:') ?><br>
+			        <input type="password" class="TextBox" size="25" maxlength="16" name="password_old" id="password_confirm"/>			        
 			    </div>
 			    <div class="TitledTextboxArea">
-			        <?php echo __('Введите старый пароль:') ?><br>
-			        <input type="password" class="TextBox" size="25" maxlength="16" name="password_old" id="password_confirm"/>
+			        <?php echo __('Введите новый пароль:') ?><br>
+			        <input type="password" class="TextBox" size="25" maxlength="16" name="password" id="password"/>
 			    </div>			    
 			
 			</td><td class="Field">
