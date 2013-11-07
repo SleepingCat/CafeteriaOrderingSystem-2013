@@ -7,7 +7,7 @@ class Model_Reestr extends Model
 {
 	public function get_all_dishes()
 	{
-		$query = 'select dishes.dish_id, dishes.dish_name,dish_type.name as type ,dish_category.name as category
+		$query = 'select dishes.dish_id, dishes.dish_name, dishes.is_available as is_available, dishes.is_standart as is_standart ,dish_type.name as type ,dish_category.name as category
 					from dishes, dish_type, dish_category
 					where (dishes.dish_type_id = dish_type.id) and (dishes.dish_category_id = dish_category.id)';
 		
@@ -16,8 +16,9 @@ class Model_Reestr extends Model
 		foreach ($reestr as $key=>$value)
 		{
 			$reestr[$key]['ingredients'] = $this->get_ingredients($key);
-			$reestr[$key]['portions'] = $this->get_portions($key);
+			
 		}
+		
 		
 				
 		return $reestr;
@@ -64,8 +65,8 @@ class Model_Reestr extends Model
 	
 	public function delete_dish($dish_id)
 	{
-		$query = 'Delete from dishes where dish_id = :dish_id ';
-		return DB::query(Database::DELETE, $query)->param(':dish_id', $dish_id)->execute();
+		$query = 'UPDATE  dishes SET  `is_available` = NULL WHERE  dish_id =:dish_id;';
+		return DB::query(Database::UPDATE, $query)->param(':dish_id', $dish_id)->execute();
 	}
 	
 	

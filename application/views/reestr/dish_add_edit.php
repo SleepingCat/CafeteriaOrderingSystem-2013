@@ -1,4 +1,4 @@
-<form action = "" method= POST>
+<form action = "add" method= POST>
 
 <div>
 
@@ -42,6 +42,11 @@ foreach ($ingredient as $key => $value)
 </select>
 <input type="number" name = "ingr_weigth">
 
+<a href=#> <button id ="delete"> - </button></a>
+
+
+<br>
+
 <script type="text/javascript">
 
 $('#add a').live('click',function(){
@@ -51,11 +56,11 @@ $('#add a').live('click',function(){
 	<?php
 	foreach ($ingredient as $key => $value)
 		{
-			html_input += "<option value=\"".$key."\">".$value['product_name']."</option>";
+			 echo "html_inputs += \"<option value=".$key.">".$value['product_name']."</option>\";\n";
 		}	
 	?>
 	
-	html_inputs+='</select> <input type="number" name = "ingr_weigth">	</div>';
+	html_inputs+='</select> <input type="number" name = "ingr_weigth">	<a href=#"> <button id = "delete"> - </button></a></div>';
 	$('.ingridients').append(html_inputs);
 	$('.ingridients .ogranichenie:hidden').slideDown(200);
 
@@ -66,11 +71,12 @@ $('#add a').live('click',function(){
 </script>
 
 <div id="add">
-<a href=#">+</a>
+<a href=#"> <button> + </button></a>
+</div>
 
 </div>
+<input type = "submit" name = "btn_dish_add" value = "Принять" >
+<a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/"; ?>" ><button>Отмена</button></a> 
 </div>
-<input type = "submit" name = "btn_dish_add" >
-<a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/"; ?>" ><button >Отмена</button></a> 
-</div>
+
 </form>
