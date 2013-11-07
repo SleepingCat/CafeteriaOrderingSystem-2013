@@ -1,44 +1,50 @@
 <div align="center">
-
+<!--  
 <style>
 td,table 
 {
-	border:1px solid black;
+	margin-top: 35px;	
+	text-align: left;
+	border-collapse: collapse;
+	color: #F5D694;	
 	
 }
 </style>
+-->
 
-<table  style = "background: #A0522D">
-  <tr style = "border: 1px solid black">
-    <th>Название</th>
-    <th>Ингридиенты</th>
-    <th>Порции</th>
-    <th>Тип</th>
-    <th>Категория</th>
-    <th> </th>
+<table class = "Datatable">
+  <tr>
+    <th class = "Datacell TabHeader">Название</th>
+    <th class = "Datacell TabHeader">Ингридиенты</th>
+    <th class = "Datacell TabHeader">Порции</th>
+    <th class = "Datacell TabHeader">Тип</th>
+    <th class = "Datacell TabHeader">Категория</th>
+    <th class = "Datacell TabHeader"> </th>
+    <th class = "Datacell TabHeader"> </th>
   </tr>
  
 <?php
 foreach ($reestr as $key=>$value)
 {
 	echo "<tr>";
-	echo "<td>".$value['dish_name']."</td>"; 
-	echo "<td>";
+	echo "<td  class = \"Datacell\">".$value['dish_name']."</td>"; 
+	echo "<td  class = \"Datacell\">";
     foreach ($value['ingredients'] as $key1=>$value1)
 	{
 	 	echo $value1['product_name']."<br>";
 	}		
 	echo "</td>";
-	echo "<td>";
+	echo "<td class = \"Datacell\">";
 	foreach ($value['portions'] as $key1=>$value1)
 	{
 		echo $value1['type_name']."<br>";
 	}
 	echo "</td>";
-	echo "<td>".$value['type']."</td>";
-	echo "<td>".$value['category']."</td>";
+	echo "<td class = \"Datacell\">".$value['type']."</td>";
+	echo "<td class = \"Datacell\">".$value['category']."</td>";
 	
-	echo "<td><a onclick=\"return confirm('?')\"  href=\"http://".$_SERVER['HTTP_HOST']."/reestr/delete/".$value['dish_id']."\"><button>Удалить</button></a></td><td><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/edit/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
+	echo "<td class = \"Datacell\"><a onclick=\"return confirm('?')\"  href=\"http://".$_SERVER['HTTP_HOST']."/reestr/delete/".$value['dish_id']."\"><button>Удалить</button></a></td>
+    	  <td class = \"Datacell\"><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/edit/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
 	echo "</tr>";
 }
 
