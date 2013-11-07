@@ -5,6 +5,7 @@ class Controller_Userprofile extends Controller_Checkinputusers
 
 public function action_index()	
 	{				
+		$error=array();
 		$id=$this->user['id'];				
 		$users = ORM::factory('user')
 			->where('id', '=', $id);		
@@ -17,7 +18,7 @@ public function action_index()
 		$this->content=View::factory('templates/admin/users/regview', array(
 				'item' =>array_merge($users->as_array()),				
 		))
-		->set('errors','');
+		->set('errors',$error);
 		 
 		 $this->title = 'Профиль клиента';	
 		$this->styles = array('media/css/bootstrap.css' => 'screen');		
@@ -28,6 +29,7 @@ public function action_index()
 	{
 		$register = new Model_Regandraduser();
 		$val = new Model_Valid();
+		$errors=Array();
 	
 		// Protect page
 		if ($this->request->method() !== Request::POST)
@@ -68,9 +70,6 @@ public function action_index()
 		->rule('building', 'Model_Valid::valid_string',array(':value'))
 		->rule('floor', 'Model_Valid::valid_string',array(':value'))
 		->rule('office', 'Model_Valid::valid_string',array(':value'))		
-		//->rule('building', 'not_empty')
-		//->rule('floors', 'not_empty')
-		//->rule('num_office', 'not_empty')
 		->rule('employee_number', 'not_empty')
 		->rule('employee_number', 'Model_Valid::tab_number',array(':value',$tab_numb))
 		->rule('email', 'not_empty')
@@ -81,46 +80,49 @@ public function action_index()
 		->rule('employee_number', 'Model_Valid::tab_number',array(':value'))
 		->rule('employee_number', 'Model_Valid::tab_number_unique',array(':value',$tab_numb_old));
 			
-		if (!empty($post['password']))
+		if (!empty($post['password']) OR (!empty($post['password_old'])))
 		{
 			$post
 			->rule('password', 'Model_Valid::login_valid',array($login ,$password))
 			->rule('password', 'min_length', array(':value', 6))
 			->rule('password', 'max_length', array(':value', 16))
+			->rule('password', 'not_empty')
 			->rule('password', 'Model_Valid::preg_match')
-			->rule('password_old', 'Model_Valid::check_password',array($hashpas,$hasholdpas));
-			
-		//	->rule('password_confirm', 'not_empty')
-			//->rule('password_confirm', 'matches', array(':validation', 'password', 'password_confirm'));
-		}
-	
+			->rule('password_old', 'not_empty')
+			->rule('password_old', 'Model_Valid::check_password',array($hashpas,$hasholdpas));			
+		}	
 		// remove password if empty
 		if (empty($_POST['password']))
 		{
 			unset($_POST['password']);
-		}
-	
+		}	
 		// Функция для кнопки назад на вьюшке
 		if ($this->request->post('back'))
 		{
-			$this->redirect('/admin/users');
-		}
-	
-		if ($post->check())
+			$this->redirect('');
+		}		
+		// Функция для кнопки назад на вьюшке
+		if ($this->request->post('subcspiction'))
 		{
+			$this->redirect('/order');
+		}	
+		if ($post->check())
+		{		
 			if($register->reg_profile())
 			{				
-				$this->redirect('');				
-			}
-		}
-	
+				$this->redirect('');
+			}				
+		}		
+		
 		// Список ошибок валидации, хранится в файле messages/validation.php
 		View::set_global('errors', $post->errors('validation'));
 	
 		$roles = $register->find_role();
+		
 		$this->content= View::factory('templates/admin/users/regview')
 		->set(array(
-				'item' => $post->data(),		
+				'item' => $post->data(),
+					
 		)
 		);
 		//$this->styles = array('media/css/style.css' => 'screen');

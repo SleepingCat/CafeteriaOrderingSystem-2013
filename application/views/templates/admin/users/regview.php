@@ -1,118 +1,106 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');?>
 
-?>    
-<form action="<?php echo URL::site('/Userprofile/saveprofile') ?>" method="post">
-				<table class="login">
-					<tr >
-						<h3><td colspan="2"  style="padding-bottom:10px; font-size:20px; font-weight: bolder; text-align:right; ">Профиль клиента</td></h3>
-					</tr>
-					<tr>
-						<td style="text-align:right;">Логин:</td>
-						<td><input type="text" name="username" value="<?php echo Arr::get($item, 'username') ?>"/>
-						<?php if (Arr::get($errors, 'username')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'username') ?></div>
-	                    <?php endif; ?>
-	                    	<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
-						 </td>									
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Старый пароль:</td>
-						<td><input type="password_old" name="password_old" id="password_old"/>						
-						 <?php if (Arr::get($errors, 'password_old')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'password_old') ?></div>
-	                    <?php endif; ?></td>	
-						                    
-					</tr>
-					<tr>
-						<td style="text-align:right;">Пароль:</td>
-						<td><input type="password" name="password" id="password"/>
-						 <?php if (Arr::get($errors, 'password')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'password') ?></div>
-	                    <?php endif; ?></td>	                   
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">E-mail:</td>
-						<td><input type="text" name="email" id="email" value="<?php echo Arr::get($item, 'email') ?>"/>
-						 <?php if (Arr::get($errors, 'email')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'email') ?></div>                            
-	                    <?php endif; ?></td>	
-	                     <td><input type="hidden" name="email_old" id="email" value="<?php echo Arr::get($item, 'email') ?>"/>                   
-					</tr>
-					
-					
-					<tr>
-						<td style="text-align:right;">Фамилия:</td>
-						<td><input type="text" name="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
-						 <?php if (Arr::get($errors, 'surname')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'surname') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					<tr>
-						<td style="text-align:right;">Имя:</td>
-						<td><input type="text" name="name" value="<?php echo Arr::get($item, 'name') ?>"/>
-						 <?php if (Arr::get($errors, 'name')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'name') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Отчество:</td>
-						<td><input type="text" name="patronymic" value="<?php echo Arr::get($item, 'patronymic') ?>"/>
-						 <?php if (Arr::get($errors, 'patronymic')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'patronymic') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Здание:</td>
-						<td><input type="text" name="building" value="<?php echo Arr::get($item, 'building') ?>"/>
-						 <?php if (Arr::get($errors, 'building')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'building') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Этаж:</td>
-						<td><input type="text" name="floor" value="<?php echo Arr::get($item, 'floor') ?>"/>
-						 <?php if (Arr::get($errors, 'floor')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'floor') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Номер кабинета:</td>
-						<td><input type="text" name="office" value="<?php echo Arr::get($item, 'office') ?>"/>
-						 <?php if (Arr::get($errors, 'office')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'office') ?></div>
-	                    <?php endif; ?></td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Табельный номер:</td>
-						<td><input type="text" name="employee_number1" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
-						 <?php if (Arr::get($errors, 'employee_number')) : ?>
-                            <div class="help-block"><?php echo Arr::get($errors, 'employee_number') ?></div>
-	                    <?php endif; ?>
-	                      <input type="hidden" name="employee_number"  value="<?php echo Arr::get($item, 'employee_number') ?>"/>
-	                      <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>  </td>
-					</tr>
-					
-					<tr>
-						<td style="text-align:right;">Оплата заказа  удержанием из зарплаты:</td>
-						<td style="text-align:left;">Да:<input type="radio" name="payment_type" value="1" 
-						<?php if ( Arr::get($item, 'payment_type')==1 ) : ?> checked="checked" <?php endif ?>/>	
-						Нет:<input type="radio" name="payment_type" value="0"
-						 <?php if ( Arr::get($item, 'payment_type')==0 ) : ?> checked="checked" <?php endif ?>/>					 
-	                   </td>
-					</tr>
-					
-					<th colspan="2" style="text-align:right"><input type="submit" value="OK" style="width:170px; height:30px" name="subm"></th>
-				</table>
-				
-				 <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">
-				
-                            
-		       
-	    </form>
+<?php echo HTML::style('media/css/adminCSS.css'); 
+ echo HTML::style('media/css/add-form.css') ?>
+
+<form action="<?php echo URL::site('/Userprofile/saveprofile') ?>" method="post" name="user-form" class="MyForm">
+
+<div class="FormTopBorder"><?php echo __('Профиль клиента: :user', array(':user' => Arr::get($item, 'username'))) ?></div>
+
+<div class="FormArea">
+	<table>
+		<tr>
+			<td class="Field">
+			<fieldset class="Fieldset"><legend>Профиль</legend>			
+			    <div class="TitledTextboxArea">
+			        <?php echo __('Имя пользователя:') ?><br>
+			        <input type="text" class="TextBox" size="25" maxlength="16" name="username"  id="username" value="<?php echo Arr::get($item, 'username') ?>"/>
+			    </div>
+			    <div class="TitledTextboxArea">
+			        <?php echo __('Email:') ?><br>
+			        <input type="text" class="TextBox" size="25" maxlength="25"  name="email" id="email" value="<?php echo Arr::get($item, 'email') ?>"/>
+			    </div>
+			    <div class="TitledTextboxArea">
+			        <?php echo __('Пароль:') ?><br>
+			        <input type="password" class="TextBox" size="25" maxlength="16" name="password" id="password"/>
+			    </div>
+			    <div class="TitledTextboxArea">
+			        <?php echo __('Введите старый пароль:') ?><br>
+			        <input type="password" class="TextBox" size="25" maxlength="16" name="password_old" id="password_confirm"/>
+			    </div>			    
+			
+			</td><td class="Field">
+			<fieldset class="Fieldset"><legend>Личные данные</legend>
+				<div class="TitledTextboxArea">
+				    <?php echo __('Табельный номер:') ?><br>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="employee_number1" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+				  <input type="hidden" class="TextBox" size="6" maxlength="6" name="employee_number" value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+				</div>
+				<div class="TitledTextboxArea">
+				    <?php echo __('Фамилия:') ?><br>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="surname" id="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
+				</div>
+				<div class="TitledTextboxArea">
+				    <?php echo __('Имя:') ?><br>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="name" id="name" value="<?php echo Arr::get($item, 'name') ?>"/>
+				</div>
+				<div class="TitledTextboxArea">
+				    <?php echo __('Отчество:') ?><br>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="patronymic" id="patronymic" value="<?php echo Arr::get($item, 'patronymic') ?>"/>
+				</div>
+			</fieldset></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td class="Field2">
+			<fieldset class="Fieldset"><legend>Адрес доставки по умолчанию</legend>
+				<div class="TitledTextboxArea InlineBlockClass">
+				    <?php echo __('Здание:') ?><br>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="building" id="building" value="<?php echo Arr::get($item, 'building') ?>"/>
+				</div>
+				<div class="TitledTextboxArea InlineBlockClass">
+				    <?php echo __('Этаж:') ?><br>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="floor" id="floor" value="<?php echo Arr::get($item, 'floor') ?>"/>
+				</div>
+				<div class="TitledTextboxArea InlineBlockClass">
+				    <?php echo __('Номер кабинета:') ?><br>
+				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number" value="<?php echo Arr::get($item, 'office') ?>"/>
+				</div>
+			</fieldset></td>
+		</tr>		
+		<tr>
+			<td class="Field" align="center">
+				<label class="FontColor">
+					<?php echo __('Оплата заказа посредством удержания из зарплаты:') ?>
+					<sub><input class="CheckBox" id="payment_type" type="checkbox" name="payment_type" value="1"
+		    		  <?php if ( Arr::get($item, 'payment_type')==1 ) : ?> checked="checked" <?php endif ?>/>
+                    </sub>
+				</label>				
+			</td>			
+			<td></td>						
+		</tr>		
+</table>
+
+<div align="left" class="FailText">	
+<?if(isset($errors)){?>
+<ul class="FailList">
+		<?foreach($errors as $error){?>
+			<li><?=$error?></li>
+		<?}?>
+</ul>
+<?}?>	
+</div>
+<input type="submit" class="EntBut EntBut-color" name="subcspiction"  id="input1" value="<?php echo __('Мои заказы') ?>" />	
+</div>
+
+<div class="FormBottomBorder">
+	<input type="submit" class="EntBut EntBut-color" name="save"  id="input1" value="<?php echo __('Сохранить') ?>" />
+    <input type="submit" class="EntBut EntBut-color" name="back" id="cancel" value="<?php echo __('Отмена') ?>" />
+</div>		
+		<input type="hidden" name="email_old" value="<?php echo Arr::get($item, 'email') ?>"/>
+		<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
+        <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">	
+        <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>	
+        
+</form>

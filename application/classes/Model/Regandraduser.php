@@ -69,10 +69,32 @@ class Model_Regandraduser
  	public function reg_profile()
  	{		try
  		{
- 			$user = ORM::factory('user', Arr::get($_POST, 'id')); 	
+ 			//Изменяем строки в полях: этаж,здание,номер кабинета,если пользователь вводит в роле больше двух пробелов
+ 			$floor=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'floor'));
+ 			$building=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'building'));
+ 			$office=preg_replace('/\s{2,}+/', ' ', Arr::get($_POST, 'office'));
+ 			
+ 			$user = ORM::factory('user', Arr::get($_POST, 'id'));
+ 			//Записываем в поле таблицы: floor переменную $floor
+ 			$user->floor=$floor;
+ 			//Записываем в поле таблицы: building переменную $building
+ 			$user->building=$building;
+ 			//Записываем в поле таблицы: office переменную $office
+ 			$user->office=$office;
+ 			 	
  			// update user
- 			$user->values($_POST, array('username','email', 'password','payment_type','name','surname','patronymic','building','floor','office','employee_number'))->save();
- 		 		return true;
+ 			$user->values($_POST, array('username','email','name','surname','patronymic','employee_number'))->save();
+ 		 		
+ 			// Устанавлием пол-лю статус 0(т.е false, что он не уволен)
+ 			$user->payment_type=0;
+ 				
+ 			// Записываем статус в таблицу Users
+ 			$user->save();
+ 			
+ 			// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й уволен)
+ 			$user->values($_POST, array("payment_type"))->save();
+ 			
+ 			return true;
  		} 	
  		catch(ORM_Validation_Exception $e)
  		{
