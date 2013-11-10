@@ -130,6 +130,7 @@ class Controller_Front extends Kohana_Controller_Template {
 			$scripts = array(
 				$media->uri(array('file' => 'js/jquery.min.js')),
 				$media->uri(array('file' => 'js/jquery-ui.min.js')),
+				$media->uri(array('file' => 'js/mainScript.js')),
 			);
 		}
 		// Assign variables to template variables

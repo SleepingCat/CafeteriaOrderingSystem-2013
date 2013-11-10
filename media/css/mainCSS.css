@@ -5,86 +5,98 @@ html{
 }
 
 body{	
-	background-color: #000000;
-	min-width:1004px;
 	margin: 0px;
 	padding: 0px;
+	background-color: #000000;
+	min-width:1260px;	
 }
 
-/*Область под фоновое изображение*/
+/*Главный контейнер*/
 .MainArea{
-	min-width:1004px;
+	margin: 0 auto;	
+	width: 1260px;	
 }
 
-/*Фоновое изображение*/
-.imgBG{
-	display:block;
-	position:absolute;
-	top:50px;
-	left:0px;	
-	min-width:1004px;
-	width:100%;
-	height:auto;
-	z-index:-1;
-}
-
-/*Область заголовка под логотип и панель личных данных*/
+/*Область заголовка под логотип*/
 header{
-	margin-left: 15%;
-	margin-right: 15%;			
+	background-image: url(../image/Template/Header.png);	
+	height: 308px;
+	text-align: center;
 }
 
 /*Логотип*/
 .Logo{
-	width: 45%;
-	height: auto;
-	position: relative;	
-}
-
-/*Панель для личных данных, кнопки выхода и.т.п*/
-.Personal{
-	background-color: #D1B078;
 	width: 35%;
-	height: 50px;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	margin-left: 65%;
-	text-align: center;
-	border-style: none ridge ridge;
-}
-
-/*Главная рабочая область*/
-.WorkArea{	
-	margin-left: 15%;
-	margin-right: 15%;
-	padding-top: 15px;
-	padding-bottom: 50px;
-	min-height: 720px;	
-	display: block;
-	border-radius: 30px;
-	background-image: url(../image/MainTemplate/WoodTexture.jpg);	
-	color: #F5D694;
-	text-align: center;
-	font-size: large;
+	height: auto;
+	margin-top: 170px;	
 }
 
 /*Главная панель, для навигации по системе*/
 .MainPanel{
+	background-image: url(../image/Template/MainPanel.png);
+	height: 120px;	
+}
+
+/*Лента, перекрывающая главную панель*/
+.UpperFlag{
+	z-index: 1;
+	position: absolute;
+}
+
+/*Главная рабочая область*/
+.WorkArea{				
+	background-image: url(../image/Template/WorkAreaTexture_Full.png);
+	background-repeat: repeat-y;
+	color: #4B1573;
 	text-align: left;
-	margin-left: 15px;
-	margin-right: 15px;
-	border-style: solid;
-	background-color: rgba(0,0,0,0);
-	border-radius: 15px;
-	height: 50px;
-	vertical-align: middle;
-	border-width: 3px;
-	border-color: #F5D694;	
+	font-size: 18px;
+	display: table;
+	overflow-y: scroll;	
+}
+
+/*Изображение в верхней части рабочей области*/
+.WorkAreaImage{
+	min-height: 600px;
+	background-image: url(../image/Template/WorkArea_Full.png);
+	background-repeat: no-repeat;	
+}
+
+/*Левый блок рабочей области*/
+.LeftBlock{
+	height: 100px;
+	width: 250px;	
+	padding-left: 30px;
+	text-align: left;
+	display: table-cell;	
+	vertical-align: top;					
+}
+
+/*Правый блок рабочей области*/
+.RightBlock{
+	height: 100px;
+	width: 250px;	
+	margin-left: 1010px;
+	text-align: left;
+	display: table-cell;	
+	vertical-align: top;			
+}
+
+/*Центральный блок рабочей области*/
+.CentralBlock{
+	text-align: center;
+	height: 100px;
+	width: 760px;
+	margin-left: 250px;
+	display: table-cell;
+	vertical-align: top;		
 }
 
 /*Нижняя часть страницы*/
-.Underground{
+footer{
 	height: 100px;
 	color: #FFFFFF;
-	text-align: center;	
-}
+	text-align: center;
+	background-image: url(../image/Template/Footer.png);
+	background-repeat: no-repeat;
+	padding-top: 40px; 	
+}                    
