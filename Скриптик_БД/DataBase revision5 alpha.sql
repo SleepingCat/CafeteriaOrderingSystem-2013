@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3307
--- Время создания: Ноя 10 2013 г., 00:30
+-- Время создания: Ноя 10 2013 г., 22:26
 -- Версия сервера: 5.6.13-log
 -- Версия PHP: 5.4.17
 
@@ -432,7 +432,13 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 INSERT INTO `roles_users` (`role_id`, `user_id`) VALUES
 (2, 2),
 (3, 3),
-(4, 5);
+(4, 5),
+(1, 2),
+(3, 2),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 5);
 
 -- --------------------------------------------------------
 
@@ -483,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `name`, `employee_number`, `payment_type`, `discount`, `user_status`, `logins`, `last_login`, `surname`, `patronymic`, `floor`, `office`, `building`) VALUES
-(1, 'administrator', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur4iK@rambler.ru', 'Дмитрий', 111111, 1, NULL, 0, 16, 1382638819, 'Бабурин', 'Владимирович', '1', '38', '5б'),
+(1, 'administrator', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur4iK@rambler.ru', 'Дмитрий', 111111, 1, NULL, 0, 17, 1384107525, 'Бабурин', 'Владимирович', '1', '38', '5б'),
 (2, 'Xochenkov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'xochenkov@rambler.ru', 'Алексей', 222222, 1, NULL, 0, 10, 1382546568, 'Хоченков', 'Евгеньевич', '4', '7', '11'),
 (3, 'Umnov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'umnov@oe-it.ru', 'Денис', 343, 0, 0, 0, 3, 1382535564, 'Умнов', 'Михайлович', '2', '1', '3'),
 (5, 'galogen', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'galogenIt@gmail.com', 'Эдуард ', 111112, 0, NULL, 0, 1, 1382639250, 'Галиаскаров', 'Геннадьевич', '2', '33', '6');
