@@ -16,7 +16,8 @@
 </header>
 
 <div class="MainPanel">
-<?php echo HTML::image('media/image/Template/MainPanelUpper.png', array('class' => 'UpperFlag')); ?> 
+<?php echo HTML::image('media/image/Template/MainPanelUpperLeft.png', array('class' => 'UpperFlag')); ?> 
+<?php echo HTML::image('media/image/Template/MainPanelUpperRight.png', array('class' => 'UpperFlag UpperFlagRight')); ?> 
 <!-- Кнопки главной панели 
 <?php if( $guest == "Гость")    
   {?>    	
@@ -35,6 +36,36 @@
 		echo ' ActiveButton';?>
 	"><?php echo ($item['name_link'])?></a><?php endforeach; ?>    
   -->
+  
+<nav>
+<ul class="MainMenu">
+<li class="MainPanelItem" id="MB0">
+	<span class="MainPanelButton">Меню 1</span>
+    <ul class="MainPanelMenu">
+        <li><a href="#" class="NavLink">Пункт 1</a></li>
+        <li><a href="#" class="NavLink">Пункт 2</a></li>
+        <li><a href="#" class="NavLink">Пункт 3</a></li>
+    </ul>
+</li>
+<li class="MainPanelItem" id="MB1">
+    <span class="MainPanelButton">Меню 2</span>
+    <ul class="MainPanelMenu">
+        <li><a href="#" class="NavLink">Пункт 1</a></li>
+        <li><a href="#" class="NavLink">Пункт 2</a></li>
+        <li><a href="#" class="NavLink">Пункт 3</a></li>
+    </ul>
+</li>
+<li class="MainPanelItem" id="MB2">
+    <span class="MainPanelButton">Меню 3</span>
+    <ul class="MainPanelMenu">
+        <li><a href="#" class="NavLink">Пункт 1</a></li>
+        <li><a href="#" class="NavLink">Пункт 2</a></li>
+        <li><a href="#" class="NavLink">Пункт 3</a></li>
+    </ul>
+</li>
+</ul>
+</nav>
+
 </div>
 
 

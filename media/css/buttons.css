@@ -1,24 +1,47 @@
 @charset "utf-8";
 
+/*Список кнопок на главной панели*/
+.MainMenu{
+	list-style-type: none;	
+	list-style-position: inside;
+	display: table;
+	padding: 0px;
+	margin: 0px 270px;			
+}
+
+/*Элемент списка кнопок на главной панели*/
+.MainPanelItem{
+	display: table-cell;	
+}
+
 /*Кнопка на главной панели*/
 .MainPanelButton{
 	width: 100px;
 	height: 50px;
-	display: inline-block;
+	display: inline-block;	
 	text-align: center;
 	border-right-width: thin;
 	border-right-style: solid;
 	border-color: #F5D694;
 	text-decoration: none;
 	background-color: rgba(0,0,0,0.35);
-	color: #F5D694;
-	position: static;
-	line-height: 2.6em;
+	color: #F5D694;	
+	line-height: 2.6em;		
 }
 .MainPanelButton:hover{
 	background-color: rgba(255,255,255,0.35);
 	color: #492B23;
 }
+
+/*Выпадающее меню*/
+.MainPanelMenu{
+	list-style-type: none;	
+	list-style-position: inside;	
+}
+
+
+
+
 
 /*Отдельный класс для левой кнопки со скругленными углами*/
 .LeftButton{

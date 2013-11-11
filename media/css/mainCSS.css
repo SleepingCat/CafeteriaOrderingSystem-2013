@@ -20,7 +20,7 @@ body{
 /*Область заголовка под логотип*/
 header{
 	background-image: url(../image/Template/Header.png);	
-	height: 308px;
+	height: 338px;
 	text-align: center;
 }
 
@@ -34,13 +34,17 @@ header{
 /*Главная панель, для навигации по системе*/
 .MainPanel{
 	background-image: url(../image/Template/MainPanel.png);
-	height: 120px;	
+	height: 90px;		
 }
 
 /*Лента, перекрывающая главную панель*/
 .UpperFlag{
 	z-index: 1;
 	position: absolute;
+}
+
+.UpperFlagRight{
+	margin-left: 976px;
 }
 
 /*Главная рабочая область*/
