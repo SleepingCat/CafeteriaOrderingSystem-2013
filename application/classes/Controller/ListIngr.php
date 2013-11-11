@@ -1,13 +1,24 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_AddIngr extends Controller_Front
+class Controller_ListIngr extends Controller_Front
 {
 	public function action_index()
 	{
-		$this->title = "Добавить ингредиент";
+		$listIngr = DB::query(Database::SELECT, 'SELECT * from products')
+		->execute()
+		->as_array();
 		
-		$this->content = View::factory('ingridients/addIngr')
-		->set("text",$text="");
+		//Передаем полученные данные во вьюху
+		$this->content = View::factory('ingridients/listIngr')
+		->set('list', $listIngr);
+		
+		if (@$_POST['newIngr'])
+		{
+			$this->title = "Добавить ингредиент";
+			
+			$this->content = View::factory('ingridients/addIngr')
+			->set("text",$text="");
+		}
 	}
 	
 	public function action_AddData()
@@ -25,6 +36,11 @@ class Controller_AddIngr extends Controller_Front
 			$text = "Введите данные!";
 			$this->content = View::factory('ingridients/addIngr')
 			->set("text",$text);
+		}
+		
+		if (@$_POST['reverse'])
+		{
+			$this -> redirect('ListIngr');
 		}
 	}
 }
