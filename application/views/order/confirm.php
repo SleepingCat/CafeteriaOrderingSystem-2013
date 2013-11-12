@@ -19,8 +19,8 @@
 	$summ = 0;
 	foreach ($_SESSION['order'] as $key => $value)
 	{
-		echo $value['dish_name']."(".$value['price'].") x".$value['servings_number']."<br>";
-		$summ += $value['price']*$value['servings_number'];
+		echo $value['dish_name']."(".$value['portions'][$value['portion']]['portion_type'].") ".$value['portions'][$value['portion']]['price']."x".$value['servings_number']."<br>";
+		$summ += $value['portions'][$value['portion']]['price']*$value['servings_number'];
 	}
 	echo "Итого: ".$summ."<br>";
 	echo "Выберите форму заказа:<br>";
@@ -30,15 +30,14 @@
 			Без доставки
 		</option>";
 
-
 if (isset($delivery_point))
 {
 	echo '<option value="'.$delivery_point.'">';
 	echo	$delivery_point;
-	echo '</option>';
+	echo '</option></select>';
 }
 ?>
-</select><br>
+<br>
 <div id="delivery_time">
 	Выберите время доставки:<br>
 	<select name = "delivery_time">

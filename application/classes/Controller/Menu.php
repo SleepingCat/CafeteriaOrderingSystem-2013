@@ -102,6 +102,7 @@ class Controller_Menu extends Controller_Checkinputusers
 			$model_menu = new Model_Menu();
 			$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
 			$order = $_POST['cart'];
+			print_r($order);
 			foreach ($order as $key => $value)
 			{
 				if (preg_match('/^[0-9]{1,2}$/', $value) != 1)
@@ -111,8 +112,9 @@ class Controller_Menu extends Controller_Checkinputusers
 				}
 				if ($value > 0)
 				{
-					$_SESSION['order'][$key] = $menu[$key];
-					$_SESSION['order'][$key]['servings_number'] = $value;
+					$_SESSION['order'][$key."|".$_POST['portion']] = $menu[$key];
+					$_SESSION['order'][$key."|".$_POST['portion']]['servings_number'] = $value;
+					$_SESSION['order'][$key."|".$_POST['portion']]['portion'] = $_POST['portion'];
 				}
 			}
 		}

@@ -67,7 +67,7 @@ class Controller_Order extends Controller_Checkinputusers
 			if (!empty($_SESSION['mk_order_id'])) {
 				$error_code = $model_order->update_order($_SESSION['mk_order_id'], $_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['mk_order_menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			}
-			else 
+			else
 			{
 				$error_code = $model_order->make_order($_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['mk_order_menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			}

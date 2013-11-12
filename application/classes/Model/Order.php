@@ -20,12 +20,14 @@ class Model_Order extends Model
 	public function get_order($UserId, $OrderId)
 	{
 		$order_detail = DB::query(Database::SELECT,
-				"SELECT order_id, user_id, delivery_times_delivery_id, order_date, delivery_date,
+				"SELECT DISTINCT menu_record_menu_id as menu_id, orders.order_id, user_id, delivery_times_delivery_id, order_date, delivery_date,
 				delivery_point, order_status, total_price, subscription_subs_id,
 				delivery_time
-				FROM `orders`,`delivery_times`
-				WHERE (user_id = :UserId) and (delivery_id = delivery_times_delivery_id)
-				and (order_id = :OrderId)")
+				FROM `orders`,`delivery_times`,`orders_records`
+				WHERE (user_id = :UserId) 
+				AND (delivery_id = delivery_times_delivery_id)
+				AND (orders.order_id = orders_records.order_id)
+				AND (orders.order_id = :OrderId)")
 					->param(':UserId', $UserId)
 					->param(':OrderId', $OrderId)
 					->execute()
@@ -33,14 +35,18 @@ class Model_Order extends Model
 		if (!empty($order_detail))
 		{
 			$order_detail[0]['dishes'] = DB::query(Database::SELECT,
-					"SELECT menu_records.menu_id, dishes.dish_id,dish_name,servings_number, price
-					FROM orders_records, dishes, menu_records
-					WHERE (order_id = :OrderId)
-					AND dishes.dish_id = orders_records.menu_record_dish_id
-					AND dishes.dish_id = menu_records.dish_id")
+					"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type.id, type_name
+					FROM orders_records, dishes, menu_records, portion_type
+					WHERE dishes.dish_id = orders_records.menu_record_dish_id
+					AND dishes.dish_id = menu_records.dish_id
+					AND menu_records.portion_type_id = orders_records.menu_record_portion_type_id
+					AND orders_records.order_id = :OrderId
+					AND portion_type.id = menu_records.portion_type_id
+					AND menu_id = :MenuId")
 						->param(':OrderId', $OrderId)
+						->param(':MenuId', $order_detail[0]['menu_id'])
 						->execute()
-						->as_array('dish_id');
+						->as_array();
 		}
 		return $order_detail[0];
 	}
@@ -92,7 +98,7 @@ class Model_Order extends Model
 		$Total_price = 0;
 		foreach ($Order as $key => $value)
 		{
-			$Total_price += $value['servings_number']*$value['price'];
+			$Total_price += $value['servings_number']*$value['portions'][$value['portion']]['price'];
 		}
 		$result = DB::query(Database::INSERT,
 		"INSERT INTO `orders`(order_date, delivery_date, delivery_times_delivery_id,
@@ -111,11 +117,12 @@ class Model_Order extends Model
 			foreach ($Order as $key => $value)
 			{
 				DB::query(Database::INSERT,
-				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, servings_number)
-				VALUES(:dishId,:menuId,:orderId,:servings_number)")
-						->param(':dishId', $key)
+				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_portion_type_id, menu_record_menu_id, order_id, servings_number)
+				VALUES(:dishId,:portion,:menuId,:orderId,:servings_number)")
+						->param(':dishId', $value['dish_id'])
 						->param(':menuId', $MenuId)
 						->param(':orderId', $result[0])
+						->param(':portion', $value['portion'])
 						->param(':servings_number', $value['servings_number'])
 						->execute();
 			}
@@ -154,9 +161,10 @@ class Model_Order extends Model
 			foreach ($Order as $key => $value)
 			{
 				DB::query(Database::INSERT,
-				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, servings_number)
-				VALUES(:dishId,:menuId,:orderId,:servings_number)")
-					->param(':dishId', $key)
+				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, portion_type_id, servings_number)
+				VALUES(:dishId,:menuId,:orderId,:portionType,:servings_number)")
+					->param(':dishId', $value['dish_id'])
+					->param(':potrionType', $value['portion_type_id'])
 					->param(':menuId', $MenuId)
 					->param(':orderId', $OrderId)
 					->param(':servings_number', $value['servings_number'])
