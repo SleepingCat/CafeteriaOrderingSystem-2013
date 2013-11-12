@@ -44,7 +44,7 @@ class Controller_Deliveryorders  extends Controller_Checkinputusers
 			{
 				$_SESSION['Mes'] = "Заказ не найден";
 				$this->title = "Поиск заказа";
-				$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
+				$this->redirect("http7://".$_SERVER['HTTP_HOST']."/Deliveryorders");
 			}
 		}
 		else die('Bad request');
@@ -59,7 +59,7 @@ class Controller_Deliveryorders  extends Controller_Checkinputusers
 		if ($StateStatus1 == $OldStatus)
 		{
 			$_SESSION['Mes'] = "Состояние заказа не изменено.";
-			$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
+			$this->redirect("http://".$_SERVER['HTTP_HOST']."/Deliveryorders");
 		} 
 		else 
 		{
@@ -82,6 +82,6 @@ class Controller_Deliveryorders  extends Controller_Checkinputusers
 			$register->setStatus($CurrNumb, $Status);
 		}
 		$_SESSION['Mes'] = "Состояние успешно изменено.";
-		$this->redirect("https://".$_SERVER['HTTP_HOST']."/deliveryorder");
+		$this->redirect("http://".$_SERVER['HTTP_HOST']."/Deliveryorders");
 	}
 }

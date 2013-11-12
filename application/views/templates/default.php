@@ -75,9 +75,9 @@
 <div class="LeftBlock">
     Дополнительные данные
 </div>
-    
 <div class="CentralBlock">
-    <?php echo $content; ?>
+    <?php if ($message <> "") echo $message;
+    echo $content; ?>
 </div>
     
 <div class="RightBlock">

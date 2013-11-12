@@ -2,6 +2,15 @@
 
 <?php echo HTML::style('media/css/add-form.css') ?>
 
+<script type="text/javascript">
+function showMe (box)
+{
+var vis = (box.checked) ? "Если вы нажали на эту галку,значит вы собираетесь оплачивать заказы посредством удержания из зарплаты" : "Если вы сняли галку,значит вы отказываетесь оплачивать заказы посредством удержания";
+	{
+	 alert(vis);	
+	}
+}
+</script>
 <form action="<?php echo URL::site('/Userprofile/saveprofile') ?>" method="post" name="user-form" class="MyForm">
 
 <div class="FormTopBorder"><?php echo __('Мой профиль') ?></div>
@@ -32,7 +41,7 @@
 			<fieldset class="Fieldset"><legend>Личные данные</legend>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Табельный номер:') ?><br>
-				    <input type="text" class="TextBox" size="6" maxlength="6" name="employee_number1" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+				    <input type="text" class="TextBox" size="6" maxlength="6" id="1" name="employee_number1" disabled=true value="<?php echo Arr::get($item, 'employee_number') ?>"/>
 				  <input type="hidden" class="TextBox" size="6" maxlength="6" name="employee_number" value="<?php echo Arr::get($item, 'employee_number') ?>"/>
 				</div>
 				<div class="TitledTextboxArea">
@@ -64,7 +73,7 @@
 				</div>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Номер кабинета:') ?><br>
-				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number" value="<?php echo Arr::get($item, 'office') ?>"/>
+				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number"  value="<?php echo Arr::get($item, 'office') ?>"/>
 				</div>
 			</fieldset></td>
 		</tr>		
@@ -72,8 +81,10 @@
 			<td class="Field" align="center">
 				<label class="FontColor">
 					<?php echo __('Оплата заказа посредством удержания из зарплаты:') ?>
-					<sub><input class="CheckBox" id="payment_type" type="checkbox" name="payment_type" value="1"
-		    		  <?php if ( Arr::get($item, 'payment_type')==1 ) : ?> checked="checked" <?php endif ?>/>
+					<sub><input class="CheckBox" id="payment_type"  type="checkbox" onclick="showMe(this)"
+					 name="payment_type"  value="1"			
+		    		  <?php if ( Arr::get($item, 'payment_type')==1 ) : ?> checked="checked" <?php endif ?> />		    		  
+		    		
                     </sub>
 				</label>				
 			</td>			
@@ -90,16 +101,17 @@
 </ul>
 <?}?>	
 </div>
-<input type="submit" class="EntBut EntBut-color" name="subcspiction"  id="input1" value="<?php echo __('Мои заказы') ?>" />	
+<input type="submit" class="EntBut EntBut-color" name="subcspiction"  id="div1" value="<?php echo __('Мои заказы') ?>" />	
 </div>
 
 <div class="FormBottomBorder">
 	<input type="submit" class="EntBut EntBut-color" name="save"  id="input1" value="<?php echo __('Сохранить') ?>" />
     <input type="submit" class="EntBut EntBut-color" name="back" id="cancel" value="<?php echo __('Отмена') ?>" />
-</div>		
+    </div>		
 		<input type="hidden" name="email_old" value="<?php echo Arr::get($item, 'email') ?>"/>
 		<input type="hidden" name="username_old" value="<?php echo Arr::get($item, 'username') ?>"/>
         <input type="hidden" name="id" value="<?php echo Arr::get($item, 'id') ?>">	
-        <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>	
-        
+        <input type="hidden" name="employee_number_old" value="<?php echo Arr::get($item, 'employee_number') ?>"/>        
+
+
 </form>

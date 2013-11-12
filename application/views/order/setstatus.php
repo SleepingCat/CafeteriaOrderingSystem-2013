@@ -1,4 +1,4 @@
-<form action="/deliveryorder/orderanswerstatus" method="POST">
+<form action="/Deliveryorders/orderanswerstatus" method="POST">
 <?php
 echo "Заказ №".$OrderNumb."</br>";
 ?>

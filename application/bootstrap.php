@@ -142,7 +142,9 @@ Kohana::modules(array(
 	'unittest'   => MODPATH.'unittest',   // Unit testing
 	'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	'odtphp'	=> MODPATH.'odtphp',
+   'email'       => MODPATH.'email', // E-mail
 	  'pagination' => MODPATH.'pagination', // Pagination module
+	
 	));
 	
 		/**
