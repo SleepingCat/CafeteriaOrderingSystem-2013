@@ -21,7 +21,7 @@ public function before()
 		 Проверяем если пользователь зашел в систему как админ,то контроллер admin ему доступен(т.е админ-панель)
 		*/
 		if($auth->logged_in('admin') == 0)
-		$this->redirect('netprav');	
+		$this->redirect('');	
 		
 		return parent::before();		
 		

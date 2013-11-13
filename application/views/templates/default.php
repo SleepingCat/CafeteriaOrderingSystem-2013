@@ -37,6 +37,23 @@
 </nav> 
   <?}
     ?>
+	
+	
+	<?php if( $guest == "Гость")    
+  {?>    	
+<nav>
+	<ul class="MainMenu">
+	<li class="MainPanelItem" id="MB0">
+		<span class="MainPanelButton">Главное меню</span>
+	    <ul class="MainPanelMenu">	        
+		<li><a href="<?php echo URL::site('')?>" class="NavLink" >	 
+		<?php echo 'Просмотр меню'?></a></li>			
+	    </ul>
+	</li>
+	</ul>
+</nav> 
+  <?}
+    ?>
 
 </div>
 

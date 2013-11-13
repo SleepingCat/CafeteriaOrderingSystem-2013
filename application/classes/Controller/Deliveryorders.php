@@ -7,6 +7,7 @@ class Controller_Deliveryorders  extends Controller_Checkinputusers
 		if (!empty($_SESSION['Mes']))
 		{
 		   $Mes = $_SESSION['Mes']; 
+		   $this->message=$Mes;
 		   $_SESSION['Mes'] = "";
 		}
 		$this->message = $Mes; 
