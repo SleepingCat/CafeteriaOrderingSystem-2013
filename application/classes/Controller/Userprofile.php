@@ -4,7 +4,15 @@ class Controller_Userprofile extends Controller_Checkinputusers
 { 
 
 public function action_index()	
-	{				
+	{	
+		$Mes = "";
+		if (!empty($_SESSION['Mes']))
+		{
+			$Mes = $_SESSION['Mes'];
+			$this->message = $Mes;
+			$_SESSION['Mes'] = "";
+		}
+		$this->title = "Поиск заказа";
 		$error=array();
 		$id=$this->user['id'];				
 		$users = ORM::factory('user')
@@ -109,21 +117,24 @@ public function action_index()
 		if ($post->check())
 		{		
 			if($register->reg_profile())
-			{				
-				$this->redirect('');
+			{			
+				if($register->UpdateFlag())
+			    	$this->redirect('');
+				else
+				{
+					$_SESSION['Mes'] = 'Срок изменения типа регистрации не истек';
+				 	$this->redirect('/Userprofile');
+				}
 			}				
-		}		
+		}	
 		
 		// Список ошибок валидации, хранится в файле messages/validation.php
-		View::set_global('errors', $post->errors('validation'));
-	
-		$roles = $register->find_role();
-		
+		View::set_global('errors', $post->errors('validation'));	
+		$roles = $register->find_role();		
 		$this->content= View::factory('templates/admin/users/regview')
 		->set(array(
-				'item' => $post->data(),
-					
-		)
+				'item' => $post->data(),					
+			)
 		);
 		//$this->styles = array('media/css/style.css' => 'screen');
 	}

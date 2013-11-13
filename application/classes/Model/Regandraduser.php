@@ -79,22 +79,13 @@ class Model_Regandraduser
  			$user->floor=$floor;
  			//Записываем в поле таблицы: building переменную $building
  			$user->building=$building;
- 			//Записываем в поле таблицы: office переменную $office
+ 			//Записываем в поле a: office переменную $office
  			$user->office=$office;
  			 	
  			// update user
  			$user->values($_POST, array('username','email','name','surname','patronymic','employee_number'))->save();
- 		 		
- 			// Устанавлием пол-лю статус 0(т.е false, что он не уволен)
- 			$user->payment_type=0;
- 				
- 			// Записываем статус в таблицу Users
- 			$user->save();
  			
- 			// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й уволен)
- 			$user->values($_POST, array("payment_type"))->save();
- 			
- 			return true;
+ 			return  true;
  		} 	
  		catch(ORM_Validation_Exception $e)
  		{
@@ -137,5 +128,47 @@ class Model_Regandraduser
  	->param(':ID', Arr::get($_POST, 'id'))
  	->execute();
  }
-			 
+
+ /**
+  * Метод проверяет что бы флаг менялся не ранее 30 дней после последнего изменения
+  * @param unknown $userID - ключевое поле пользователя
+  * @return boolean
+  */
+ public  function chekDateChangeFlag($userID)
+ {
+    $NumOfDay = DB::query(Database::SELECT, 'SELECT DATEDIFF( NOW( ) , date_change ) as Razn from users u where u.id = :UID')
+    ->param(':UID', $userID)
+    ->execute()
+    ->get('Razn');
+    return $NumOfDay > 30;
+ }
+ 
+ public function  UpdateFlag()
+ {
+ 	try {
+ 	    $user = ORM::factory('user', Arr::get($_POST, 'id'));
+ 	    //Проверяем изменился ли флаг удержание из зарплаты и если изменился проверяем прошло ли 30 дней
+ 	    $OldValue = (int) ($user->payment_type);
+ 	    if ($OldValue  <> (Arr::get($_POST, 'payment_type')))
+     	{
+ 	    	if ($this->chekDateChangeFlag(Arr::get($_POST, 'id')))
+ 	     	{
+ 	    		// Записываем статус в таблицу Users
+ 	     		$user->payment_type = 0;
+ 	     		$user->save();
+ 	     		// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й может оплачивать свои заказы из зарплаты)
+ 	     		$user->values($_POST, array("payment_type"))->save();
+ 		    	$user->date_change = date("d.m.y");
+ 		    	$user->save();
+ 			    return true;
+ 		    }
+ 		   else return false;
+     	}
+ 	    return true;
+ 	}
+ 	catch(ORM_Validation_Exception $e)
+ 	{
+ 		return false;
+ 	}
+ }
 }

@@ -35,8 +35,7 @@ class Model_Order extends Model
 		if (!empty($order_detail))
 		{
 			$order_detail[0]['dishes'] = DB::query(Database::SELECT,
-					"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price,
-					portion_type.id as portion, type_name 
+					"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type.id, type_name
 					FROM orders_records, dishes, menu_records, portion_type
 					WHERE dishes.dish_id = orders_records.menu_record_dish_id
 					AND dishes.dish_id = menu_records.dish_id
@@ -48,11 +47,6 @@ class Model_Order extends Model
 						->param(':MenuId', $order_detail[0]['menu_id'])
 						->execute()
 						->as_array();
-			$model_menu = new Model_Menu();
-			foreach ($order_detail[0]['dishes'] as $dishid => $value)
-			{
-				$order_detail[0]['dishes'][$dishid]['portions'] = $model_menu->get_portions($order_detail[0]['menu_id'], $value['dish_id']);
-			}
 		}
 		return $order_detail[0];
 	}
@@ -167,10 +161,10 @@ class Model_Order extends Model
 			foreach ($Order as $key => $value)
 			{
 				DB::query(Database::INSERT,
-				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, menu_record_portion_type_id, servings_number)
+				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, portion_type_id, servings_number)
 				VALUES(:dishId,:menuId,:orderId,:portionType,:servings_number)")
 					->param(':dishId', $value['dish_id'])
-					->param(':portionType', $value['portion'])
+					->param(':potrionType', $value['portion_type_id'])
 					->param(':menuId', $MenuId)
 					->param(':orderId', $OrderId)
 					->param(':servings_number', $value['servings_number'])
@@ -192,7 +186,7 @@ class Model_Order extends Model
 		{
 		  $Constrain = " and order_status in (".$State.")"; 
 		}
-		$OrderStatus = DB::query(Database::SELECT, 'select order_status from Orders where order_id = :ID'.$Constrain)
+		$OrderStatus = DB::query(Database::SELECT, 'select order_status from orders where order_id = :ID'.$Constrain)
 		-> param(':ID', $ID)
 		-> execute()
 		->get('order_status');

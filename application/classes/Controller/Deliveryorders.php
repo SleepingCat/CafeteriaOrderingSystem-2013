@@ -1,13 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 class Controller_Deliveryorders  extends Controller_Checkinputusers
-{
-	public function before()
-	{
-		Session::instance();
-		parent::before();
-	}
-	
-	
+{	
 	public function action_index()
 	{ 
 		$Mes = "";

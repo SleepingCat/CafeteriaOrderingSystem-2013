@@ -3,9 +3,10 @@
 class Controller_Admin_Users extends Controller_Checkinputadmin 
 {  	  /**
      * Список пол-й
-     */   
+     */ 
+
     public function action_index()
-    { 	
+    {    	
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
             ->reset(FALSE);       
@@ -80,8 +81,10 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			}
 				
 			else 
-			{			
-			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');			
+			{				
+				
+			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');	
+				
 			}	
 		}	
     /**
@@ -399,9 +402,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$odf->mergeSegment($kvit);
 		
 		// We export the file
-		$odf->exportAsAttachedFile();
-		
+		$odf->exportAsAttachedFile();		
 	}
-		
 		
 } // End Admin Users
