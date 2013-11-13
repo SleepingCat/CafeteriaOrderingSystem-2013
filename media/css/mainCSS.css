@@ -34,7 +34,7 @@ header{
 /*Главная панель, для навигации по системе*/
 .MainPanel{
 	background-image: url(../image/Template/MainPanel.png);
-	height: 90px;		
+	height: 90px;	
 }
 
 /*Лента, перекрывающая главную панель*/

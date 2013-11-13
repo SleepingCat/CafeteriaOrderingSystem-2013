@@ -13,6 +13,7 @@
 		position: fixed; 
 		bottom:0px; 
 		right:0px; 
+		z-index: 100;
 	}
 	#cart
 	{
@@ -58,7 +59,7 @@ echo '</pre>';
 		}
 		echo "Итого: ".$summ."<br>";
 		echo "<a class=\"btn_submit\" href=\"http://".$_SERVER['HTTP_HOST']."/order/clear\"><button>Очистить</button></a>
-		<a href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\"><button>Оформить</button></a>";
+		<a id=\"mk_order\" href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\"><button>Оформить</button></a>";
 	}
 	else 
 	{

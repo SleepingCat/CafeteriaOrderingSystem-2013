@@ -1,23 +1,28 @@
 @charset "utf-8";
 
+nav{
+	display: table;
+	margin: 0px 270px;
+	position: absolute;
+}
+
 /*Список кнопок на главной панели*/
 .MainMenu{
 	list-style-type: none;	
 	list-style-position: inside;
-	display: table;
-	padding: 0px;
-	margin: 0px 270px;			
+	display: table-row;
+	padding: 0px;			
 }
 
 /*Элемент списка кнопок на главной панели*/
 .MainPanelItem{
-	display: table-cell;	
+	display: table-cell;
 }
 
 /*Кнопка на главной панели*/
 .MainPanelButton{
-	width: 100px;
-	height: 50px;
+	width: 150px;
+	height: 60px;
 	display: inline-block;	
 	text-align: center;
 	border-right-width: thin;
@@ -25,8 +30,9 @@
 	border-color: #F5D694;
 	text-decoration: none;
 	background-color: rgba(0,0,0,0.35);
-	color: #F5D694;	
-	line-height: 2.6em;		
+	color: #F5D694;
+	cursor: default;
+	line-height: 60px;	
 }
 .MainPanelButton:hover{
 	background-color: rgba(255,255,255,0.35);
@@ -36,7 +42,17 @@
 /*Выпадающее меню*/
 .MainPanelMenu{
 	list-style-type: none;	
-	list-style-position: inside;	
+	list-style-position: inside;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	background-color: #FFFFFF;
+	outline: none;		
+}
+
+.NavLink{
+	text-decoration: none;
+	line-height: 30px;				
 }
 
 

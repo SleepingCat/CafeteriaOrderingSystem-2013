@@ -4,9 +4,10 @@
 .SearchForm{
 	display: inline-block;
 	text-align: left;
-	color: #F5D694;
+	/*color: #F5D694;*/
 	font-size: large;	
-	letter-spacing: 0.1em;	
+	letter-spacing: 0.1em;
+	margin-right: 25px;	
 }
 
 #search_label{

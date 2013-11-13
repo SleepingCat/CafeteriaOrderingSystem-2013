@@ -18,53 +18,25 @@
 <div class="MainPanel">
 <?php echo HTML::image('media/image/Template/MainPanelUpperLeft.png', array('class' => 'UpperFlag')); ?> 
 <?php echo HTML::image('media/image/Template/MainPanelUpperRight.png', array('class' => 'UpperFlag UpperFlagRight')); ?> 
-<!-- Кнопки главной панели 
-<?php if( $guest == "Гость")    
+<!-- Кнопки главной панели  --> 
+ 
+<?php if( $guest != "Гость")    
   {?>    	
-   <a href="<?php echo URL::site() ?>" class="MainPanelButton LeftButton"> <?php echo __('Реклама') ?>
-   </a><a href="<?php echo URL::site() ?>" class="MainPanelButton"> <?php echo __('Новости') ?>
-   </a><a href="<?php echo URL::site() ?>" class="MainPanelButton"> <?php echo __('Контактные данные') ?></a> 
+<nav>
+	<ul class="MainMenu">
+	<li class="MainPanelItem" id="MB0">
+		<span class="MainPanelButton">Главное меню</span>
+	    <ul class="MainPanelMenu">
+	        <?php foreach ($menu as $item) : ?>
+				<li><a href="<?php echo URL::site($item['name'])?>" class="NavLink">
+				<?php echo ($item['name_link'])?></a></li>
+			<?php endforeach; ?>
+	    </ul>
+	</li>
+	</ul>
+</nav> 
   <?}
     ?>
-    
-<?php $ind = 0;
- foreach ($menu as $item) : 
- $ind += 1;?><a href="<?php echo URL::site($item['name'])?>" class="MainPanelButton
-  	<?php if($ind == 1)
-  		echo ' LeftButton';
-  	if($item['name'] == $_SERVER['REQUEST_URI'])
-		echo ' ActiveButton';?>
-	"><?php echo ($item['name_link'])?></a><?php endforeach; ?>    
-  -->
-  
-<nav>
-<ul class="MainMenu">
-<li class="MainPanelItem" id="MB0">
-	<span class="MainPanelButton">Меню 1</span>
-    <ul class="MainPanelMenu">
-        <li><a href="#" class="NavLink">Пункт 1</a></li>
-        <li><a href="#" class="NavLink">Пункт 2</a></li>
-        <li><a href="#" class="NavLink">Пункт 3</a></li>
-    </ul>
-</li>
-<li class="MainPanelItem" id="MB1">
-    <span class="MainPanelButton">Меню 2</span>
-    <ul class="MainPanelMenu">
-        <li><a href="#" class="NavLink">Пункт 1</a></li>
-        <li><a href="#" class="NavLink">Пункт 2</a></li>
-        <li><a href="#" class="NavLink">Пункт 3</a></li>
-    </ul>
-</li>
-<li class="MainPanelItem" id="MB2">
-    <span class="MainPanelButton">Меню 3</span>
-    <ul class="MainPanelMenu">
-        <li><a href="#" class="NavLink">Пункт 1</a></li>
-        <li><a href="#" class="NavLink">Пункт 2</a></li>
-        <li><a href="#" class="NavLink">Пункт 3</a></li>
-    </ul>
-</li>
-</ul>
-</nav>
 
 </div>
 
@@ -94,3 +66,14 @@
 </div>
 </body>
 </html>
+
+
+<!-- 
+<?php if( $guest == "Гость")    
+  {?>    	
+   <a href="<?php echo URL::site() ?>" class="MainPanelButton LeftButton"> <?php echo __('Реклама') ?>
+   </a><a href="<?php echo URL::site() ?>" class="MainPanelButton"> <?php echo __('Новости') ?>
+   </a><a href="<?php echo URL::site() ?>" class="MainPanelButton"> <?php echo __('Контактные данные') ?></a> 
+  <?}
+    ?>
+-->

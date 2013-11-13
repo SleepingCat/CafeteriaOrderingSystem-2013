@@ -65,7 +65,7 @@ function runEffect(id)
   }
 
   // run the effect
-	$("#"+id).children(".MainPanelMenu").show( selectedEffect, options, 500);	
+	$("#"+id).children(".MainPanelMenu").show( selectedEffect, options, 250);	
 };	 
 
 // Запуск эффекта исчезновения
@@ -84,5 +84,5 @@ function callback(id)
   }
  
   // run the effect
-  $("#"+id).children( ".MainPanelMenu").hide( selectedEffect, options, 500 );  
+  $("#"+id).children( ".MainPanelMenu").hide( selectedEffect, options, 250 );  
 };

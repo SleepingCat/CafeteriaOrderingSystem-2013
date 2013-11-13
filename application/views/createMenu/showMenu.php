@@ -6,7 +6,7 @@
     $totalCount = Count($allDish);
     
     //Заголовок всех таблиц.
-    $header = "<table border = \"solid 1px black\"  align=\"center\"  bgcolor=\"#A0522D\" >
+    $header = "<table style=\"margin:0px\" border = \"solid 1px black\"  align=\"center\"  bgcolor=\"#A0522D\" >
 	    		     <tr>
 	    			   <th> </th>
     		           <th>Тип порции</th>
@@ -58,7 +58,7 @@
     	echo "</select></td>";
     	 
     	echo "<td style=\"width : 100px\">".$allDish[$i]["dish_name"]."</td>";
-    	echo "<td  style=\"width : 490px\">";
+    	echo "<td  style=\"width : 370px\">";
     	$tmpArray = $allDish[$i]['ingredients'];
     	$subCount = count($tmpArray);
     	for ($j = 0; $j < $subCount; $j++)//вывод ингредиентов блюда

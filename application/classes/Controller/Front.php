@@ -124,7 +124,7 @@ class Controller_Front extends Kohana_Controller_Template {
 				//$media->uri(array('file' => 'css/jquery-ui.css')) => 'screen',
 				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen',
 				$media->uri(array('file' => 'css/buttons.css')) => 'screen',
-				$media->uri(array('file' => 'css/elements.css')) => 'screen'
+				//$media->uri(array('file' => 'css/elements.css')) => 'screen'
 			);
 			// Добавляем скрипты, используемые на каждой странице web-сайта
 			$scripts = array(

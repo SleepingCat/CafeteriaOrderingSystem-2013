@@ -8,8 +8,8 @@
 	<div align="right">      
        <?php echo $search?> 
     </div>
-    <div>	
-        <a href="<?php echo URL::site('/admin/users/new') ?>" class="EntBut EntBut-color" id="add_user"><?php echo __('Добавить пользователя') ?></a>   
+    <div align="left">	
+        <a href="<?php echo URL::site('/admin/users/new') ?>" id="add_user"><!-- class="EntBut EntBut-color" --> <?php echo __('Добавить пользователя') ?></a>   
     </div>            
 </div>
 
@@ -41,10 +41,10 @@
     <td class="DataCell"><?php echo $item->employee_number ?></td>
     <td class="DataCell">
     	<div class="Double-btn">
-        	<a href="<?php echo URL::site('admin/users/delete/' . $item->id) ?>" class="EntBut EntBut-color Double-btn-left">
-            	<?php echo __('Удалить') ?>
-            </a><a href="<?php echo URL::site('admin/users/edit/' . $item->id) ?>" class="EntBut EntBut-color Double-btn-right">
-            	<?php echo __('Редактировать') ?>
+        	<a href="<?php echo URL::site('admin/users/delete/' . $item->id) ?>" ><!--class="EntBut EntBut-color Double-btn-left"  -->
+            	<?php echo __('у'/*'Удалить'*/) ?>
+            </a><a href="<?php echo URL::site('admin/users/edit/' . $item->id) ?>" ><!-- class="EntBut EntBut-color Double-btn-right" -->
+            	<?php echo __('р'/*'Редактировать'*/) ?>
             </a>
         </div>
     </td>
