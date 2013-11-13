@@ -69,6 +69,30 @@ class Model_Reestr extends Model
 		return DB::query(Database::UPDATE, $query)->param(':dish_id', $dish_id)->execute();
 	}
 	
+	public function add_dish($dish_name,$dish_type,$dish_category,$ingredients)
+	{
+		$query = "INSERT INTO dishes (dish_name, dish_type_id, dish_category_id,is_available)
+					VALUES (:dish_name, :dish_type,:dish_category_id, 1)";
+
+		$result = DB::query(Database::INSERT, $query)->param(':dish_name', $dish_name)->param(':dish_type', $dish_type)->param(':dish_category_id',$dish_category)->execute();
+		
+		if ($result != null && $result[0])
+		{
+		print_r($ingredients);
+			foreach ($ingredients as $key => $value)
+			{
+			
+				$res=db::query(Database::INSERT, 'INSERT INTO ingredients (dish_Id, product_Id, yield) VALUES (:dish_Id, :product_Id, :yield)')
+					->param(':dish_Id', $result[0])
+					->param(':product_Id',$value['ingredient_id'])
+					->param(':yield',$value['yield'])
+					->execute(); 
+			}
+		
+		}
+		
+		
+	}
 	
 	
 	public function update_dish($dish_id)

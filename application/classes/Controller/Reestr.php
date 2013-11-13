@@ -40,15 +40,20 @@ class Controller_Reestr extends Controller_Checkinputusers
 													 ->bind('categories',$categories)
 													 ->bind('ingredient',$ingridients)
 													 ->bind('types',$types);
+	
+		
 		if (isset($_POST["btn_dish_add"]))
 		{
 			if ($errcode==0) 
 			{
-				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");	
-			
+				$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients']); 		
+				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");
 			}
 			
-		}
+		} 
+
+		//$this->desu($_POST);
+		
 		$this->content=$view;
 	}
 	
@@ -57,6 +62,13 @@ class Controller_Reestr extends Controller_Checkinputusers
 		$dish_id = Request::current()->param('id');
 		$model_reestr = new Model_Reestr();
 		$model_reestr->update_dish($dish_id);
+	}
+	
+	public function desu($data)
+	{
+		echo '<pre>';
+		print_r($data);
+		echo '</pre>';
 	}
 	
 }

@@ -31,27 +31,13 @@ foreach ($types as $key => $value)
 </div>
 <div>
 
-<select name = "ingredient">
-<?php
-foreach ($ingredient as $key => $value) 
-{
-	echo "<option value=\"".$key."\">".$value['product_name']."</option>";
-}
-
-?>
-</select>
-<input type="number" name = "ingr_weigth">
-
-<a href=#> <button id ="delete"> - </button></a>
-
-
 <br>
 
 <script type="text/javascript">
-
+var k=0;
 $('#add a').live('click',function(){
-
-	var html_inputs = '<div class="ogranichenie"> <select name = "ingredient">';
+	
+	var html_inputs = '<div class="ogranichenie"> <select name = \"ingredients['+ k +'][ingredient_id]\">';
 
 	<?php
 	foreach ($ingredient as $key => $value)
@@ -60,11 +46,11 @@ $('#add a').live('click',function(){
 		}	
 	?>
 	
-	html_inputs+='</select> <input type="number" name = "ingr_weigth">	<a href=#"> <button id = "delete"> - </button></a></div>';
+	html_inputs+='</select> <input type="number" name = \"ingredients['+ k++ +'][yield]\">	<a href=#"> <button id = "delete"> - </button></a></div>';
 	$('.ingridients').append(html_inputs);
 	$('.ingridients .ogranichenie:hidden').slideDown(200);
 
-		
+	Height_Add();	
 	return false;
 });
 
