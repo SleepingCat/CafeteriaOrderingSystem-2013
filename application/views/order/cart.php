@@ -12,7 +12,8 @@
 	{
 		position: fixed; 
 		bottom:0px; 
-		right:0px; 
+		right:0px;
+		z-index:100;
 	}
 	#cart
 	{
