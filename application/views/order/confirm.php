@@ -19,7 +19,7 @@
 	$summ = 0;
 	foreach ($_SESSION['order'] as $key => $value)
 	{
-		echo $value['dish_name']."(".$value['portions'][$value['portion']]['portion_type'].") ".$value['portions'][$value['portion']]['price']."x".$value['servings_number']."<br>";
+		echo $value['dish_name']."(".$value['portions'][$value['portion']]['type_name'].") ".$value['portions'][$value['portion']]['price']."x".$value['servings_number']."<br>";
 		$summ += $value['portions'][$value['portion']]['price']*$value['servings_number'];
 	}
 	echo "Итого: ".$summ."<br>";

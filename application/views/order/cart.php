@@ -12,12 +12,13 @@
 	{
 		position: fixed; 
 		bottom:0px; 
-		right:0px; 
-		z-index: 100;
+		right:0px;
+		z-index:100;
 	}
 	#cart
 	{
 		text-align: center;
+		font-size: 12pt;
 		display: none;
 		width: 250px; 
 		height: 300px;
@@ -45,8 +46,8 @@
 echo '<pre>';
 print_r($_SESSION['order']);
 echo '</pre>';
-*/
-	/*
+/*
+	
 	 * Корзина с возможностью редактирования до оформления заказа
 	 */
 	if (isset($_SESSION['order']))
@@ -59,12 +60,15 @@ echo '</pre>';
 		}
 		echo "Итого: ".$summ."<br>";
 		echo "<a class=\"btn_submit\" href=\"http://".$_SERVER['HTTP_HOST']."/order/clear\"><button>Очистить</button></a>
-		<a id=\"mk_order\" href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\"><button>Оформить</button></a>";
+		<a href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\"><button>Оформить</button></a>";
 	}
 	else 
 	{
 		echo "Пусто =(<br>";
 	}
+	/*
+	 * 
+	 */
 ?>
 </div>
 </div>
