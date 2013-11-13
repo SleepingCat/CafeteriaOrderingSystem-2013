@@ -159,14 +159,16 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$dishPrice = $_POST["price"];
 			$dishPortion = $_POST["type_of_portion"];
 			
+			
 			foreach ($checkedElements as $key => $value) //для каждого выбранного блюда
 			{
 				$result = false;
 				foreach ($currentMenu as $key_1 => $value_1) //проверка на дублирование
 				{
 					//ищем блюдо по специальной ключевой последовательности(думаю такая не повториться) - "//dish_id?dish_portion_id\\"
-					if(in_array("//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]["value"]."\\", $value_1))
-					{	$result = TRUE;
+					if(in_array("//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]."\\", $value_1))
+					{	
+						$result = TRUE;
 						break;
 					}
 				}
@@ -177,8 +179,8 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 					  {
 					    $dishToSelect[$key]["price"] = $dishPrice[$key];
 					  }
-					 $dishToSelect[$key]["dish_portion"] = $dishPortion[$key]["value"]; //указываем тип порции
-					 $dishToSelect[$key]["dishKey"] = "//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]["value"]."\\"; // указываем ключевую последовательность
+					 $dishToSelect[$key]["dish_portion"] = $dishPortion[$key]; //указываем тип порции
+					 $dishToSelect[$key]["dishKey"] = "//".$dishToSelect[$key]["dish_id"]."?".$dishPortion[$key]."\\"; // указываем ключевую последовательность
 				  
 				    array_push($currentMenu, $dishToSelect[$key]);//добавляем в меню
 				}
