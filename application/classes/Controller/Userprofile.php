@@ -6,10 +6,11 @@ class Controller_Userprofile extends Controller_Checkinputusers
 public function action_index()	
 	{	
 		$Mes = "";
+		$Mes1 = "";
 		if (!empty($_SESSION['Mes']))
 		{
 			$Mes = $_SESSION['Mes'];
-			$this->message = $Mes;
+			$Mes1 =  $Mes;
 			$_SESSION['Mes'] = "";
 		}
 		$this->title = "Поиск заказа";
@@ -24,12 +25,13 @@ public function action_index()
 				
 		// Передаем в представление
 		$this->content=View::factory('templates/admin/users/regview', array(
-				'item' =>array_merge($users->as_array()),				
+				'item' =>array_merge($users->as_array()),
+				'message'=>$Mes1,				
 		))
 		->set('errors',$error);
 		 
 		 $this->title = 'Профиль клиента';	
-		$this->styles = array('media/css/bootstrap.css' => 'screen');		
+		$this->styles = array('media/css/bootstrap.css' => 'screen');
 		
 	}
 	

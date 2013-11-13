@@ -6,7 +6,14 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
      */ 
 
     public function action_index()
-    {    	
+    {    	$Mes = "";
+   			$Mes1="";
+		if (!empty($_SESSION['Mes']))
+		{
+			$Mes = $_SESSION['Mes'];
+			$Mes1 = $Mes;
+			$_SESSION['Mes'] = "";
+		}
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
             ->reset(FALSE);       
@@ -35,6 +42,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
             'items' => $users,
              'pagination'=>$pagination,
        		'search'=>View::factory('templates/admin/users/sereachview'),
+       		'message'=> $Mes1,
             ));             
        $this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";     
@@ -76,14 +84,16 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				->execute();*/		
 				// Удаляем пол-ля			
 				$user->delete();
-				// Redirect admin/users				
+				// Redirect admin/users	
+				$_SESSION['Mes'] = "Пользователь был успешно удален";
 				$this->redirect('admin/users');
 			}
 				
 			else 
 			{				
-				
-			throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');	
+				$_SESSION['Mes'] = "Пользователя нельзя удалить,т.к уже совершал заказ";
+				$this->redirect('admin/users');
+			//throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');	
 				
 			}	
 		}	
@@ -150,6 +160,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		  {		//Добавляем пол-ля,если все OK , то переходим на контролл admin/users
 		  		if($register->reg())
 				{			
+					$_SESSION['Mes'] = "Пользователь был успешно создан";
 		      		 $this->redirect('/admin/users');	    
 				}
 		  }
@@ -312,12 +323,14 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				 if ($user == 1)			   
 			   { 	
 			   		$register->changeorderstatus();
-			   		$register->changesubscriptionsstatus();		   		
+			   		$register->changesubscriptionsstatus();		
+			   		$_SESSION['Mes'] = "Пользователь был уволен и все его дейтсвующие заказы отеменены";
 			   		$this->redirect('/admin/users');
 			   }
 			   
 			   else			   
 			   {	
+			   	$_SESSION['Mes'] = "Пользователь был успешно отредактирован";
 			   	$this->redirect('/admin/users');			   
 			   }			 
 			}	

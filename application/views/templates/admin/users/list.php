@@ -59,4 +59,7 @@
     <td id='total' colspan="2" class="DataCell"><?php echo __('Всего пользователей: :count', array(':count' => $pagination->total_items)) ?></td>
    </tr>
 </table>
+<!--   Диман !!!, в эту переменную выгружаю сообщения,не удаляй её!  -->
+<?php echo $message ?>
+
 </div> 
