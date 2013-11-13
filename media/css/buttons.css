@@ -47,16 +47,20 @@ nav{
 	margin: 0px;
 	text-align: center;
 	background-color: #FFFFFF;
-	outline: none;		
+	outline: none;
+	cursor: pointer;		
 }
 
 .NavLink{
 	text-decoration: none;
-	line-height: 30px;				
+	line-height: 30px;	
+	display: inline-block;
+	width: 100%;					
 }
 
-
-
+.NavLink:hover{
+	background-color: #999;
+}
 
 
 /*Отдельный класс для левой кнопки со скругленными углами*/
