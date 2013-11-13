@@ -101,7 +101,6 @@ var vis = (box.checked) ? "Если вы нажали на эту галку,з�
 </ul>
 <?}?>	
 </div>
-<input type="submit" class="EntBut EntBut-color" name="subcspiction"  id="div1" value="<?php echo __('Мои заказы') ?>" />	
 </div>
 
 <div class="FormBottomBorder">
