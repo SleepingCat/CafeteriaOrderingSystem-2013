@@ -73,7 +73,7 @@
 					<label>
 						<input type="checkbox" name="roles[]" id="role<?php echo $role->id ?>" value="<?php echo $role->id ?>"
 							<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>
-						/><?php echo $role->name ?>
+						/><?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?>
 					</label>					
 					<br />
 				<?php endforeach; ?>					 
