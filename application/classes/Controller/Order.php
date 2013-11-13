@@ -32,7 +32,9 @@ class Controller_Order extends Controller_Checkinputusers
 	public function action_clear()
 	{
 		$_SESSION['order'] = null;
-		$this->redirect($_SERVER['HTTP_REFERER']);
+		$_SESSION['mk_order_menu_date'] = null;
+		$_SESSION['mk_order_id'] = null;
+		$this->redirect("/order");
 	}
 	
 	/**
@@ -61,10 +63,11 @@ class Controller_Order extends Controller_Checkinputusers
 		{
 			$view->set('delivery_point',"Здание ".$this->user['building']." Этаж ".$this->user['floor']." Офис ".$this->user['office']);
 		}
+		$this->desu($_SESSION['order']);
 		if (isset($_POST['btn_confirm']))
 		{
 			//TODO: сделать валидацию
-			if (!empty($_SESSION['mk_order_id'])) {
+			if ($_SESSION['mk_order_id']) {
 				$error_code = $model_order->update_order($_SESSION['mk_order_id'], $_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['mk_order_menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			}
 			else

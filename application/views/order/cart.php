@@ -17,6 +17,7 @@
 	#cart
 	{
 		text-align: center;
+		font-size: 12pt;
 		display: none;
 		width: 250px; 
 		height: 300px;
@@ -44,8 +45,8 @@
 echo '<pre>';
 print_r($_SESSION['order']);
 echo '</pre>';
-*/
-	/*
+/*
+	
 	 * Корзина с возможностью редактирования до оформления заказа
 	 */
 	if (isset($_SESSION['order']))
@@ -64,6 +65,9 @@ echo '</pre>';
 	{
 		echo "Пусто =(<br>";
 	}
+	/*
+	 * 
+	 */
 ?>
 </div>
 </div>
