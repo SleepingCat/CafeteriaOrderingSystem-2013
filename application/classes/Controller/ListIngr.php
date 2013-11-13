@@ -19,6 +19,7 @@ class Controller_ListIngr extends Controller_Front
 			$this->content = View::factory('ingridients/addIngr')
 			->set("text",$text="");
 		}
+		
 	}
 	
 	public function action_AddData()
