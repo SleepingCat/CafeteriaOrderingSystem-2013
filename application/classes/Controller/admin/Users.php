@@ -378,9 +378,9 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$this->content=View::factory('templates/admin/users/list', array(
 				'items' => $users,
 				'pagination'=>$pagination,
-				'search'=>View::factory('templates/admin/users/sereachview'),	
-		));
-		
+				'search'=>View::factory('templates/admin/users/sereachview'),
+				'message'=> '',
+		));	
 		
 		$this->styles = array('media/css/bootstrap.css' => 'screen');
 		$this->title ="Список пользователей";		
@@ -394,21 +394,24 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		$odf = new Odtphp(APPPATH.'templates/users.odt');
 		
 	//	$odf->setVars('privet', 'Иван', $encode = TRUE, $charset='UTF-8');		
-		$users = ORM::factory('user');
-		$users = $users
-		->find_all();
+		//$users = ORM::factory('user');
+		$users =  DB::query(Database::SELECT,		
+		"select * from users")				
+				->execute()
+				->as_array();
+		//->find_all();
 		$kvit = $odf->setSegment('articles');
 		
 		foreach ($users as $item){
-			$kvit->setVars('username', $item->username, true, 'utf-8');
-			$kvit->setVars('email', $item->email, true, 'utf-8');
-			$kvit->setVars('surname', $item->surname, true, 'utf-8');
-			$kvit->setVars('name', $item->name, true, 'utf-8');
-			$kvit->setVars('patronymic', $item->patronymic, true, 'utf-8');
-			$kvit->setVars('building', $item->building, true, 'utf-8');
-			$kvit->setVars('floor', $item->floor, true, 'utf-8');
-			$kvit->setVars('office', $item->office, true, 'utf-8');
-			$kvit->setVars('numb', $item->employee_number, true, 'utf-8');
+			$kvit->setVars('username', $item['username'], true, 'utf-8');
+			$kvit->setVars('email', $item['email'], true, 'utf-8');
+			$kvit->setVars('surname', $item['surname'], true, 'utf-8');
+			$kvit->setVars('name', $item['name'], true, 'utf-8');
+			$kvit->setVars('patronymic', $item['patronymic'], true, 'utf-8');
+			$kvit->setVars('building', $item['building'], true, 'utf-8');
+			$kvit->setVars('floor', $item['floor'], true, 'utf-8');
+			$kvit->setVars('office', $item['office'], true, 'utf-8');
+			$kvit->setVars('numb', $item['office'], true, 'utf-8');
 			$kvit->merge();
 		}
 		
