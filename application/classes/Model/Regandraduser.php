@@ -140,7 +140,7 @@ class Model_Regandraduser
     ->param(':UID', $userID)
     ->execute()
     ->get('Razn');
-    return $NumOfDay > 30;
+    return $NumOfDay >= 30;
  }
  
  public function  UpdateFlag()
@@ -158,7 +158,7 @@ class Model_Regandraduser
  	     		$user->save();
  	     		// Если пользователь нажал checkbox,то записывается значение(UserStatus=1) с чекбокса=1	(true,т.е что пол-й может оплачивать свои заказы из зарплаты)
  	     		$user->values($_POST, array("payment_type"))->save();
- 		    	$user->date_change = date("d.m.y");
+ 		    	$user->date_change = date("y.m.d");
  		    	$user->save();
  			    return true;
  		    }
