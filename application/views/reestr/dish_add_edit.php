@@ -24,6 +24,9 @@ foreach ($types as $key => $value)
 ?>
 </select>
 </p>
+<p>
+Является стандартным: <input id="chek_standart" type="checkbox" name="standart"/>
+</p>
 
 <div class = "ingridients">
 <p> Ингредиенты: </p>

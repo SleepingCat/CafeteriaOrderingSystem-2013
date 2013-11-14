@@ -40,13 +40,23 @@ class Controller_Reestr extends Controller_Checkinputusers
 													 ->bind('categories',$categories)
 													 ->bind('ingredient',$ingridients)
 													 ->bind('types',$types);
-	
+
+		$is_standart = null;
 		
 		if (isset($_POST["btn_dish_add"]))
 		{
 			if ($errcode==0) 
-			{
-				$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients']); 		
+			{	
+				if(isset ($_POST["standart"])) { $is_standart = 1; }
+				
+				if(isset($_POST["ingredients"]))
+				{
+					$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients'], $is_standart);
+				} 		
+				else {
+					$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], null, $is_standart);
+				}
+				
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");
 			}
 			

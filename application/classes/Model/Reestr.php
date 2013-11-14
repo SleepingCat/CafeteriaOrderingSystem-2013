@@ -69,16 +69,21 @@ class Model_Reestr extends Model
 		return DB::query(Database::UPDATE, $query)->param(':dish_id', $dish_id)->execute();
 	}
 	
-	public function add_dish($dish_name,$dish_type,$dish_category,$ingredients)
+	public function add_dish($dish_name,$dish_type,$dish_category,$ingredients, $is_standart)
 	{
-		$query = "INSERT INTO dishes (dish_name, dish_type_id, dish_category_id,is_available)
-					VALUES (:dish_name, :dish_type,:dish_category_id, 1)";
+		$query = "INSERT INTO dishes (dish_name, dish_type_id, dish_category_id, is_standart ,is_available)
+					VALUES (:dish_name, :dish_type,:dish_category_id,:is_standart, 1)";
 
-		$result = DB::query(Database::INSERT, $query)->param(':dish_name', $dish_name)->param(':dish_type', $dish_type)->param(':dish_category_id',$dish_category)->execute();
+		$result = DB::query(Database::INSERT, $query)
+					->param(':dish_name', $dish_name)
+					->param(':dish_type', $dish_type)
+					->param(':dish_category_id',$dish_category)
+					->param(':is_standart', $is_standart) 
+					->execute();
 		
-		if ($result != null && $result[0])
+		if ($result != null && $result[0] && $ingredients!=null)
 		{
-		print_r($ingredients);
+		//print_r($ingredients);
 			foreach ($ingredients as $key => $value)
 			{
 			
@@ -100,19 +105,10 @@ class Model_Reestr extends Model
 		
 	}
 	
-	public function find_category($category_name)
+	private function delete_ingredient($dish_id)
 	{
-		
-	}
-	
-	public function find_type($type_name)
-	{
-		
-	}
-	
-	public function find_ingredients($ingridient_name)
-	{
-		
+		$query = 'DELETE FROM ingredients WHERE dish_Id = :dish_id';
+				return db::query(Database::DELETE, $query)->param(':dish_id',$dish_id)->execute();
 	}
 	
 }
