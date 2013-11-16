@@ -3,10 +3,10 @@ class Model_EquipOrder
 {
 	public function get_period()
 	{
-		$delivery = DB::query(Database::SELECT, 'SELECT concat(delivery_time, " - ", Time(delivery_time+15*100)) as DeliverPeriod
+		$delivery = DB::query(Database::SELECT, 'SELECT DISTINCT MIN(concat(delivery_time, " - ", Time(delivery_time+15*100))) as DeliverPeriod
 												FROM delivery_times
-												WHERE Current_time < CAST( delivery_time +15 *100 AS TIME )
-												AND Current_time >= delivery_time')
+												JOIN orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
+												WHERE orders.order_status = "Заказ_принят"')
 														->execute()
 														->get('DeliverPeriod');
 		
@@ -18,10 +18,13 @@ class Model_EquipOrder
 	{
 		$orders = DB::query(Database::SELECT, 'SELECT Count(order_id) as COUNT
 												FROM orders
-												left join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
-												WHERE (Current_date = delivery_date)
-												and (orders.delivery_times_delivery_id = (select delivery_id from delivery_times where Current_time < time(delivery_time +15 *100 ) 
-												AND Current_time >= delivery_time)) and (orders.delivery_point <> "0")')
+												join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
+												WHERE (Current_date = delivery_date) and 
+													(orders.delivery_point <> "0") and delivery_times.delivery_id = 
+															(select MIN(delivery_id) 
+															from delivery_times 
+															join orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
+															where orders.order_status = "Заказ_принят" or orders.order_status = "Укомплектован" or orders.order_status = "Доставлен")')
 												->execute()
 		                                        ->get('COUNT');
 
@@ -33,10 +36,11 @@ class Model_EquipOrder
 	{
 		$immOrder = DB::query(Database::SELECT, 'SELECT MIN(order_id) as OrdID
 													FROM orders
-													left join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
+													join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
 													WHERE (Current_date = delivery_date) and (order_status = "Заказ_принят")
-													and (orders.delivery_times_delivery_id = (select delivery_id from delivery_times
-													where Current_time < time(delivery_time +15 *100 ) AND Current_time >= delivery_time))')
+													and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
+														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
+														WHERE orders.order_status = "Заказ_принят"))')
 													->execute()
 													->get('OrdID');
 		
@@ -47,10 +51,11 @@ class Model_EquipOrder
 	{
 		$leftOrd = DB::query(Database::SELECT, 'SELECT COUNT(order_id) as leftOrders
 												FROM orders
-												left join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
+												join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
 												WHERE (Current_date = delivery_date) and (order_status = "Заказ_принят")
-												and (orders.delivery_times_delivery_id = (select delivery_id from delivery_times where Current_time < time(delivery_time +15 *100 ) 
-												AND Current_time >= delivery_time))')
+												and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
+														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
+														WHERE orders.order_status = "Заказ_принят"))')
 												->execute()
 												->get('leftOrders');
 		
@@ -64,8 +69,7 @@ class Model_EquipOrder
 												join menu_records MR on MR.dish_id = dishes.dish_id
 												join orders_records OrRec on OrRec.menu_record_menu_id = MR.menu_id
 												join orders on orders.order_id = OrRec.order_id
-												join subscriptions SUB on SUB.user_id = orders.user_id
-												join users on users.id = SUB.user_id
+												join users on users.id = orders.user_id
 												where orders.order_id = :id')
 												->param(':id',$ID)
 												->execute()
