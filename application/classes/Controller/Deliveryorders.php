@@ -38,7 +38,7 @@ class Controller_Deliveryorders  extends Controller_Checkinputusers
 			{
 				$_SESSION['Mes'] = "Заказ не найден";
 				$this->title = "Поиск заказа";
-				$this->redirect("http7://".$_SERVER['HTTP_HOST']."/Deliveryorders");
+				$this->redirect("http://".$_SERVER['HTTP_HOST']."/Deliveryorders");
 			}
 		}
 		else die('Bad request');
