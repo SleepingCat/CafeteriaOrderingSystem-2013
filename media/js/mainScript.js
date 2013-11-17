@@ -1,5 +1,37 @@
 // JavaScript Document
 
+$(document).ready(function(e)
+{	
+	Height_Add();
+	
+	$( ".LeftMenuHeader" ).click(function()
+	{
+		$(this).next().toggle(); 
+		if ($(this).next().is(":visible"))
+		{
+			$(this).children("div").attr("class", "TriangleOpened");
+		}
+		else
+		{
+			$(this).children("div").attr("class", "TriangleClosed");
+		}		
+		return false;		
+	}).next().hide();	
+	
+	$(".MainPanelButton").pxgradient({ 
+	  step: 2, 
+	  colors: ["#C1AC51","#FFFDDE","#C1AC51"],
+	  dir: "y" 
+	});
+	
+	$(".LeftMenuHeader span").pxgradient({ 
+	  step: 2, 
+	  colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
+	  dir: "y" 
+	});		
+	
+});
+
 /*Функция проверяет высоту рабочей области и при необходимости увеличивает ее для
 сохранения целостности узора внизу области*/
 function Height_Add()
@@ -14,75 +46,3 @@ function Height_Add()
 			});
 		};
 	}
-
-$(document).ready(function(e)
-{	
-	Height_Add();
-	$(".MainPanelMenu").menu();	
-	$(".MainPanelMenu").hide();	
-	
-	$(".MainPanelButton").mouseenter(function(e) 
-	{	
-		$(".MainPanelMenu").stop(false, true);
-		$(this).parent(".MainPanelItem").mouseenter();
-    });	
-	
-	$(".MainPanelItem").mouseenter(function(e)
-	{		
-		var idd = $(this).attr("id");		
-		runEffect(idd);
-		return false;
-	});
-	
-	$(".MainPanelItem").mouseleave(function(e)
-	{		
-		$(".MainPanelMenu").stop(false, true);				
-		var idd = $(this).attr("id");				
-		callback(idd);						
-		return false;	
-	});
-	
-	$(".NavLink").click(function(e) 
-	{
-        $(".MainPanelMenu").hide();
-    });	
-	
-});
-
-// Запуск эффекта появления
-function runEffect(id) 
-{
-  // get effect type from
-  var selectedEffect = "slide";
- 
-  // most effect types need no options passed by default
-  var options = {direction: "up"};
-  // some effects have required parameters
-  if ( selectedEffect === "scale" ) {
-    options = { percent: 100 };
-  } else if ( selectedEffect === "size" ) {
-    options = { to: { width: 280, height: 185 } };
-  }
-
-  // run the effect
-	$("#"+id).children(".MainPanelMenu").show( selectedEffect, options, 250);	
-};	 
-
-// Запуск эффекта исчезновения
-function callback(id)
-{
-  // get effect type from
-  var selectedEffect = "slide";
- 
-  // most effect types need no options passed by default
-  var options = {direction: "up"};
-  // some effects have required parameters
-  if ( selectedEffect === "scale" ) {
-    options = { percent: 100 };
-  } else if ( selectedEffect === "size" ) {
-    options = { to: { width: 280, height: 185 } };
-  }
- 
-  // run the effect
-  $("#"+id).children( ".MainPanelMenu").hide( selectedEffect, options, 250 );  
-};

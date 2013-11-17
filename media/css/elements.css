@@ -1,136 +1,217 @@
 @charset "utf-8";
 
-.InlineBlockClass{
-	display:inline-block;
+a {
+	color: #4B1573;
+	text-decoration: none;
 }
+
+/*Навигация для работников*/
+.LeftMenu{
+	list-style-type: none;	
+	list-style-position: inside;	
+	padding-left: 3px;	
+	padding-top: 10px;
+	margin: 0px;
+	outline: none;					
+}
+
+/*Элемент списка навигации для работников*/
+.LeftMenuItem{
+	margin-bottom: 5px;
+	width: 210px;				
+}
+
+/*Заголовок раздела навигации*/
+.LeftMenuHeader{
+	text-align: left;
+	text-decoration: none;
+	outline: none;
+	width: 100%;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	color: #C1AC51;
+	/*letter-spacing: 1px;*/
+	font-family: 'Bookman Old Style', serif;
+	/*text-shadow: 1px -1px 0px rgb(131,114,86),
+		1px 1px 0px rgb(131,114,86),
+		-1px 1px 0px rgb(131,114,86),
+		-1px -1px 0px rgb(131,114,86);*/
+	text-shadow: 1px -1px 0px rgb(0,0,0),
+		1px 1px 0px rgb(0,0,0),
+		-1px 1px 0px rgb(0,0,0),
+		-1px -1px 0px rgb(0,0,0);
+	white-space: nowrap;
+	cursor: pointer;
+	display: inline-block;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 5px;
+	border-color: rgb(131,114,86);	
+}
+
+/*Указатель свернутого раздела навигации*/
+.TriangleClosed {
+  border-color: transparent transparent transparent rgb(131,114,86);
+  border-style: solid;
+  border-width: 5px 0px 5px 10px;
+  height: 0;
+  width: 0;
+  display: inline-block;
+  margin: 0px 5px 5px 5px;    
+}
+
+/*Указатель развернутого раздела навигации*/
+.TriangleOpened {
+  border-color: rgb(131,114,86) transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px 5px 0 5px;
+  height: 0;
+  width: 0;
+  display: inline-block;
+  margin: 0px 5px 5px 5px;     
+}
+
+/*Указатель пункта навигации*/
+.TriangleLittle {
+  border-color: transparent transparent transparent #4B1573;
+  border-style: solid;
+  border-width: 4px 0px 4px 7px;
+  height: 0;
+  width: 0;
+  display: inline-block;
+  margin: 0px 2px 2px 5px;       
+}
+
+/*Список пунктов навигации в разделе*/
+.LeftBlockMenu{
+	list-style-type: none;
+	list-style-position: outside;
+	margin: 0px 0px 0px 1px;
+	padding: 0px;
+	border-style: solid;
+	display: inline-block;
+	width: 100%;
+	border-width: 1px;
+	border-radius: 5px;
+	border-color: rgb(131,114,86);	
+}
+
+/*Пункт навигации*/
+.NavLink{
+	text-decoration: none;		
+	display: inline-block;
+	font-size: 18px;
+	text-align: left;
+	width: 100%;							
+}
+
+
+
 
 /*Заголовок страницы*/
 .PageHeader{
-	text-align: center;
+	/*text-align: center;
 	font-size: xx-large;
 	font-style: normal;
 	letter-spacing: 0.1em;	
 	word-spacing: 0.2em;	
 	margin-left: 50px;
 	margin-top: 35px;
-	color: #F5D694;
+	color: #F5D694;*/
 }
 
 /*Подзаголовок страницы*/
 .SubPageHeader{
-	margin-left: 10%;
+	/*margin-left: 10%;
 	margin-right: 10%;	
 	margin-top: 15px;	
 	display: block;
 	font-size: x-large;
 	font-style: normal;
 	text-align: left;
-	color: #F5D694;	
+	color: #F5D694;	*/
 }
 
 /*Форма*/
 .MyForm{
-	display: inline-block;
+	/*display: inline-block;
 	text-align: center;
 	margin-top: 50px;
-	color: #F5D694;
+	color: #F5D694;*/
 }
 
 .FormTopBorder{
-	border-color: #F5D694;
+	/*border-color: #F5D694;
 	border-style: solid;
 	border-radius: 15px 15px 0px 0px;	
 	border-width: 2px;
 	line-height: 40px;
-	background-color: rgba(0,0,0,0.35)	
+	background-color: rgba(0,0,0,0.35)	*/
 }
 
 .FormArea{
-	border-color: #F5D694;
+	/*border-color: #F5D694;
 	text-align: left;
 	border-left-style: solid;
 	border-right-style: solid;
 	border-width: 2px;
-	padding: 1em;
+	padding: 1em;*/
 }
 
 .FormBottomBorder{
-	border-color: #F5D694;
+	/*border-color: #F5D694;
 	border-style: solid;
 	border-radius: 0px 0px 15px 15px;	
 	border-width: 2px;
 	height: 40px;
 	background-color: rgba(0,0,0,0.35);
-	line-height: 40px;	
+	line-height: 40px;	*/
 }
 
 .TitledTextboxArea{
-	padding: 0.5em;		
+	/*padding: 0.5em;	*/	
 }
 
 .FailText{
-	color: #FF3737;
-	font-size: large;
+	/*color: #FF3737;
+	font-size: large;*/
 }
 
 .Fieldset{	
-	border-color: #D3BFA9;
+	/*border-color: #D3BFA9;*/
 }
 
 .FailList{
-	list-style-position: outside;
+	/*list-style-position: outside;
 	list-style-type: square;
-	margin-left: 10%;
+	margin-left: 10%;*/
 }
 
 /*Текстовое поле*/
 .TextBox{
-	border-color: #967452;
+	/*border-color: #967452;
 	background-color: #D3BFA9;
 	outline: none;
-	font-size: small;	
+	font-size: small;	*/
 }
 
 /*Таблица данных*/
-@media (min-width: 1500px) {
-	.DataTable{
-		font-size: large;
-	}
-}
-
-@media (max-width: 1500px) {
-	.DataTable{
-		font-size: medium;
-	}
-}
-
-@media (max-width: 1260px) {
-	.DataTable{
-		font-size: small;
-	}
-}
-
-@media (max-width: 1024px) {
-	.DataTable{
-		font-size: x-small;
-	}
-}
-
 .DataTable{				
-	margin-top: 35px;	
+	/*margin-top: 35px;	
 	text-align: left;
 	border-collapse: collapse;
-	color: #F5D694;	
+	color: #F5D694;	*/
 }
 
 .DataCell{
-	border-color: #F5D694;
+	/*border-color: #F5D694;
 	border-style: solid;
 	border-width: 2px;	
-	padding: 0.5em 0.5em; 	
+	padding: 0.5em 0.5em; 	*/
 }
 
 .TabHeader{	
-	background-color: rgba(0,0,0,0.35);	
-	text-align: center;
+	/*background-color: rgba(0,0,0,0.35);	
+	text-align: center;*/
 }

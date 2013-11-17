@@ -21,24 +21,20 @@
 <!-- Кнопки главной панели  --> 
  
 <?php if( $guest != "Гость")    
-  {?>    	
+  {?>
+  
 <nav>
 	<ul class="MainMenu">
-	<li class="MainPanelItem" id="MB0">
-		<span class="MainPanelButton">Главное меню</span>
-	    <ul class="MainPanelMenu">
-	        <?php foreach ($menu as $item) : ?>
-				<li><a href="<?php echo URL::site($item['name'])?>" class="NavLink">
-				<?php echo ($item['name_link'])?></a></li>
-			<?php endforeach; ?>
-	    </ul>
-	</li>
+		<?php foreach ($menu as $item) : ?>
+				<li class="MainPanelItem"><span><a href="<?php echo URL::site($item['name'])?>" class="MainPanelButton">
+				<?php echo ($item['name_link'])?></a></span></li>
+		<?php endforeach; ?>			
 	</ul>
-</nav> 
-  <?}
-    ?>
+</nav>
+  <?}?>
 	
 	
+	<!-- Ссылка здесь не нужна, вы само меню на страницу выгружайте
 	<?php if( $guest == "Гость")    
   {?>    	
 <nav>
@@ -53,7 +49,7 @@
 	</ul>
 </nav> 
   <?}
-    ?>
+    ?>-->
 
 </div>
 
@@ -62,8 +58,51 @@
 <div class="WorkAreaImage">
 
 <div class="LeftBlock">
-    Дополнительные данные
+	<ul class="LeftMenu">
+	<li class="LeftMenuItem">	
+	    <span class="LeftMenuHeader">
+	    	<div class="TriangleClosed"></div><span>Пользователи</span>
+	    </span>
+	    <ul class="LeftBlockMenu">
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Добавить пользователя</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Список пользователей</a></li>        
+	    </ul>
+	</li>
+	<li class="LeftMenuItem">
+	    <span class="LeftMenuHeader">
+	    	<div class="TriangleClosed"></div><span>Работа с меню</span>
+	    </span>
+	    <ul class="LeftBlockMenu">
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Создать меню</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Ингридиенты</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Реестр блюд</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Отчеты</a></li>
+	    </ul>
+	</li>
+	<li class="LeftMenuItem">
+	    <span class="LeftMenuHeader">
+	    	<div class="TriangleClosed"></div><span>Работа с заказами</span>
+	    </span>
+	    <ul class="LeftBlockMenu">
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Список заказов</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Запрос на оплату</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        	Резервы времени</a></li>
+	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
+	        Отчеты</a></li>
+	    </ul>
+	</li>
+	</ul>   
 </div>
+
 <div class="CentralBlock">
     <?php if ($message <> "") echo $message;
     echo $content; ?>

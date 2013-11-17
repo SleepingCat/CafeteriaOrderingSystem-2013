@@ -2,13 +2,13 @@
 
 nav{
 	display: table;
-	margin: 0px 270px;
+	margin: 0px 276px;
 	position: absolute;
 }
 
 /*Список кнопок на главной панели*/
 .MainMenu{
-	list-style-type: none;	
+	list-style-type: none;
 	list-style-position: inside;
 	display: table-row;
 	padding: 0px;			
@@ -17,56 +17,45 @@ nav{
 /*Элемент списка кнопок на главной панели*/
 .MainPanelItem{
 	display: table-cell;
+	height: 60px;
+	padding: 0px 10px;	
+	border-right: 2px solid #ff9900;
+	border-left: 2px solid #ff9900;
 }
 
 /*Кнопка на главной панели*/
 .MainPanelButton{
-	width: 150px;
-	height: 60px;
-	display: inline-block;	
-	text-align: center;
-	border-right-width: thin;
-	border-right-style: solid;
-	border-color: #F5D694;
-	text-decoration: none;
-	background-color: rgba(0,0,0,0.35);
-	color: #F5D694;
-	cursor: default;
-	line-height: 60px;	
-}
-.MainPanelButton:hover{
-	background-color: rgba(255,255,255,0.35);
-	color: #492B23;
-}
-
-/*Выпадающее меню*/
-.MainPanelMenu{
-	list-style-type: none;	
-	list-style-position: inside;
-	padding: 0px;
-	margin: 0px;
-	text-align: center;
-	background-color: #FFFFFF;
-	outline: none;
-	cursor: pointer;		
-}
-
-.NavLink{
-	text-decoration: none;
-	line-height: 30px;	
 	display: inline-block;
-	width: 100%;					
+	width: 100%;
+	text-align: center;
+	text-decoration: none;
+	padding: 15px 0px;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	font-family: 'Bookman Old Style', serif;
+	color: #F5D694;
+	text-shadow: 1px -1px 0px rgb(131,114,86),
+		1px 1px 0px rgb(131,114,86),
+		-1px 1px 0px rgb(131,114,86),
+		-1px -1px 0px rgb(131,114,86),
+		2px -2px 0px rgba(235,172,46,0.7),
+		2px 2px 0px rgba(235,172,46,0.7),
+		-2px 2px 0px rgba(235,172,46,0.7),
+		-2px -2px 0px rgba(235,172,46,0.7);
+	white-space: nowrap;
+	text-transform: uppercase;
 }
 
-.NavLink:hover{
-	background-color: #999;
-}
-
-
-/*Отдельный класс для левой кнопки со скругленными углами*/
-.LeftButton{
-	border-top-left-radius: 11px;
-	border-bottom-left-radius: 11px;
+.MainPanelButton:hover{
+	text-shadow: 1px -1px 0px rgb(131,114,86),
+		1px 1px 0px rgb(131,114,86),
+		-1px 1px 0px rgb(131,114,86),
+		-1px -1px 0px rgb(131,114,86),
+		3px -3px 0px rgba(235,172,46,0.7),
+		3px 3px 0px rgba(235,172,46,0.7),
+		-3px 3px 0px rgba(235,172,46,0.7),
+		-3px -3px 0px rgba(235,172,46,0.7);		
 }
 
 /*Отдельный класс для кнопки, соответствующей открытой странице*/

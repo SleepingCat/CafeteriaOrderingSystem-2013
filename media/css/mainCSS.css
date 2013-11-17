@@ -34,7 +34,8 @@ header{
 /*Главная панель, для навигации по системе*/
 .MainPanel{
 	background-image: url(../image/Template/MainPanel.png);
-	height: 90px;	
+	height: 90px;
+	border-collapse: collapse;	
 }
 
 /*Лента, перекрывающая главную панель*/
@@ -72,7 +73,7 @@ header{
 	padding-left: 30px;
 	text-align: left;
 	display: table-cell;	
-	vertical-align: top;					
+	vertical-align: top;						
 }
 
 /*Правый блок рабочей области*/
