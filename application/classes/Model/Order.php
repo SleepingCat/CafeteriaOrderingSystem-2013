@@ -9,7 +9,8 @@ class Model_Order extends Model
 				delivery_time
 				FROM `orders`,`delivery_times`
 				WHERE (user_id = :userId) and (delivery_id = delivery_times_delivery_id)
-				and ((order_status = :status1) or (order_status = :status2))")
+				and ((order_status = :status1) or (order_status = :status2))
+				ORDER BY delivery_date, delivery_time")
 			->param(':status1', OrderStatus::NewOrder)
 			->param(':status2', OrderStatus::Complected)
 			->param(':userId', $UserId)

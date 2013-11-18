@@ -1,5 +1,5 @@
 <script>
-	$('.btn-slide').live('click', function()
+	$('.btn-slide').live("click", function()
 			{
 				$("#cart").slideToggle("slow");
 				$(this).toggleClass("active"); 
@@ -42,12 +42,9 @@
 <p class="slide"><a href="#" class="btn-slide">Мой заказ</a></p>
 <div id="cart">
 <?php
-/*
-echo '<pre>';
-print_r($_SESSION['order']);
-echo '</pre>';
-/*
-	
+
+
+	/*
 	 * Корзина с возможностью редактирования до оформления заказа
 	 */
 	if (isset($_SESSION['order']))

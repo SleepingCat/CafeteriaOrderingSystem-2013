@@ -8,6 +8,10 @@
 class Controller_Front extends Kohana_Controller_Template {
 	
 	/**
+	 * Хранит сессию данного подключения
+	 */
+	public $session = null;
+	/**
 	 * Относительный путь к шаблону web-страницы.
 	 * @var string
 	 */
@@ -16,7 +20,6 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Выводимое сообщение.
 	 */
 	public $message = '';
-	
 	/**
 	 * 
 	 * Переменная панели навигации
@@ -26,7 +29,6 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Содержимое текущей web-страницы.
 	 * @var string
 	 */	
-	
 	public $content = '';
 	/**
 	 * Переменная гость
@@ -43,7 +45,6 @@ class Controller_Front extends Kohana_Controller_Template {
 	 * Пути к подключаемым таблицам стилей CSS.
 	 * @var Array
 	 */
-
 	public $styles = array();
 	/**
 	 * Заголовок текущей страницы.
@@ -82,7 +83,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		parent::before();	
 		
 		// Запускаем сессию
-		Session::instance();
+		$this->session = Session::instance();
 		
 		// Получаем информацию о текущем пользователе
 		if(Auth::instance()->logged_in())

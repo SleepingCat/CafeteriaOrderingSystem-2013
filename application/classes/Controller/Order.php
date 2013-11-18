@@ -63,7 +63,7 @@ class Controller_Order extends Controller_Checkinputusers
 		{
 			$view->set('delivery_point',"Здание ".$this->user['building']." Этаж ".$this->user['floor']." Офис ".$this->user['office']);
 		}
-		$this->desu($_SESSION['order']);
+
 		if (isset($_POST['btn_confirm']))
 		{
 			//TODO: сделать валидацию

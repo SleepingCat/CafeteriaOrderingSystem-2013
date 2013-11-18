@@ -59,6 +59,7 @@ class Controller_Menu extends Controller_Checkinputusers
 				$_SESSION['mk_order_menu_date'] = $menu_date;
 				$_SESSION['menu'] = $menu;
 				$_SESSION['menu_id'] = $model_menu->get_menu_id();
+				$_SESSION['mk_order_id'] = null;
 				if (count($menu) < 1) {
 					$this->error_code = 3;
 				}
