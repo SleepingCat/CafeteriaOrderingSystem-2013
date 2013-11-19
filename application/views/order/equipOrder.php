@@ -6,6 +6,5 @@
 					<div align = "center"> 
 		    Осталось укомплектовать:
 			     <?php echo $leftOrders?></div><br>
-		<div align = "center"><input type = "submit" name = "getOrder" value = "Получить заказ для комплектования" onclick = "this.form.clickedelm.value=this.value"></div><br>
-	<div align = "center"><input type = "submit" name = "showOrder" value = "Просмотреть заказ" onclick = "this.form.clickedelm.value=this.value"></div>
+	<div align = "center"><input type = "submit" name = "getOrder" value = "Получить заказ" onclick = "this.form.clickedelm.value=this.value"></div>
 </form>

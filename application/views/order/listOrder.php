@@ -17,11 +17,11 @@
 		  		}
 		  	?>
 	  		</table></div><br> 
-	  		<div align = "center"> <input type = "submit" name = "equip" value = "Укомплектовать"></div>
+	  		<input type = "text" value = "Для печати нажмите Ctrl+P">
 	  		<?php
 	  	} 
 	  	
-	  	else {echo "<div align = "."center"."> Заказ отсутствует!</div><br>"; ?>
+	  	else {echo "<div align = "."center"."> Заказ пуст!</div><br>"; ?>
 				<div align = "center"> <input type = "submit" name = "equip" value = "Назад"></div><?php
 	  		 }
 	  	?>  

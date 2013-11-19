@@ -27,8 +27,24 @@ class Controller_EquipOrder extends Controller_Front
 	
 	public function action_equipOrGetContent()
 	{
-		//Еслы была нажата кнопка "Получить заказ для комплектования"
 		if (@$_POST['getOrder'])
+		{
+			//Получаем ближайший заказ для комплектования
+			$minOrd = new Model_EquipOrder();
+			$getOrd = $minOrd -> immidiateOrder();
+			
+			//Получаем заказчика
+			$getDishes = new Model_EquipOrder();
+			$Buyer = $getDishes -> getBuyer($getOrd);
+			
+			$this->title = "Укомплектовать заказы";
+			
+			//Передаем полученные данные во вьюху
+			$this->content = View::factory('order/getOrder')
+			->set('orderID', $getOrd)
+			->set('owner', $Buyer);
+		}
+	    elseif (@$_POST['equip'])
 		{
 			//Получаем ближайший заказ для комплектования
 			$status = new Model_EquipOrder();
@@ -56,26 +72,27 @@ class Controller_EquipOrder extends Controller_Front
 			->set("startTime",$periods)
 			->set('nowOrders', $orders )
 			->set('leftOrders', $leftOrd);
-			
 		}
-		//Если была нажата кнопка "Просмотреть заказ"
-		else if (@$_POST['showOrder'])
+		elseif (@$_POST['cancel'])
+		{
+			$this -> redirect('EquipOrder');
+		}
+		elseif(@$_POST['showOrder'])
 		{
 			//Получаем ближайший заказ для комплектования
 			$minOrd = new Model_EquipOrder();
 			$getOrd = $minOrd -> immidiateOrder();
-			
+				
 			//Получаем список блюд в заказе
 			$getDishes = new Model_EquipOrder();
 			$Dishes = $getDishes -> getDishes($getOrd);
-			
+				
 			$this->title = "Укомплектовать заказы";
-			
+				
 			//Передаем полученные данные во вьюху
 			$this->content = View::factory('order/listOrder')
 			->set('orderID', $getOrd)
 			->set('owner', $Dishes);
-			
 		}
 	}
 }

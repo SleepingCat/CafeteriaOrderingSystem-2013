@@ -6,7 +6,7 @@ class Model_EquipOrder
 		$delivery = DB::query(Database::SELECT, 'SELECT DISTINCT MIN(concat(delivery_time, " - ", Time(delivery_time+15*100))) as DeliverPeriod
 												FROM delivery_times
 												JOIN orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
-												WHERE orders.order_status = "Заказ_принят"')
+												WHERE orders.order_status = "Размещен"')
 														->execute()
 														->get('DeliverPeriod');
 		
@@ -24,7 +24,7 @@ class Model_EquipOrder
 															(select MIN(delivery_id) 
 															from delivery_times 
 															join orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
-															where orders.order_status = "Заказ_принят" or orders.order_status = "Укомплектован" or orders.order_status = "Доставлен")')
+															where orders.order_status = "Размещен" or orders.order_status = "Укомплектован" or orders.order_status = "Доставлен")')
 												->execute()
 		                                        ->get('COUNT');
 
@@ -37,10 +37,10 @@ class Model_EquipOrder
 		$immOrder = DB::query(Database::SELECT, 'SELECT MIN(order_id) as OrdID
 													FROM orders
 													join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
-													WHERE (Current_date = delivery_date) and (order_status = "Заказ_принят")
+													WHERE (Current_date = delivery_date) and (order_status = "Размещен")
 													and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
 														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
-														WHERE orders.order_status = "Заказ_принят"))')
+														WHERE orders.order_status = "Размещен"))')
 													->execute()
 													->get('OrdID');
 		
@@ -52,14 +52,27 @@ class Model_EquipOrder
 		$leftOrd = DB::query(Database::SELECT, 'SELECT COUNT(order_id) as leftOrders
 												FROM orders
 												join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
-												WHERE (Current_date = delivery_date) and (order_status = "Заказ_принят")
+												WHERE (Current_date = delivery_date) and (order_status = "Размещен")
 												and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
 														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
-														WHERE orders.order_status = "Заказ_принят"))')
+														WHERE orders.order_status = "Размещен"))')
 												->execute()
 												->get('leftOrders');
 		
 		return $leftOrd;
+	}
+	
+	public function getBuyer($ID)
+	{
+		$buyer = DB::query(Database::SELECT, 'SELECT DISTINCT CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office
+												from users
+												join orders on orders.user_id = users.id
+												where orders.order_id = :id')
+												->param(':id',$ID)
+												->execute()
+												->as_array();
+		
+		return $buyer;
 	}
 	
 	public function getDishes($ID)
@@ -71,14 +84,14 @@ class Model_EquipOrder
 												join orders on orders.order_id = OrRec.order_id
 												join users on users.id = orders.user_id
 												where orders.order_id = :id')
-												->param(':id',$ID)
-												->execute()
-												->as_array();
-		
+													->param(':id',$ID)
+													->execute()
+													->as_array();
+	
 		$setState = DB::query(Database::UPDATE, 'Update orders set order_status = "Укомплектован" where order_id = :id')
-		->param(':id', $ID)
+			->param(':id', $ID)
 		->execute();
-		
+	
 		return $dishes;
 	}
 	
