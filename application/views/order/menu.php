@@ -8,7 +8,7 @@ $(document).ready(function(){
 		var data1 = '{ name: "John", time: "2pm" }';
 		// data2 = $(".some_link").parent().find('input[name=A1]').val();
 		data2 = $(".add_button").parent().serializeArray();
-		$.post("http://cafeteriaorderingsystem-2013/Handler/", data2, function(data){
+		$.post("/Handler/", data2, function(data){
 		//$('body').append('<div>' + data + '</div>');
 			alert(data);
 		});
@@ -16,7 +16,7 @@ $(document).ready(function(){
 	});
 });
 $('#cart').ready(function (){
-	$.post("http://cafeteriaorderingsystem-2013/Handler", function(data){
+	$.post("/Handler", function(data){
 		$('#cart').html(data);
 	});
 });
@@ -24,7 +24,7 @@ $('#cart').ready(function (){
 function add_to_cart(id)
 {
 	var data2 = $('#add_form'+id).serializeArray();
-	$.post("http://cafeteriaorderingsystem-2013/Handler/add", data2, function(data){
+	$.post("/Handler/add", data2, function(data){
 		$('#cart').html(data);
 		});
 	return false;
@@ -32,7 +32,7 @@ function add_to_cart(id)
 
 function cart_clear(id)
 {
-	$.post("http://cafeteriaorderingsystem-2013/Handler/clear", function(data){
+	$.post("/Handler/clear", function(data){
 		$('#cart').html(data);
 		});
 	return false;
@@ -40,7 +40,7 @@ function cart_clear(id)
 
 function remove_from_cart(id)
 {
-	$.post("http://cafeteriaorderingsystem-2013/Handler/remove/" + id, function(data){
+	$.post("/Handler/remove/" + id, function(data){
 		$('#cart').html(data);
 		});
 	return false;
