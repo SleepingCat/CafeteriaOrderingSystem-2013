@@ -94,14 +94,30 @@ class Controller_Front extends Kohana_Controller_Template {
 			// Создаем экземпляр модели
 			$link=new Model_Link();			
 			// Присваем переменной $links , ссылку и название ссылки
-			$links=$link->get_link($this->user['username']);			
-			$this->menu=$links;	
-			
-		}		
+			$links=$link->get_link($this->user['username'], -1);
+			$result = "";
+			foreach ($links as $item)	
+			{
+				$result =$result.'<li class=""LeftMenuItem""> <span class="LeftMenuHeader"><div class="TriangleClosed"></div>';
+				$result =$result.'<span>'.$item['name_link'].'</span></span><ul class="LeftBlockMenu">';
+				$linksChild=$link->get_link($this->user['username'], $item['id']);
+				if (isset($linksChild)) 
+				{
+				   foreach ($linksChild as $itemChild)
+				   {
+				    	$result = $result.'<li><a class="NavLink" href="'.URL::site($itemChild['name']).'">';
+			    		$result = $result.'<div class="TriangleLittle"></div>'.$itemChild['name_link'];
+				    	$result = $result.'</a></li>';
+				   }
+				}
+				$result = $result.'</ul></li>';
+			}		
+			$this->menu=$result;		}		
 		else			
 		{
 			$this->user_hello = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
-			$this->guest="Гость";		
+			$this->guest="Гость";
+			$this->menu="";	
 			
 		}	
 		

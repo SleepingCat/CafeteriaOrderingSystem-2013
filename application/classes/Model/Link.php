@@ -12,21 +12,21 @@ class Model_Link
 	 * @return $link
 	 */
 	public $link;
-	public function get_link($username)
+	public function get_link($username, $seniorID)
 	{
 		$auth = Auth::instance();
 		
-		if ($auth->logged_in('admin'))
-		{
+		/*if ($auth->logged_in('admin'))
+		{*/
 		
 		return DB::query(Database::SELECT,		
-		"select menu_buttons.name,menu_buttons.name_link from menu_buttons join roles_buttons on menu_buttons_id=menu_buttons.id join roles on roles.id=roles_buttons.roles_role_Id join roles_users on roles_users.role_id=roles_buttons.roles_role_Id
-		join users on roles_users.user_id=users.id where users.username=:username and roles.name=:admin  order by  menu_buttons.name")
-				->param(':username', $username)
-				->param(':admin', 'admin')
+		"select distinct menu_buttons.id,menu_buttons.name,menu_buttons.name_link,menu_buttons.SeniorID from menu_buttons join roles_buttons on menu_buttons_id=menu_buttons.id join roles on roles.id=roles_buttons.roles_role_Id join roles_users on roles_users.role_id=roles_buttons.roles_role_Id
+		join users on roles_users.user_id=users.id where users.username=:username and  menu_buttons.SeniorID = :SenID order by  menu_buttons.name_link")
+				->param(':username', $username/*$this->$user['administrator']*/)
+				->param(':SenID', $seniorID)
 				->execute()
 				->as_array();
-		}		
+		/*}		
 		
 		
 		if ($auth->logged_in('login') && $auth->logged_in('Менеджер заказа'))
@@ -73,7 +73,7 @@ class Model_Link
 				->param(':admin', 'login')
 				->execute()
 				->as_array();
-		}
+		}*/
 	
 		
 	}	

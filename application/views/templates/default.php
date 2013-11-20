@@ -25,10 +25,9 @@
   
 <nav>
 	<ul class="MainMenu">
-		<?php foreach ($menu as $item) : ?>
-				<li class="MainPanelItem"><span><a href="<?php echo URL::site($item['name'])?>" class="MainPanelButton">
-				<?php echo ($item['name_link'])?></a></span></li>
-		<?php endforeach; ?>			
+		<?php 		    
+		 //echo $menu;    
+		?>     		
 	</ul>
 </nav>
   <?}?>
@@ -59,47 +58,9 @@
 
 <div class="LeftBlock">
 	<ul class="LeftMenu">
-	<li class="LeftMenuItem">	
-	    <span class="LeftMenuHeader">
-	    	<div class="TriangleClosed"></div><span>Пользователи</span>
-	    </span>
-	    <ul class="LeftBlockMenu">
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Добавить пользователя</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Список пользователей</a></li>        
-	    </ul>
-	</li>
-	<li class="LeftMenuItem">
-	    <span class="LeftMenuHeader">
-	    	<div class="TriangleClosed"></div><span>Работа с меню</span>
-	    </span>
-	    <ul class="LeftBlockMenu">
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Создать меню</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Ингридиенты</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Реестр блюд</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Отчеты</a></li>
-	    </ul>
-	</li>
-	<li class="LeftMenuItem">
-	    <span class="LeftMenuHeader">
-	    	<div class="TriangleClosed"></div><span>Работа с заказами</span>
-	    </span>
-	    <ul class="LeftBlockMenu">
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Список заказов</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Запрос на оплату</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        	Резервы времени</a></li>
-	        <li><a href="#" class="NavLink"><div class="TriangleLittle"></div>
-	        Отчеты</a></li>
-	    </ul>
-	</li>
+	<?php 
+	  echo $menu;
+	?>
 	</ul>   
 </div>
 
