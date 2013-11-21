@@ -50,7 +50,7 @@ foreach ($reestr as $key=>$value)
 		echo "<td class = \"Datacell\"> Нет </td>";
 	}	
 	echo "<td class = \"Datacell\"><a onclick=\"return confirm('?')\"  href=\"http://".$_SERVER['HTTP_HOST']."/reestr/delete/".$value['dish_id']."\"><button>Удалить</button></a></td>
-    	  <td class = \"Datacell\"><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/edit/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
+    	  <td class = \"Datacell\"><a href=\"http://".$_SERVER['HTTP_HOST']."/reestr/update/".$value['dish_id']."\"><button>Изменить</button></a></td></tr>";
 	echo "</tr>";
 }
 
