@@ -94,7 +94,7 @@ foreach ($types as $key => $value)
 {	
 	if (isset ($dish))
 	{
-	   if ($value['name'] === $dish['type'])
+	   if ($value['name'] == $dish['type'])
 		{
 			echo "<option  value=\"".$key."\" selected = \"selected\">".$value['name']."</option>";
 		}
