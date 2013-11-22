@@ -1,12 +1,6 @@
-@charset "utf-8"
-html{
-	margin:0px; 
-	padding:0px;	
-}
+@charset "utf-8";
 
-body{	
-	margin: 0px;
-	padding: 0px;
+body{		
 	background-color: #000000;
 	min-width:1260px;	
 }
@@ -69,8 +63,8 @@ header{
 /*Левый блок рабочей области*/
 .LeftBlock{
 	height: 100px;
-	width: 250px;	
-	padding-left: 30px;
+	width: 220px;
+	padding-left: 30px;	
 	text-align: left;
 	display: table-cell;	
 	vertical-align: top;						
@@ -93,7 +87,7 @@ header{
 	width: 760px;
 	margin-left: 250px;
 	display: table-cell;
-	vertical-align: top;		
+	vertical-align: top;				
 }
 
 /*Нижняя часть страницы*/

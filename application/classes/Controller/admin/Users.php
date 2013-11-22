@@ -44,7 +44,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
        		'search'=>View::factory('templates/admin/users/sereachview'),
        		'message'=> $Mes1,
             ));             
-       $this->styles = array('media/css/bootstrap.css' => 'screen');	  
+       //$this->styles = array('media/css/bootstrap.css' => 'screen');	  
        $this->title ="Список пользователей";     
     }
     

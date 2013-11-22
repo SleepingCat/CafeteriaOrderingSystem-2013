@@ -1,5 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
-
+<!DOCTYPE HTML> 
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -57,9 +57,9 @@
 <div class="WorkAreaImage">
 
 <div class="LeftBlock">
-	<ul class="LeftMenu">
+	<ul class="LeftMenu">	
 	<?php 
-	  echo $menu;
+	 echo $menu;
 	?>
 	</ul>   
 </div>

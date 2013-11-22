@@ -98,7 +98,7 @@ class Controller_Front extends Kohana_Controller_Template {
 			$result = "";
 			foreach ($links as $item)	
 			{
-				$result =$result.'<li class=""LeftMenuItem""> <span class="LeftMenuHeader"><div class="TriangleClosed"></div>';
+				$result =$result.'<li class="LeftMenuItem"> <span class="LeftMenuHeader"><div class="TriangleClosed"></div>';
 				$result =$result.'<span>'.$item['name_link'].'</span></span><ul class="LeftBlockMenu">';
 				$linksChild=$link->get_link($this->user['username'], $item['id']);
 				if (isset($linksChild)) 
@@ -139,6 +139,7 @@ class Controller_Front extends Kohana_Controller_Template {
 			// Добавляем стили, используемые на каждой странице web-сайта
 			$styles = array(
 				//$media->uri(array('file' => 'css/jquery-ui.css')) => 'screen',
+				$media->uri(array('file' => 'css/reset.css')) => 'screen',
 				$media->uri(array('file' => 'css/mainCSS.css')) => 'screen',
 				$media->uri(array('file' => 'css/buttons.css')) => 'screen',
 				$media->uri(array('file' => 'css/elements.css')) => 'screen'
@@ -148,7 +149,9 @@ class Controller_Front extends Kohana_Controller_Template {
 				$media->uri(array('file' => 'js/jquery.min.js')),
 				$media->uri(array('file' => 'js/jquery-ui.min.js')),
 				$media->uri(array('file' => 'js/pxgradient-1.0.2.jquery.js')),
-				$media->uri(array('file' => 'js/mainScript.js'))
+				$media->uri(array('file' => 'js/jquery.json-2.4.min.js')),
+				$media->uri(array('file' => 'js/jquery.cookie.js')),
+				$media->uri(array('file' => 'js/mainScript.js'))				
 			);
 		}
 		// Assign variables to template variables

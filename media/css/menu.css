@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+.MenuTable{
+	border-collapse: collapse;
+	width: 720px;	
+	position: relative;
+	right: 5px;
+	color: #4B1573;	
+	font-size: 18px;
+	
+}
+
+.MenuCell{
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
+	width: 170px;
+}
+
+.PictureCell{
+	width: 210px;
+	height: 210px;
+}
+
+.WideCell{
+	text-align: left;
+}
+
+.DishPhoto{
+	width: 210px;
+	height: 210px;	
+}
