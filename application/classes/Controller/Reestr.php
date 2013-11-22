@@ -86,25 +86,35 @@ class Controller_Reestr extends Controller_Checkinputusers
 		->bind('types',$types)
 		->bind('dish',$dish);
 		
+		
 		if (isset($_POST["btn_dish_add"]))
 		{
+			print_r($_POST['ingredients']);
+		
 			if ($errcode==0)
 			{
 				if(isset ($_POST["standart"])) { $is_standart = 1; } else {$is_standart = null; }
+				
 				if(isset ($_POST["available"])) { $is_available = 1; } else {$is_available = null;}
+				
 				if(isset($_POST["ingredients"]))
 				{
-					$model_reestr->update_dish($_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients'], $is_standart,$is_available);
+					
+					$model_reestr->update_dish($_POST['id'],$_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients'], $is_standart,$is_available);
 				}
-				else {
-					$model_reestr->update_dish($_POST['title'], $_POST['category'], $_POST['type'], null, $is_standart,$is_available);
+				else 
+				{
+					$model_reestr->update_dish($_POST['id'], $_POST['title'], $_POST['category'], $_POST['type'], null, $is_standart,$is_available);
 				}
 		
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");
+			
 			}
+			
 		}
 	
-	//	$this->desu($dish);
+		
+		
 		$this->content=$view;
 	}
 	

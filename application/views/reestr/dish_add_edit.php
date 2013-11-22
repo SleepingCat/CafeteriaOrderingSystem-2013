@@ -35,6 +35,15 @@ $(document).ready(function(){
 <form action = "" method= POST>
 
 <div>
+
+<?php 
+if (isset ($dish))
+{
+
+	echo "<input type = \"hidden\" name = \"id\" value =\"".$dish['dish_id']."\">";
+
+}
+?>
 <h1>Добавить блюдо:</h1>
 <p> Название: 
 <?php 

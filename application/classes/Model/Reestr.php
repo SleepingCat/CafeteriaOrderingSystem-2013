@@ -119,19 +119,19 @@ public function  get_dish($dish_id)
 					->param(':dish_id', $dish_id)
 					->param(':dish_name', $dish_name)
 					->param(':dish_type', $dish_type)
-					->param(':dish_category_id',$dish_category)
+					->param(':dish_category',$dish_category)
 					->param(':is_standart', $is_standart) 
 					->param(':is_available',$is_available)
 					->execute();
 
 		$ingrexist = $this->get_ingredients($dish_id);
 		
-		if($ingrexist[1]!=0) // если до этого у блюда был указан состав
+		if($ingrexist!=null) // если до этого у блюда был указан состав
 		{
 			$this->delete_ingredient($dish_id); // удалим к хренам связи;
 		}
 		
-		if ($result != null && $result[0] && $ingredients!=null)
+		if ($result != null && $ingredients!=null)
 		{
 			//print_r($ingredients);
 		
