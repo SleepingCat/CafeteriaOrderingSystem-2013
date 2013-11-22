@@ -1,34 +1,40 @@
 <!-- @autor=MrAnderson -->
 
 <script type="text/javascript">
-var k=$("div.ogranichenie").length;
-$('#add a').live('click',function(){
+$(document).ready(function(){
+	var k=$("div .ogranichenie").size();
+	$('#add a').live('click',function(){
+		
+		var html_inputs = '<div class="ogranichenie"> <select name = \"ingredients['+ k +'][ingredient_id]\">';
 	
-	var html_inputs = '<div class="ogranichenie"> <select name = \"ingredients['+ k +'][ingredient_id]\">';
-
-	<?php
-	foreach ($ingredient as $key => $value)
-		{
-			 echo "html_inputs += \"<option value=".$key.">".$value['product_name']."</option>\";\n";
-		}	
-	?>
+		<?php
+		foreach ($ingredient as $key => $value)
+			{
+				 echo "html_inputs += \"<option value=".$key.">".$value['product_name']."</option>\";\n";
+			}	
+		?>
+		
+		html_inputs+='</select> <input type="number" name = \"ingredients['+ k++ +'][yield]\">	<a class = "delete" href=#"> <button> - </button></a></div>';
+		$('.ingridients').append(html_inputs);
+		$('.ingridients .ogranichenie:hidden').slideDown(200);
 	
-	html_inputs+='</select> <input type="number" name = \"ingredients['+ k +'][yield]\">	<a href=#"> <button id = "delete"> - </button></a></div>';
-	$('.ingridients').append(html_inputs);
-	$('.ingridients .ogranichenie:hidden').slideDown(200);
-
-	Height_Add();	
-	return false;
+		Height_Add();	
+		return false;
+	});
+	
+	$('.delete').live('click',function(){
+		
+		$(this).parent().remove();
+		--k;
+		return false;
+	});
 });
-
 </script>
 
 
-<form action = "add" method= POST>
+<form action = "" method= POST>
 
 <div>
-
-
 <h1>Добавить блюдо:</h1>
 <p> Название: 
 <?php 
@@ -143,11 +149,9 @@ else
 ?>
 </p>
 
-
 <div class = "ingridients">
 <p> Ингредиенты: </p>
-</div>
-<div>
+
 <?php
 $counter = 0; 
  if(isset($dish['ingredients']))
@@ -171,17 +175,19 @@ $counter = 0;
 			
 		}
 		
-		echo "</select> <input type=\"number\" name = \"ingredients['$counter'][yield]\" value = ".$value['yield']." \"\>	<a href=#\"> <button id = \"delete\"> - </button></a></div>";
+		echo "</select> <input type=\"number\" name = \"ingredients['$counter'][yield]\" value = \"".$value['yield']."\">	<a href=#\"> <button id = \"delete\"> - </button></a></div>";
 		$counter++;
 	}
  }
 ?>
+</div>
+
 
 <div id="add">
-<a href=#"> <button> + </button></a>
+<a href=#> <button> + </button></a>
 </div>
 
-</div>
+
 <input type = "submit" name = "btn_dish_add" value = "Принять" >
 <a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/"; ?>" ><button>Отмена</button></a> 
 </div>
