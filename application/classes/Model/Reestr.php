@@ -131,7 +131,7 @@ public function  get_dish($dish_id)
 			$this->delete_ingredient($dish_id); // удалим к хренам связи;
 		}
 		
-		if ($result != null && $ingredients!=null)
+		if ($ingredients!=null)
 		{
 			//print_r($ingredients);
 		
