@@ -73,7 +73,9 @@
 		 */
 		public function action_logout()
 		{   $auth=Auth::instance();	
-	      	$auth->logout();	       
+	      	$auth->logout();	
+			session_unset( );
+			 session_destroy( )	;		
 			$this->redirect('');           			
 		}	
 		/**
@@ -84,7 +86,8 @@
 	       $auth=Auth::instance();
 	      
 			$pass1=$auth->hash_password('admin');
-	        $this->content=$pass1 ;		
+	        $this->content=$pass1 ;	
+			;
 		}				
 		
 		/*public function action_reg()

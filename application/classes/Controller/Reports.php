@@ -12,12 +12,7 @@ class Controller_Reports extends Controller_Checkinputusers
 		$Mess1 = "";
 		$Mess2="";
 		
-		if (!empty($_SESSION['Mes']))
-		{
-			$Mes = $_SESSION['Mes'];
-			$Mess =  $Mes;			
-		}		
-		if (isset($_POST['subm']))
+		 if (isset($_POST['subm']))
 		{
 			$_SESSION['Mes'] = 'Отчет по клиентам';
 			$_SESSION['Mes1'] = 'Клиенты';
@@ -62,7 +57,7 @@ class Controller_Reports extends Controller_Checkinputusers
 		$ts1 = strtotime($date1);
 		$ts2 = strtotime($date2);
 		
-		// Прошло ли 30 сек?
+		
 		if ($ts1 > $ts2 OR empty($date1))		
 		{			
 			

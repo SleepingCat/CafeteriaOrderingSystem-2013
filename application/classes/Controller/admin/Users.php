@@ -8,11 +8,11 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
     public function action_index()
     {    	$Mes = "";
    			$Mes1="";
-		if (!empty($_SESSION['Mes']))
+		if (!empty($_SESSION['Mes11']))
 		{
-			$Mes = $_SESSION['Mes'];
+			$Mes = $_SESSION['Mes11'];
 			$Mes1 = $Mes;
-			$_SESSION['Mes'] = "";
+			$_SESSION['Mes11'] = "";
 		}
         // Запрашиваем список пол-й
         $users = ORM::factory('user')
@@ -85,13 +85,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				// Удаляем пол-ля			
 				$user->delete();
 				// Redirect admin/users	
-				$_SESSION['Mes'] = "Пользователь был успешно удален";
+				$_SESSION['Mes1'] = "Пользователь был успешно удален";
 				$this->redirect('admin/users');
 			}
 				
 			else 
 			{				
-				$_SESSION['Mes'] = "Пользователя нельзя удалить,т.к уже совершал заказ";
+				$_SESSION['Mes11'] = "Пользователя нельзя удалить,т.к уже совершал заказ";
 				$this->redirect('admin/users');
 			//throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');	
 				
@@ -111,7 +111,11 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		 	 $surname=Arr::get($_POST,'surname','');
 		     $tab_numb=Arr::get($_POST,'employee_number','');		     	     
 		     $email=Arr::get($_POST,'email','');
-	
+
+		     $_SESSION['email'] =  $email;
+		     
+		     
+		     
 		     // правила валидации вызываем
 		$post = Validation::factory($_POST)			
 			->rule('username', 'not_empty')
@@ -160,7 +164,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		  {		//Добавляем пол-ля,если все OK , то переходим на контролл admin/users
 		  		if($register->reg())
 				{			
-					$_SESSION['Mes'] = "Пользователь был успешно создан";
+					$_SESSION['Mes11'] = "Пользователь был успешно создан";
 		      		 $this->redirect('/admin/users');	    
 				}
 		  }
@@ -175,11 +179,12 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			    
 			// Получаем список ролей
 			$roles = $register->find_role(); 
-			
+		 	
 			$this->content=View::factory('templates/admin/users/add_form')
 				->set(array(
 				'item' => array_merge( array('roles' => array())),
 				'roles' => $roles,
+				//'email'=>$_SESSION['email'],
 				));					
 			//$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
@@ -324,13 +329,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			   { 	
 			   		$register->changeorderstatus();
 			   		$register->changesubscriptionsstatus();		
-			   		$_SESSION['Mes'] = "Пользователь был уволен и все его дейтсвующие заказы отеменены";
+			   		$_SESSION['Mes11'] = "Пользователь был уволен и все его дейтсвующие заказы отеменены";
 			   		$this->redirect('/admin/users');
 			   }
 			   
 			   else			   
 			   {	
-			   	$_SESSION['Mes'] = "Пользователь был успешно отредактирован";
+			   	$_SESSION['Mes11'] = "Пользователь был успешно отредактирован";
 			   	$this->redirect('/admin/users');			   
 			   }			 
 			}	

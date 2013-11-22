@@ -8,9 +8,10 @@ text-align:center;
 
 }
 
-.profile{color:black; font-weight:bold}
-a {font-size:16px; color:#ff6600; font-weight:bold}
-a:hover {font-size:16px; color:#ff0000; font-weight:bold}
+.profile{color:blue; font-weight:bold}
+a {font-size:16px; color:blue; }
+a:hover {font-size:16px; color:red; }
+
 .dashboard
 {
 
@@ -38,10 +39,37 @@ width:500px;
 
 }
 
-.login td{
-padding:5px;
+.Reports{
+	
+display: inline-block;
+margin:30px auto 0;
+margin-top: 50px;
+	
+}
+
+.Clients,.Foods,.Order {
+padding:30px;
 text-align:center;	
 }
+
+.Start,.End {
+padding:10px;
+text-align:center;	
+}
+
+.Subm{
+padding:5px;
+text-align:center;	
+	
+}
+
+table{
+max-width:100%;background-color:transparent;
+border-collapse:collapse;border-spacing:0 
+}
+.table{width:100%;margin-bottom:20px;font-size:15px;}.table th,.table td{padding:8px;line-height:10x;text-align:left;vertical-align:center;border-top:1px solid #dddddd;}
+
+.table .table{background-color:#ffffff;}
 
 
 .login th{    
