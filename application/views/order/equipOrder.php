@@ -8,9 +8,11 @@
 						<div align = "center"> 
 			    Осталось укомплектовать:
 				     <?php echo $leftOrders?></div><br>
-		<table align = "center"><td><input type = "submit" name = "getOrder" value = "Получить заказ" onclick = "this.form.clickedelm.value=this.value"></td>
+		<table align = "center"><tr><td><input type = "submit" name = "print" value = "Распечатать данные заказа"></td>
 								<td>   </td>
-								<td><input type = "submit" name = "showLastEquip" value = "Просмотреть укомплектованные заказы"</td>
+								<td><input type = "submit" name = "getOrder" value = "Получить заказ"></td>
+								<td>   </td>
+								<td><input type = "submit" name = "showLastEquip" value = "Просмотреть укомплектованные заказы"</td></tr>
 		</table><?php 
 	} 
 	

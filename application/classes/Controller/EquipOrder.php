@@ -118,5 +118,20 @@ class Controller_EquipOrder extends Controller_Front
 			$this->content = View::factory('order/showEquipOrder')
 			->set("list", $_SESSION['list_of_orders']);
 		}
+		elseif(@$_POST['print'])
+		{
+			$getID = new Model_EquipOrder();
+			$sendID = $getID -> immidiateOrder();
+			
+			//Устанавливаем статус "Укомплектован"
+			$q = DB::query(Database::UPDATE, 'Update orders set order_status = "Укомплектован" where order_id = :id ')
+			->param(':id', $sendID)
+			->execute();
+			
+			$print = new Model_Report();
+			$callWord = $print -> ExportWordOrder($sendID);		
+
+			$this -> redirect('EquipOrder');
+		}
 	}
 }
