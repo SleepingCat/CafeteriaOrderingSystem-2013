@@ -1,4 +1,5 @@
 <form action="/EquipOrder/index" method="POST">
+  <title>Список блюд в заказе</title>
 	<div align = "center"> Комплектуется заказ №: <?php echo $orderID ?> </div> <br>
 	  <?php $i = 0; 
 	  	if ($owner != null)
@@ -17,7 +18,8 @@
 		  		}
 		  	?>
 	  		</table></div><br> 
-	  		<input type = "text" value = "Для печати нажмите Ctrl+P">
+	  		<label>Для печати нажмите Ctrl+P</label>
+	  		<div align = "center"> <input type = "submit" name = "equip" value = "Назад"></div>
 	  		<?php
 	  	} 
 	  	

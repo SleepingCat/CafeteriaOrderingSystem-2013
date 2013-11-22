@@ -55,17 +55,7 @@ class Controller_EquipOrder extends Controller_Front
 			->param(':id', $setStatus)
 			->execute();
 			
-			//Получаем интервал для комплектования блюд
-			$per = new Model_EquipOrder();
-			$periods = $per -> get_period();
-			
-			//Получаем общее количество комплектующихся блюд на текущий интервал времени
-			$ord = new Model_EquipOrder();
-			$orders = $ord -> get_orders();
-			
-			//Получаем оставшееся количество блюд для комплектования
-			$leftOrders = new Model_EquipOrder();
-			$leftOrd = $leftOrders ->leftOrders();
+			$this -> redirect('EquipOrder');
 			
 			//Передаем полученные данные во вьюху
 			$this->content = View::factory('order/equipOrder')
@@ -77,7 +67,7 @@ class Controller_EquipOrder extends Controller_Front
 		{
 			$this -> redirect('EquipOrder');
 		}
-		elseif(@$_POST['showOrder'])
+		elseif (@$_POST['showOrder'])
 		{
 			//Получаем ближайший заказ для комплектования
 			$minOrd = new Model_EquipOrder();

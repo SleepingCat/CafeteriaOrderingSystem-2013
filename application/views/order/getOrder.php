@@ -8,7 +8,7 @@
 	  				  						", этаж: ".$owner[$i]['floor'].
 	  				  						 ", оффис №: ".$owner[$i]['office']."<br><br>";
 	  	 }?>
-	  <table align = "center"><tr><td><input type = "submit" name = "showOrder" value = "Просмотреть заказ" href = listOrder.php target = "_blank"></td>
+	  <table align = "center"><tr><td><input type = "submit" name = "showOrder" value = "Просмотреть заказ"></td>
 	  <td><input type = "submit" name = "equip" value = "Укомплектовать"></td>
 	  <td><input type = "submit" name = "cancel" value = "Отмена"></td></tr></table>
 </form>

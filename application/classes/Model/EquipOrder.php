@@ -6,7 +6,7 @@ class Model_EquipOrder
 		$delivery = DB::query(Database::SELECT, 'SELECT DISTINCT MIN(concat(delivery_time, " - ", Time(delivery_time+15*100))) as DeliverPeriod
 												FROM delivery_times
 												JOIN orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
-												WHERE orders.order_status = "Размещен"')
+												WHERE orders.order_status = "Размещен" and CURRENT_DATE = delivery_date')
 														->execute()
 														->get('DeliverPeriod');
 		
@@ -19,12 +19,12 @@ class Model_EquipOrder
 		$orders = DB::query(Database::SELECT, 'SELECT Count(order_id) as COUNT
 												FROM orders
 												join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
-												WHERE (Current_date = delivery_date) and 
-													(orders.delivery_point <> "0") and delivery_times.delivery_id = 
-															(select MIN(delivery_id) 
-															from delivery_times 
-															join orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
-															where orders.order_status = "Размещен" or orders.order_status = "Укомплектован" or orders.order_status = "Доставлен")')
+												WHERE (Current_date = delivery_date)
+												and delivery_times.delivery_id = 
+														(select MIN(delivery_id) 
+														from delivery_times 
+														join orders on delivery_times.delivery_id = orders.delivery_times_delivery_id
+														where orders.order_status = "Размещен" and (Current_date = delivery_date))')
 												->execute()
 		                                        ->get('COUNT');
 
@@ -40,7 +40,7 @@ class Model_EquipOrder
 													WHERE (Current_date = delivery_date) and (order_status = "Размещен")
 													and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
 														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
-														WHERE orders.order_status = "Размещен"))')
+														WHERE orders.order_status = "Размещен" and (Current_date = delivery_date)))')
 													->execute()
 													->get('OrdID');
 		
@@ -53,9 +53,10 @@ class Model_EquipOrder
 												FROM orders
 												join delivery_times on delivery_times.delivery_id = orders.delivery_times_delivery_id
 												WHERE (Current_date = delivery_date) and (order_status = "Размещен")
-												and (orders.delivery_times_delivery_id = (select MIN(delivery_id) from delivery_times 
+												and (orders.delivery_times_delivery_id = 
+														(select MIN(delivery_id) from delivery_times 
 														join orders on orders.delivery_times_delivery_id = delivery_times.delivery_id
-														WHERE orders.order_status = "Размещен"))')
+														WHERE orders.order_status = "Размещен" and (Current_date = delivery_date)))')
 												->execute()
 												->get('leftOrders');
 		
