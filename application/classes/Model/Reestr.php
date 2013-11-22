@@ -106,7 +106,7 @@ public function  get_dish($dish_id)
 	}
 	
 	
-	public function update_dish($dish_id,$dish_name,$dish_type,$dish_category,$ingredients, $is_standart, $is_available)
+	public function update_dish($dish_id,$dish_name,$dish_category,$dish_type,$ingredients, $is_standart, $is_available)
 	{
 		$query = 'UPDATE dishes SET dish_name = :dish_name,
 					dish_type_id = :dish_type ,
