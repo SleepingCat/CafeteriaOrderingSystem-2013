@@ -51,10 +51,10 @@ class Controller_Reestr extends Controller_Checkinputusers
 				
 				if(isset($_POST["ingredients"]))
 				{
-					$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], $_POST['ingredients'], $is_standart);
+					$model_reestr->add_dish($_POST['title'], $_POST['type'], $_POST['category'], $_POST['ingredients'], $is_standart);
 				} 		
 				else {
-					$model_reestr->add_dish($_POST['title'], $_POST['category'], $_POST['type'], null, $is_standart);
+					$model_reestr->add_dish($_POST['title'], $_POST['type'], $_POST['category'], null, $is_standart);
 				}
 				
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");
@@ -86,10 +86,11 @@ class Controller_Reestr extends Controller_Checkinputusers
 		->bind('types',$types)
 		->bind('dish',$dish);
 		
+		//print_r($dish);
 		
 		if (isset($_POST["btn_dish_add"]))
 		{
-			print_r($_POST['ingredients']);
+			$this->desu($_POST);
 		
 			if ($errcode==0)
 			{
@@ -109,15 +110,21 @@ class Controller_Reestr extends Controller_Checkinputusers
 		
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/reestr");
 			
-			}
+			} 
+			
 			
 		}
 	
-		
-		
+				
 		$this->content=$view;
 	}
 	
+	private  function desu ($some)
+	{
+		echo "<pre>";
+		print_r($some);
+		echo "</pre>";
+	}
 	
 	
 }
