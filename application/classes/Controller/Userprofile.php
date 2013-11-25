@@ -7,17 +7,17 @@ public function action_index()
 	{	
 		$Mes = "";
 		$Mes1 = "";
-		if (!empty($_SESSION['Mes']))
+		if (!empty($_SESSION['Mess']))
 		{
-			$Mes = $_SESSION['Mes'];
+			$Mes = $_SESSION['Mess'];
 			$Mes1 =  $Mes;
-			$_SESSION['Mes'] = "";
+			$_SESSION['Mess'] = "";
 		}
-		$this->title = "Поиск заказа";
+		
 		$error=array();
 		$id=$this->user['id'];				
 		$users = ORM::factory('user')
-			->where('id', '=', $id);		
+		->where('id', '=', $id);		
 		
 		// Получаем список пол-й и количеств страниц пагинации
 		$users= $users				
@@ -29,7 +29,7 @@ public function action_index()
 				'message'=>$Mes1,				
 		))
 		->set('errors',$error);
-		 
+				 
 		 $this->title = 'Профиль клиента';	
 		$this->styles = array('media/css/bootstrap.css' => 'screen');
 		
@@ -124,8 +124,8 @@ public function action_index()
 			    	$this->redirect('');
 				else
 				{
-					$_SESSION['Mes'] = 'Срок изменения типа регистрации не истек';
-				 	$this->redirect('/Userprofile');
+					$_SESSION['Mess'] = 'Срок изменения типа регистрации не истек';					
+					$this->redirect('/Userprofile');
 				}
 			}				
 		}	
