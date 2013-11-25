@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 20 2013 г., 22:14
+-- Время создания: Ноя 25 2013 г., 23:41
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `menu_buttons` (
   `name_link` varchar(500) NOT NULL,
   `SeniorID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Дамп данных таблицы `menu_buttons`
@@ -252,14 +252,14 @@ INSERT INTO `menu_buttons` (`id`, `name`, `name_link`, `SeniorID`) VALUES
 (6, '/CreateMenu', 'Создать меню', 5),
 (7, '/ListIngr', 'Ингредиенты', 5),
 (8, '/Reestr', 'Реестр блюд', 5),
-(9, '#', 'Отчеты', 5),
+(9, '/Reports', 'Отчеты', 5),
 (10, '#', 'Работа с заказами', -1),
 (11, '#', 'Список заказов', 10),
 (12, '#', 'Запрос на оплату', 10),
 (14, '#', 'Резервы времени', 10),
-(15, '#', 'Отчеты', 10),
-(16, '/EquipOrder', 'Получить заказ для комплектования', null),
-(17, '/Deliveryorders', 'Регистрировать доставку заказа блюд', null),
+(15, '/Reports', 'Отчеты', 10),
+(16, '/EquipOrder', 'Получить заказ для комплектования', 10),
+(17, '/Deliveryorders', 'Регистрировать доставку заказа блюд', 10),
 (18, '#', 'Основной раздел', -2),
 (19, '/', 'Главная', 18),
 (20, '/menu', 'Меню', 18),
@@ -532,6 +532,11 @@ INSERT INTO `roles_buttons` (`roles_role_Id`, `menu_buttons_id`) VALUES
 (1, 20),
 (1, 21),
 (1, 22),
+(2, 18),
+(2, 19),
+(2, 20),
+(2, 21),
+(2, 22),
 (3, 10),
 (3, 16),
 (4, 5),
@@ -574,19 +579,28 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 --
 
 INSERT INTO `roles_users` (`role_id`, `user_id`) VALUES
-(2, 3),
 (1, 3),
-(2, 9),
+(2, 3),
 (3, 9),
+(2, 9),
 (4, 2),
 (2, 2),
 (2, 6),
 (5, 6),
-(2, 8),
 (1, 8),
+(2, 8),
 (2, 7),
 (1, 1),
-(2, 1);
+(2, 1),
+(5, 8),
+(3, 8),
+(4, 1),
+(5, 1),
+(3, 1),
+(4, 8),
+(3, 3),
+(5, 3),
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -631,20 +645,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `date_change`, `name`, `employee_number`, `payment_type`, `discount`, `user_status`, `logins`, `last_login`, `surname`, `patronymic`, `floor`, `office`, `building`) VALUES
-(1, 'administrator', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur4iK@rambler.ru', '2013-09-03', 'Дмитрий', 111111, 1, NULL, 0, 37, 1384971229, 'Бабурин', 'Владимирович', '1', '38', '5б'),
-(2, 'Xochenkov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'xochenkov@rambler.ru', '2013-10-01', 'Алексей', 222222, 1, NULL, 0, 17, 1384970805, 'Хоченков', 'Евгеньевич', '4', '7', '11'),
+(1, 'administrator', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'babur4iK@rambler.ru', '2013-11-25', 'Дмитрий', 111111, 0, NULL, 0, 44, 1385408410, 'Бабурин', 'Владимирович', '1', '38', '5б'),
+(2, 'Xochenkov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'xochenkov@rambler.ru', '2013-10-01', 'Алексей', 222222, 1, NULL, 0, 20, 1385408249, 'Хоченков', 'Евгеньевич', '4', '7', '11'),
 (3, 'UmnovDE', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'umnov@oe-it.ru', '2013-09-03', 'Денис', 999999, 0, 0, 0, 5, 1384456705, 'Умнов', 'Михайлович', '2', '1', '3'),
-(6, 'Sokolov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'sokolov@mail.ru', '2013-09-10', 'Владимир', 333333, 0, NULL, 0, 7, 1384971202, 'Соколов', 'Леонидович', '1', '1', '1'),
-(7, 'Masalin', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'masalin@gmail.com', '2013-09-10', 'Александр', 777777, 0, NULL, 0, 3, 1384456277, 'Масалин', 'Батькович', '1', '1', '1 '),
+(6, 'Sokolov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'sokolov@mail.ru', '2013-09-10', 'Владимир', 333333, 0, NULL, 0, 10, 1385408174, 'Соколов', 'Леонидович', '1', '1', '1'),
+(7, 'Masalin', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'masalin@gmail.com', '2013-09-10', 'Александр', 777777, 0, NULL, 0, 9, 1385408290, 'Масалин', 'Батькович', '1', '1', '1 '),
 (8, 'galogen', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'galogenIt@gmail.com', '2013-08-14', 'Эдуард', 555555, 1, NULL, 0, 2, 1384456743, 'Галиаскаров', 'Геннадьевич', '1', '1', '1'),
-(9, 'Petrov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'petrov@gmail.com', '2013-11-20', 'Илья', 454545, 0, NULL, 0, 4, 1384971191, 'Петров', 'Евгеньевич', '2', '2', '2');
+(9, 'Petrov', '987ce3d883fe34262fffc2ccb18f480128eae9a3b17411999e6ab124328550bc', 'petrov@gmail.com', '2013-11-20', 'Илья', 454545, 0, NULL, 0, 10, 1385408276, 'Петров', 'Евгеньевич', '2', '2', '2');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
