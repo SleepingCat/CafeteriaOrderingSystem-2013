@@ -26,6 +26,11 @@ class Controller_Front extends Kohana_Controller_Template {
 	 */
 	public $menu = array();
 	/**
+	 *
+	 * Переменная главной панели навигации
+	 */
+	public $main_menu = array();
+	/**
 	 * Содержимое текущей web-страницы.
 	 * @var string
 	 */	
@@ -112,7 +117,25 @@ class Controller_Front extends Kohana_Controller_Template {
 				}
 				$result = $result.'</ul></li>';
 			}		
-			$this->menu=$result;		}		
+			$this->menu=$result;
+			
+			$links=$link->get_link($this->user['username'], -2);
+			$result = "";
+			foreach ($links as $item)
+			{			
+				$linksChild=$link->get_link($this->user['username'], $item['id']);
+				if (isset($linksChild))
+				{
+					foreach ($linksChild as $itemChild)
+					{
+						$result = $result.'<li class="MainPanelItem"><span><a class="MainPanelButton" href="'.URL::site($itemChild['name']).'">';
+						$result = $result.$itemChild['name_link'];
+						$result = $result.'</a></span></li>';
+					}
+				}				
+			}
+			$this->main_menu=$result;
+		}		
 		else			
 		{
 			$this->user_hello = 'Привет'.' '.'гость,надо бы авторизоваться'.View::factory('templates/auth/log_buton');
@@ -163,6 +186,7 @@ class Controller_Front extends Kohana_Controller_Template {
 		$this->template->user = $this->user_hello;
 		$this->template->content = $this->content;
 		$this->template->menu = $this->menu;
+		$this->template->main_menu = $this->main_menu;
 		$this->template->guest = $this->guest;
 		
 			
