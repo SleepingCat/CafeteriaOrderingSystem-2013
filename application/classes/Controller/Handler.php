@@ -24,8 +24,11 @@ class Controller_Handler extends Controller
 				}
 				if ($value > 0)
 				{
+					$tmp = $key."|".$_POST['portion'];
+					if (isset($_SESSION['order'][$tmp]['servings_number']) && $_SESSION['order'][$tmp]['servings_number'] != null){$tmp2 = $_SESSION['order'][$tmp]['servings_number'];}
+					else { $tmp2 = 0;}
 					$_SESSION['order'][$key."|".$_POST['portion']] = $menu[$key];
-					$_SESSION['order'][$key."|".$_POST['portion']]['servings_number'] = $value;
+					$_SESSION['order'][$tmp]['servings_number'] = $value + $tmp2;
 					$_SESSION['order'][$key."|".$_POST['portion']]['portion'] = $_POST['portion'];
 				}
 			}
@@ -49,6 +52,7 @@ class Controller_Handler extends Controller
 	{
 		if (isset($_SESSION['order']))
 		{
+
 			$summ = 0;
 			foreach ($_SESSION['order'] as $key => $value)
 			{

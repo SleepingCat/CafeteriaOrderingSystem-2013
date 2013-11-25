@@ -45,7 +45,7 @@ class Controller_Menu extends Controller_Checkinputusers
 					$this->error_code = 3;
 				}
 				// Или если введенная дата меньше текущей
-				elseif ($input_date_in_seconds < time())
+				elseif ($input_date_in_seconds < mktime(0, 0, 0, date("m")  , date("d"), date("Y")))
 				{
 					$this->error_code = 4;
 				}
@@ -78,16 +78,20 @@ class Controller_Menu extends Controller_Checkinputusers
 	 */
 	public function action_show()
 	{
-		if(isset($_SESSION['mk_order_menu_date']))
+
+		if(!isset($_SESSION['mk_order_menu_date']))
 		{
-			if (isset($_SESSION['menu'])) {
-				$menu = $_SESSION['menu'];
-			}
-			else 
-			{
-				$model_menu = new Model_Menu();
-				$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
-			}
+			$_SESSION['mk_order_menu_date'] = date("Y-m-d");
+			print_r($_SESSION['mk_order_menu_date']);
+		}
+		$model_menu = new Model_Menu();
+		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
+		if (empty($menu)) {
+			$this->error_code = 6;
+			$this->content = $this->view;
+		}
+		else
+		{
 			$this->content = View::factory('order/menu')->bind('menu', $menu);
 		}
 	}
