@@ -3,6 +3,15 @@
 var LeftMenuHeaders;
 var jsonHeaders;
 
+$(window).before(function() 
+	{
+		$(".MainPanelButton, .LeftMenuHeader span, .UserHeaderArea").pxgradient({ 
+		step: 2, 
+		colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
+		dir: "y" 
+	});	
+});
+
 $(document).ready(function(e)
 {	
 	Height_Add();	
@@ -30,20 +39,7 @@ $(document).ready(function(e)
 			$(this).next().show();
 			$(this).children("div").attr("class", "TriangleOpened");
 		}		
-	});		
-	
-	$(".MainPanelButton").pxgradient({ 
-	  step: 2, 
-	  colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
-	  dir: "y" 
-	});
-	
-	$(".LeftMenuHeader span").pxgradient({ 
-	  step: 2, 
-	  colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
-	  dir: "y" 
-	});		
-	
+	});	
 });
 
 $(window).bind('beforeunload', function()

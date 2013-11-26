@@ -31,7 +31,7 @@ public function action_index()
 		->set('errors',$error);
 				 
 		 $this->title = 'Профиль клиента';	
-		$this->styles = array('media/css/bootstrap.css' => 'screen');
+		//$this->styles = array('media/css/bootstrap.css' => 'screen');
 		
 	}
 	

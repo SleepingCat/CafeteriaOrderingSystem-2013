@@ -30,13 +30,8 @@ a {
 	font-weight: bold;
 	font-size: 18px;
 	line-height: 25px;
-	color: #C1AC51;
-	/*letter-spacing: 1px;*/
-	font-family: 'Bookman Old Style', serif;
-	/*text-shadow: 1px -1px 0px rgb(131,114,86),
-		1px 1px 0px rgb(131,114,86),
-		-1px 1px 0px rgb(131,114,86),
-		-1px -1px 0px rgb(131,114,86);*/
+	color: #C1AC51;	
+	font-family: 'Bookman Old Style', serif;	
 	text-shadow: 1px -1px 0px rgb(0,0,0),
 		1px 1px 0px rgb(0,0,0),
 		-1px 1px 0px rgb(0,0,0),
@@ -104,6 +99,55 @@ a {
 	font-size: 18px;
 	text-align: left;
 	width: 100%;							
+}
+
+.UserArea{
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	margin-top: 5px;	
+	padding-left: 7px;
+	padding-right: 3px;	
+}
+
+.UserHeaderArea{	
+	width: 210px;	
+	cursor: default;
+	display: inline-block;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 5px;
+	border-color: rgb(131,114,86);	
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 25px;
+	color: #C1AC51;	
+	font-family: 'Bookman Old Style', serif;	
+	text-shadow: 1px -1px 0px rgb(0,0,0),
+		1px 1px 0px rgb(0,0,0),
+		-1px 1px 0px rgb(0,0,0),
+		-1px -1px 0px rgb(0,0,0);
+	/*Для ff и ie*/	
+	white-space: pre;		
+}
+
+.UserWorkArea{
+	margin: 3px 0px 5px 1px;
+	padding: 0px;
+	border-style: solid;
+	display: inline-block;
+	width: 210px;
+	border-width: 1px;
+	border-radius: 5px;
+	border-color: rgb(131,114,86);
+}
+
+.UserName{	
+	padding-bottom: 20px;
+	padding-top: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 

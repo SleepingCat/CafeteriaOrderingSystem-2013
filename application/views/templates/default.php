@@ -3,9 +3,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title><?php echo $title;?></title>		
+		<title><?php echo $title;?></title>				
 		<? foreach ($styles as $style => $media) echo HTML::style($style, array('media'=>$media), NULL, TRUE), "\n"?>
-		<? foreach ($scripts as $script) echo HTML::script($script, NULL, NULL, TRUE), "\n"?> 
+		<? foreach ($scripts as $script) echo HTML::script($script, NULL, NULL, TRUE), "\n"?>		
 	</head>
 	
 	

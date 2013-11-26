@@ -61,8 +61,7 @@ header{
 }
 
 /*Левый блок рабочей области*/
-.LeftBlock{
-	height: 100px;
+.LeftBlock{	
 	width: 220px;
 	padding-left: 30px;	
 	text-align: left;
@@ -71,9 +70,9 @@ header{
 }
 
 /*Правый блок рабочей области*/
-.RightBlock{
-	height: 100px;
-	width: 250px;	
+.RightBlock{	
+	width: 220px;
+	padding-right: 30px;	
 	margin-left: 1010px;
 	text-align: left;
 	display: table-cell;	

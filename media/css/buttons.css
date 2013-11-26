@@ -58,24 +58,36 @@ nav{
 		-3px -3px 0px rgba(235,172,46,0.7);		
 }
 
-/*Отдельный класс для кнопки, соответствующей открытой странице*/
-.ActiveButton{
-color: #F5D694;
-background: #000000;	
-
-background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.35) 65%, rgba(255,255,255,0.35) 100%);
-
-background: -webkit-gradient(radial, center center, 0px, center center, 0%, color-stop(65%,rgba(0,0,0,0.35)), color-stop(100%,rgba(255,255,255,0.35)));
-
-background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.35) 65%,rgba(255,255,255,0.35) 100%);
-
-background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 50%,rgba(255,255,255,0.35) 100%);
+.RightAreaBut{
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	background-color: transparent;
+	background-image: url(../image/Template/Button160x40.png);
+	margin-bottom: 5px;
+	width: 160px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;	
+	font-weight: bold;
+	font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
+	color: #EACA8E;
+	border-style: none;	
 }
 
-.ActiveButton:hover{
-	background: rgba(255,255,255,0.35);
-	color: #492B23;
+.RightAreaBut:hover{
+	background-image: url(../image/Template/Button160x40_hover.png);
 }
+
+.RightAreaBut:active{
+	font-size: 14px;
+}
+
+
+
+
+
+
 
 
 /*EntBut - прямоугольная кнопка с текстом*/
