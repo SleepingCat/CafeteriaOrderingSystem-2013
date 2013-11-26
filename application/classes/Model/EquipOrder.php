@@ -63,19 +63,6 @@ class Model_EquipOrder
 		return $leftOrd;
 	}
 	
-	public function getBuyer($ID)
-	{
-		$buyer = DB::query(Database::SELECT, 'SELECT DISTINCT CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office
-												from users
-												join orders on orders.user_id = users.id
-												where orders.order_id = :id')
-												->param(':id',$ID)
-												->execute()
-												->as_array();
-		
-		return $buyer;
-	}
-	
 	public function getDishes($ID)
 	{
 		$dishes = DB::query(Database::SELECT, 'select distinct dishes.dish_name, CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office, OrRec.servings_number, MR.price
@@ -88,10 +75,6 @@ class Model_EquipOrder
 													->param(':id',$ID)
 													->execute()
 													->as_array();
-	
-		$setState = DB::query(Database::UPDATE, 'Update orders set order_status = "Укомплектован" where order_id = :id')
-			->param(':id', $ID)
-		->execute();
 	
 		return $dishes;
 	}

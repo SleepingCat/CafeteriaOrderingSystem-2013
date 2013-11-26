@@ -1,6 +1,3 @@
-<style>
-	#delete_button{display:none;}
-</style>
 <form action="/ListIngr/index" method="POST"> 
 	<div id = "добавление" align = "center"> <label for = "добавление"> Добавить новый ингредиент: </label>
 	 <input type = "submit" name = "newIngr" value = "Добавить"> </div> <br>
@@ -15,11 +12,5 @@
 						}
 					?>
 				</table></div><br>
-				<script>
-					$('.checkbox_ingr').live('click', function() {
-						$('#delete_button').css('display', 'block');
-					}
-					);
-				</script>
 			<input type = "submit" name = "delete" id="delete_button" value = "Удалить выбранные ингредиенты">
 </form>
