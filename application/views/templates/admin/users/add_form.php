@@ -14,11 +14,11 @@
 			<fieldset class="Fieldset"><legend>Профиль</legend>			
 			    <div class="TitledTextboxArea">
 			        <?php echo __('Имя пользователя:') ?><br>
-			        <input type="text" class="TextBox" size="25" maxlength="16" name="username"  id="username" value="<?php echo Arr::get($item, 'username') ?>"/>
+			        <input type="text" class="TextBox" size="25" maxlength="16" name="username"  id="username" value="<?php echo $login ?>"/>
 			    </div>
 			    <div class="TitledTextboxArea">
 			        <?php echo __('Email:') ?><br>
-			        <input type="text" class="TextBox" size="25" maxlength="25"  name="email" id="email" value="<?php echo Arr::get($item, 'email') ?>"/>
+			        <input type="text" class="TextBox" size="25" maxlength="25"  name="email" id="email" value="<?php echo $email ?>"/>
 			    </div>
 			    <div class="TitledTextboxArea">
 			        <?php echo __('Пароль:') ?><br>
@@ -33,19 +33,19 @@
 			<fieldset class="Fieldset"><legend>Личные данные</legend>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Табельный номер:') ?><br>
-				    <input type="text" class="TextBox" size="6" maxlength="6" name="employee_number" value="<?php echo Arr::get($item, 'employee_number') ?>"/>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="employee_number" value="<?php echo $employee_number ?>"/>
 				</div>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Фамилия:') ?><br>
-				    <input type="text" class="TextBox" size="25" maxlength="25" name="surname" id="surname" value="<?php echo Arr::get($item, 'surname') ?>"/>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="surname" id="surname" value="<?php echo $surname ?>"/>
 				</div>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Имя:') ?><br>
-				    <input type="text" class="TextBox" size="25" maxlength="25" name="name" id="name" value="<?php echo Arr::get($item, 'name') ?>"/>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="name" id="name" value="<?php echo $name  ?>"/>
 				</div>
 				<div class="TitledTextboxArea">
 				    <?php echo __('Отчество:') ?><br>
-				    <input type="text" class="TextBox" size="25" maxlength="25" name="patronymic" id="patronymic" value="<?php echo Arr::get($item, 'patronymic') ?>"/>
+				    <input type="text" class="TextBox" size="25" maxlength="25" name="patronymic" id="patronymic" value="<?php echo $patronymic ?>"/>
 				</div>
 			</fieldset></td>
 		</tr>
@@ -56,15 +56,15 @@
 			<fieldset class="Fieldset"><legend>Адрес доставки по умолчанию</legend>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Здание:') ?><br>
-				    <input type="text" class="TextBox" size="6" maxlength="6" name="building" id="building" value="<?php echo Arr::get($item, 'building') ?>"/>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="building" id="building" value="<?php echo $building ?>"/>
 				</div>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Этаж:') ?><br>
-				    <input type="text" class="TextBox" size="6" maxlength="6" name="floor" id="floor" value="<?php echo Arr::get($item, 'floor') ?>"/>
+				    <input type="text" class="TextBox" size="6" maxlength="6" name="floor" id="floor" value="<?php echo $floor ?>"/>
 				</div>
 				<div class="TitledTextboxArea InlineBlockClass">
 				    <?php echo __('Номер кабинета:') ?><br>
-				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number" value="<?php echo Arr::get($item, 'office') ?>"/>
+				    <input type="text" class="TextBox" size="16" maxlength="6" name="office" id="number" value="<?php echo $office?>"/>
 				</div>
 			</fieldset></td>
 			<td class="Field3" rowspan="2">

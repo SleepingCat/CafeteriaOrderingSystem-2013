@@ -4,7 +4,6 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 {  	  /**
      * Список пол-й
      */ 
-
     public function action_index()
     {    	$Mes = "";
    			$Mes1="";
@@ -85,7 +84,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				// Удаляем пол-ля			
 				$user->delete();
 				// Redirect admin/users	
-				$_SESSION['Mes1'] = "Пользователь был успешно удален";
+				$_SESSION['Mes11'] = "Пользователь был успешно удален";
 				$this->redirect('admin/users');
 			}
 				
@@ -109,11 +108,14 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			 $login=Arr::get($_POST,'username','');				  
 	   		 $password=Arr::get($_POST,'password','');			 
 		 	 $surname=Arr::get($_POST,'surname','');
+			 $patronymic=Arr::get($_POST,'patronymic','');
+			 $name=Arr::get($_POST,'name','');
 		     $tab_numb=Arr::get($_POST,'employee_number','');		     	     
 		     $email=Arr::get($_POST,'email','');
-
-		     $_SESSION['email'] =  $email;
-		     
+			 $floor=Arr::get($_POST,'floor','');
+			 $building=Arr::get($_POST,'building','');
+			 $office=Arr::get($_POST,'office','');
+		     //$_SESSION['email'] =  $email;     
 		     
 		     
 		     // правила валидации вызываем
@@ -184,7 +186,15 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				->set(array(
 				'item' => array_merge( array('roles' => array())),
 				'roles' => $roles,
-				//'email'=>$_SESSION['email'],
+				'email'=>$email,
+				'employee_number'=>$tab_numb,
+				'login'=> $login,
+				'surname'=> $surname,
+				'name'=> $name,
+				'patronymic'=>$patronymic,
+				'building'=>$building,
+				'office'=>$office,
+				'floor'=>$floor,
 				));					
 			//$this->styles = array('media/css/style.css' => 'screen');
 			$this->template->title ="Новый пользователь";
