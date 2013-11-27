@@ -1,3 +1,15 @@
+<style>
+table
+{
+	border:1px solid black;
+	background:#cd853f;
+}
+td
+{
+	border:1px solid black;
+	padding:0px 7px;
+}
+</style>
 <form action="/ListDishType/index" method="POST">
 	<div id="добавление" align="center">
 		<label for="добавление"> Добавить новый тип блюда: </label> 
@@ -6,7 +18,7 @@
 	<br>
 	<div align="center">Типы блюд:</div>
 	<div align="center">
-		<table border=solid 1px black bgcolor=#A0522D>
+		<table
 			<tr>
 				<td>√</td>
 				<td>Наименование</td>

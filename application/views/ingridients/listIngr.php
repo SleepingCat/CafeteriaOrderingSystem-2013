@@ -1,8 +1,20 @@
+<style>
+table
+{
+	border:1px solid black;
+	background:#cd853f;
+}
+td
+{
+	border:1px solid black;
+	padding:0px 7px;
+}
+</style>
 <form action="/ListIngr/index" method="POST"> 
 	<div id = "добавление" align = "center"> <label for = "добавление"> Добавить новый ингредиент: </label>
 	 <input type = "submit" name = "newIngr" value = "Добавить"> </div> <br>
 			<div align = "center"> Список ингредиентов: </div>
-				<div align = "center"><table border = solid 1px black bgcolor = #A0522D> <tr><td> √ </td> <td> Ингредиент </td><td> Количество </td></tr>
+				<div align = "center"><table> <tr><td> √ </td> <td> Ингредиент </td><td> Количество </td></tr>
 					<?php
 						$i = 0;
 						foreach ($list as $key => $value)
