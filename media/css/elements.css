@@ -42,7 +42,9 @@ a {
 	border-width: 2px;
 	border-style: solid;
 	border-radius: 5px;
-	border-color: rgb(131,114,86);	
+	border-color: rgb(131,114,86);
+	/*Для ff и ie*/	
+	white-space: pre;	
 }
 
 /*Указатель свернутого раздела навигации*/

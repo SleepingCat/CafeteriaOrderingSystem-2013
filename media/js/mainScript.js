@@ -28,17 +28,22 @@ $(document).ready(function(e)
 			$(this).children("div").attr("class", "TriangleClosed");
 		}		
 		return false;		
-	}).next().hide();
+	});	
 	
 	LeftMenuHeaders = JSON.parse($.cookie("MenuHeaders"));
 	$.cookie("MenuHeaders", null, {path: '/'});
 	$( ".LeftMenuHeader" ).each(function(i)
-	{
+	{		
 		if (LeftMenuHeaders[i] == true)
 		{
 			$(this).next().show();
 			$(this).children("div").attr("class", "TriangleOpened");
-		}		
+		}
+		else
+		{
+			$(this).next().hide();
+			$(this).children("div").attr("class", "TriangleClosed");
+		}
 	});	
 });
 

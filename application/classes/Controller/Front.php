@@ -99,8 +99,31 @@ class Controller_Front extends Kohana_Controller_Template {
 			// Создаем экземпляр модели
 			$link=new Model_Link();			
 			// Присваем переменной $links , ссылку и название ссылки
-			$links=$link->get_link($this->user['username'], -1);
+			$links=$link->get_link($this->user['username'], -2);
 			$result = "";
+			$mainresult = "";
+			foreach ($links as $item)
+			{
+				$result =$result.'<li class="LeftMenuItem"> <span class="LeftMenuHeader"><div class="TriangleClosed"></div>';
+				$result =$result.'<span>'.$item['name_link'].'</span></span><ul class="LeftBlockMenu">';
+				$linksChild=$link->get_link($this->user['username'], $item['id']);
+				if (isset($linksChild))
+				{
+					foreach ($linksChild as $itemChild)
+					{
+						$mainresult = $mainresult.'<li class="MainPanelItem"><span><a class="MainPanelButton" href="'.URL::site($itemChild['name']).'">';
+						$mainresult = $mainresult.$itemChild['name_link'];
+						$mainresult = $mainresult.'</a></span></li>';
+						$result = $result.'<li><a class="NavLink" href="'.URL::site($itemChild['name']).'">';
+						$result = $result.'<div class="TriangleLittle"></div>'.$itemChild['name_link'];
+						$result = $result.'</a></li>';
+					}
+					$result = $result.'</ul></li>';
+				}
+			}
+			$this->main_menu=$mainresult;			
+			
+			$links=$link->get_link($this->user['username'], -1);						
 			foreach ($links as $item)	
 			{
 				$result =$result.'<li class="LeftMenuItem"> <span class="LeftMenuHeader"><div class="TriangleClosed"></div>';
@@ -117,24 +140,8 @@ class Controller_Front extends Kohana_Controller_Template {
 				}
 				$result = $result.'</ul></li>';
 			}		
-			$this->menu=$result;
+			$this->menu=$result;			
 			
-			$links=$link->get_link($this->user['username'], -2);
-			$result = "";
-			foreach ($links as $item)
-			{			
-				$linksChild=$link->get_link($this->user['username'], $item['id']);
-				if (isset($linksChild))
-				{
-					foreach ($linksChild as $itemChild)
-					{
-						$result = $result.'<li class="MainPanelItem"><span><a class="MainPanelButton" href="'.URL::site($itemChild['name']).'">';
-						$result = $result.$itemChild['name_link'];
-						$result = $result.'</a></span></li>';
-					}
-				}				
-			}
-			$this->main_menu=$result;
 		}		
 		else			
 		{
