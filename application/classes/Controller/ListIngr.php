@@ -50,15 +50,15 @@ class Controller_ListIngr extends Controller_Front
 	
 	public function action_AddData()
 	{
-		if (!empty($_POST['Name']) and !empty($_POST['Balance']))
+		if (!empty($_POST['Name']) and !empty($_POST['Balance']) and ($_POST['Dimension']))
 		{
 			$Ingr = new Model_NewIngr();
-			$newIngr = $Ingr -> add_new_ingr($_POST['Name'], $_POST['Balance']);
+			$newIngr = $Ingr -> add_new_ingr($_POST['Name'], $_POST['Balance'], $_POST['Dimension']);
 			$text = "Ингредиент успешно добавлен!";
 			$this->content = View::factory('ingridients/addIngr')
 			->set("text",$text);
 		}
-		elseif (empty($_POST['Name']) or empty($_POST['Balance']))
+		elseif (empty($_POST['Name']) or empty($_POST['Balance']) or ($_POST['Dimension']))
 		{
 			$text = "Введите данные!";
 			$this->content = View::factory('ingridients/addIngr')
