@@ -3,7 +3,6 @@
 //@autor = MrAnderson;
 //
 //
-
 class Controller_Reports extends Controller_Checkinputusers
 {	
 	public function action_index()
@@ -50,66 +49,36 @@ class Controller_Reports extends Controller_Checkinputusers
 		}		
 		
 		if (isset($_POST['subm']))
-	{
-		$date1 = Arr::get($_POST,'Start','');
-		$date2 = Arr::get($_POST,'End','');
-		
-		$ts1 = strtotime($date1);
-		$ts2 = strtotime($date2);
-		
-		
-		if ($ts1 > $ts2 OR empty($date1))		
-		{			
-			
-		$error = 'Вы не ввели дату или выбрали некорретный период';
-				
-		}
-		
-		else 
 		{
+			$BeginDate = Arr::get($_POST,'Start','');
+			$EndDate = Arr::get($_POST,'End','');			
+			$ts1 = strtotime($BeginDate);
+			$ts2 = strtotime($EndDate);			
 			
-		if ($Mes2 == "Клиенты")			
-		{			
-			/*require_once('D:\\library/odf.php');
-			$odf = new odf("D:\\1.odt");*/
-			$odf = new Odtphp(APPPATH.'templates/users1.odt');
+			if ($ts1 > $ts2 OR empty($BeginDate))		
+			{
+				$error = 'Вы не ввели дату или выбрали некорректный период';					
+			}		
+		else 
+			{			
+				if ($Mes2 == "Клиенты")			
+				{
+					$RepVal = new Model_Report();
+					$RepVal ->ExportWordClients($BeginDate, $EndDate);
+				}	
+			}
+		}	
 			
-			$odf->setVars('privet', 'Иван', $encode = TRUE, $charset='UTF-8');
-			$users = ORM::factory('user');
-			$users =  DB::query(Database::SELECT,
-			"select * from users")
-			->execute()
-			->as_array();
-			//->find_all();
-			$kvit = $odf->setSegment('articles');
-			
-			foreach ($users as $item){
-			$kvit->setVars('username', $item['username'], true, 'utf-8');
-			$kvit->setVars('email', $item['email'], true, 'utf-8');
-			$kvit->setVars('surname', $item['surname'], true, 'utf-8');
-			$kvit->setVars('name', $item['name'], true, 'utf-8');
-			$kvit->setVars('patronymic', $item['patronymic'], true, 'utf-8');
-		
-			$kvit->setVars('numb', $item['employee_number'], true, 'utf-8');
-			$kvit->merge();
-			}			
-			$odf->mergeSegment($kvit);
-			
-			// We export the file
-			$odf->exportAsAttachedFile();			
-		}
-	}	
-}		
 		$this->styles = array('media/css/style.css' => 'screen');
 		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->content = View::factory('templates/reports/date', array(				
 	    'Rep'=>$Mess,
 		'error'=>$error,
 		
-		));
-		
-			
+		));			
 	}
-	
-	
 }
+	
+
+	
+	
