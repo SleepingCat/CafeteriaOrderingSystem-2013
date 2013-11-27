@@ -7,10 +7,12 @@ class Controller_ListIngr extends Controller_Front
 		$listIngr = DB::query(Database::SELECT, 'SELECT * from products')
 		->execute()
 		->as_array();
+		$_SESSION['ingr_list_of_ingr'] = $listIngr;
 		
+		$this -> title = 'Список ингредиентов';
 		//Передаем полученные данные во вьюху
 		$this->content = View::factory('ingridients/listIngr')
-		->set('list', $listIngr);
+		->set('list', $_SESSION['ingr_list_of_ingr']);
 		
 		if (@$_POST['newIngr'])
 		{
@@ -18,6 +20,30 @@ class Controller_ListIngr extends Controller_Front
 			
 			$this->content = View::factory('ingridients/addIngr')
 			->set("text",$text="");
+		}
+		elseif (@$_POST['delete'])
+		{
+			if(isset($_POST['check']))
+			{
+				$checked = $_POST['check'];
+				$list_of_ingr = $_SESSION['ingr_list_of_ingr'];
+				foreach ($checked as $key => $value) 
+				{
+					$ingridient = new Model_DelTypeMenuDishIngr();
+					$delIngr = $ingridient -> del_ingr($list_of_ingr[$key]['product_id']);
+					$this->redirect('ListIngr');
+				}
+			}
+			
+			if(empty($_POST['check']))
+			{
+				$this->content = View::factory('createDishType/emptyPage');
+			}
+		}
+		
+		if (@$_POST['back'])
+		{
+			$this->redirect('ListIngr');
 		}
 		
 	}

@@ -7,10 +7,12 @@ class Controller_ListMenuType extends Controller_Front
 		$listMenuType = DB::query(Database::SELECT, 'SELECT * from dish_category')
 		->execute()
 		->as_array();
+		$_SESSION['list_of_menuCategory'] = $listMenuType;
 		
+		$this -> title = 'Список категорий меню';
 		//Передаем полученные данные во вьюху
 		$this->content = View::factory('createDishType/listMenuType')
-		->set('list', $listMenuType);
+		->set('list', $_SESSION['list_of_menuCategory']);
 		
 		if (@$_POST['newTypeMenu'])
 		{
@@ -20,6 +22,29 @@ class Controller_ListMenuType extends Controller_Front
 			->set("text",$text="");
 		}
 		
+		elseif (@$_POST['delete'])
+		{
+			if(isset($_POST['check']))
+			{
+				$checked = $_POST['check'];
+				$list_of_menu = $_SESSION['list_of_menuCategory'];
+				foreach ($checked as $key => $value)
+				{
+					$menu = new Model_DelTypeMenuDishIngr();
+					$delMenuCategory = $menu -> del_menuType($list_of_menu[$key]['id']);
+					$this->redirect('ListMenuType');
+				}
+			}
+			if(empty($_POST['check']))
+			{
+				$this->content = View::factory('createDishType/emptyPage');
+			}
+		}
+		
+		if (@$_POST['back'])
+		{
+			$this->redirect('ListMenuType');
+		}
 	}
 	
 	public function action_AddData()
@@ -28,7 +53,7 @@ class Controller_ListMenuType extends Controller_Front
 		{
 			$Type = new Model_NewMenuType();
 			$newType = $Type -> add_new_menuType($_POST['Name'], $_POST['Priority']);
-			$text = "Категория успешно добавлен!";
+			$text = "Категория успешно добавлена!";
 			$this->content = View::factory('createDishType/addNewMenuType')
 			->set("text",$text);
 		}

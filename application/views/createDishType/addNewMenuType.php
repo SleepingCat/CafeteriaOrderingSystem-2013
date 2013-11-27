@@ -4,12 +4,13 @@
 	</div>
 	<br>
 	<div align = "center"> 
-		Количество: <input type = Text name = "Balance">
+		Приоритет: <input type = Text name = "Priority">
 	</div>
 	<br>
+		<div align = "center"> <?php echo $text?> </div><br>
 	<table align="center">
 		<tr>
-			<td><input type="submit" name="addType" value="Добавить"></td>
+			<td><input type="submit" name="addType" value="Добавить"></td> <td>   </td>
 			<td><input type="submit" name="reverse"
 				value="Вернуться к списку категорий меню"></td>
 		</tr>

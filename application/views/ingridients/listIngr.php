@@ -7,8 +7,8 @@
 						$i = 0;
 						foreach ($list as $key => $value)
 						{
-						   $i++;
 						   echo "<tr><td><input type=\"checkbox\" class=\"checkbox_ingr\" name=\"check[".$i."]\"></td><td align = \"center\">".$value['product_name']."</td><td align = \"center\">".$value['balance']."</td></tr>";
+						   $i++;
 						}
 					?>
 				</table></div><br>

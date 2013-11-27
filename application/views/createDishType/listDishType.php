@@ -14,8 +14,8 @@
 					<?php
 					$i = 0;
 					foreach ( $list as $key => $value ) {
-						$i ++;
 						echo "<tr><td><input type=\"checkbox\" class=\"checkbox_type\" name=\"check[". $i ."]\"></td><td align = \"center\">". $value ['name'] ."</td></tr>";
+						$i ++;
 					}
 					?>
 		</table>
