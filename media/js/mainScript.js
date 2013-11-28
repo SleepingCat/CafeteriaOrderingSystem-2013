@@ -4,18 +4,18 @@ var LeftMenuHeaders;
 var jsonHeaders;
 
 $(window).before(function() 
-	{
-		$(".MainPanelButton, .LeftMenuHeader span, .UserHeaderArea").pxgradient({ 
+{
+	$(".MainPanelButton, .LeftMenuHeader span, .UserHeaderArea").pxgradient({ 
 		step: 2, 
 		colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
 		dir: "y" 
-	});	
+	});		
 });
 
 $(document).ready(function(e)
-{	
+{		
 	Height_Add();	
-		
+	
 	$( ".LeftMenuHeader" ).click(function()
 	{
 		$(this).next().toggle(); 
@@ -28,7 +28,9 @@ $(document).ready(function(e)
 			$(this).children("div").attr("class", "TriangleClosed");
 		}		
 		return false;		
-	});	
+		});
+	
+	//$( "#dialog-message" ).dialog();
 	
 	LeftMenuHeaders = JSON.parse($.cookie("MenuHeaders"));
 	$.cookie("MenuHeaders", null, {path: '/'});
@@ -63,13 +65,15 @@ $(window).bind('beforeunload', function()
 сохранения целостности узора внизу области*/
 function Height_Add()
 	{
-		var h = parseInt($("#WA").css("height"), 10);
+		var h = $("#WA").height();
+		//alert(h);						
 		if ((h % 60) != 0)
 		{
 			$("#WA").css("height", function()
-			{			
-				h += 60 - h % 60;
+			{				
+				h += 60 - h % 60;				
 				return h;
 			});
-		};
+		};		
 	}
+	

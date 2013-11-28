@@ -397,7 +397,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'message'=> '',
 		));	
 		
-		$this->styles = array('media/css/bootstrap.css' => 'screen');
+		//$this->styles = array('media/css/bootstrap.css' => 'screen');
 		$this->title ="Список пользователей";		
 	}	
 	

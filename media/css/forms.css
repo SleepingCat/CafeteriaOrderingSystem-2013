@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.SearchForm{
+	display: inline-block;
+	text-align: left;
+	margin: 15px 50px 30px 0px;
+}
+
+.SearchLabel{
+	text-indent: 0.5em;
+	font-size: 18px;	
+}
+
+.SearchTextBox{
+	outline: none;
+	background-color: #FFF;
+	border-color: #f2e19e
+}

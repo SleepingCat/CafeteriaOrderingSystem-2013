@@ -44,7 +44,7 @@ a {
 	border-radius: 5px;
 	border-color: rgb(131,114,86);
 	/*Для ff и ie*/	
-	white-space: pre;	
+	/*white-space: pre;*/	
 }
 
 /*Указатель свернутого раздела навигации*/
@@ -108,12 +108,12 @@ a {
 	text-decoration: none;
 	outline: none;
 	margin-top: 5px;	
-	padding-left: 7px;
+	padding-left: 6px;
 	padding-right: 3px;	
 }
 
 .UserHeaderArea{	
-	width: 210px;	
+	width: 206px;	
 	cursor: default;
 	display: inline-block;
 	border-width: 2px;
@@ -131,15 +131,15 @@ a {
 		-1px 1px 0px rgb(0,0,0),
 		-1px -1px 0px rgb(0,0,0);
 	/*Для ff и ie*/	
-	white-space: pre;		
+	/*white-space: pre;*/		
 }
 
 .UserWorkArea{
-	margin: 3px 0px 5px 1px;
+	margin: 3px 0px 5px 0px;
 	padding: 0px;
 	border-style: solid;
 	display: inline-block;
-	width: 210px;
+	width: 206px;
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: rgb(131,114,86);
@@ -155,13 +155,54 @@ a {
 
 /*Заголовок страницы*/
 .PageHeader{
-	width: 720px;
-	position: relative;
-	right: 5px;
+	width: 760px;	
 	text-align: center;
-	font-size: 40px;
-	margin: 20px 0px;
+	font-size: 30px;
+	margin: 10px 0px;
 	font-weight: bold;
+}
+
+.DataTable{
+	margin: 0px 20px;
+	width: 720px;	
+	font-size: 18px;
+	margin-bottom: 10px;		
+}
+
+.ColoredRow{
+	background-color: rgba(253, 232, 148, 0.8);
+	font-weight: bold;		
+}
+
+.DataCell{
+	padding: 2px 5px;
+	text-align: left;
+	border-collapse: collapse;
+	border: 2px solid #000000;
+	vertical-align: top;
+}
+
+.DataTableHeader{
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+	vertical-align: middle;
+}
+
+.PaginationList{
+	list-style-type: none;
+	list-style-position: inside;
+	display: block;
+	padding: 0px;	
+}
+
+.PaginationListItem{
+	display: inline-block;
+	text-decoration: underline;	
+}
+
+.ActiveList a{
+	color: #0000FF;
 }
 
 /*Подзаголовок страницы*/

@@ -10,6 +10,16 @@
 	
 	
 <body>
+
+<!-- 
+<?php if ($message <> "") {?>
+<div id="dialog-message" title="Download complete" style="background-color: #fff">
+  <p>
+    <?php echo $message; ?>iddqd
+  </p>
+</div>
+<?};?>  -->
+
 <div class="MainArea">
 <header>
 	<?php echo HTML::image('media/image/Template/Logo.png', array('class' => 'Logo')); ?>	
