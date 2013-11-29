@@ -29,3 +29,9 @@
 	}
 	?>
 </form>
+<?
+if (isset($menu))
+{	
+	echo View::factory('order/menu')->set('menu',$menu);
+} 
+?>

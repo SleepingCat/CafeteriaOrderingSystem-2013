@@ -18,6 +18,30 @@ class Controller_Menu extends Controller_Checkinputusers
 	 */
 	public function action_index()
 	{
+		unset($_SESSION['menu']);
+		if(!isset($_SESSION['mk_order_menu_date']))
+		{
+			// если сейчас больше 14 часов
+			if(date("H")>14)
+			{
+				// выводим завтрашнее меню
+				$_SESSION['mk_order_menu_date'] = date("Y-m-d", strtotime(" + 1 day"));
+			}
+			else
+			{
+				// сегодняшнее
+				$_SESSION['mk_order_menu_date'] = date("Y-m-d");
+			}
+		}
+		$model_menu = new Model_Menu();
+		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
+		if (empty($menu)) {
+			$this->error_code = 6;
+		}
+		else 
+		{
+			$this->view->bind('menu', $menu);
+		}
 		// если пользователь выбрал дату меню
 		if (isset($_POST['smbt']))
 		{

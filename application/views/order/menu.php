@@ -1,5 +1,6 @@
 <style>
-	table,td {border:1px solid black;
+	.menu_table {border-collapse:separate;border-spacing:1px;}
+	table,td {border:1px solid black;}
 </style>
 
 <script >
@@ -59,7 +60,7 @@ if (isset($error_code) && $error_code > 0)
 ?>
 <div align=center>
 <H1>Меню на (<?php echo $_SESSION['mk_order_menu_date']; ?>):</H1>
-<table>
+<table class = "menu_table">
 <tr><td>Наименование</td><td>Размер порции</td><td>Цена(руб.)</td><td>Заказать</td></tr>
 	<?php
 		$type = "none";
