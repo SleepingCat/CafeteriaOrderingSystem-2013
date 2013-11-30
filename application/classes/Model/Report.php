@@ -40,7 +40,7 @@ class Model_Report
 	 */
 	public function ReportAboutOrders($BeginDate, $EndDate)
 	{
-		$query = "SELECT dt.delivery_time, (select dt.delivery_times, ".
+		$query = "SELECT dt.delivery_time, (select  ".
 				"count(dt2.delivery_id)/DATEDIFF('".$EndDate."','".$BeginDate."') from  ".
 				"delivery_times dt2 join ".
 				"orders o ON dt2.delivery_id = o.delivery_times_delivery_id ".
@@ -85,7 +85,33 @@ class Model_Report
 		}
 			
 		// We export the file
-		$odf->exportAsAttachedFile();	
+		$odf->exportAsAttachedFile();		
+	}
+	
+	public  function ExportWordOrders($BeginDate,$EndDate)
+	{
+		$odf = new Odtphp(APPPATH.'templates/orders.odt');
+	
+		$Date = 'c '.$BeginDate.' по '.$EndDate;
+		$odf->setVars('date', $Date , $encode = TRUE, $charset='UTF-8');			
 		
+	
+		$segment = 'articles';
+			
+		$kvit = $odf->setSegment($segment);
+	    $orders = $this->ReportAboutOrders($BeginDate, $EndDate);
+								
+		foreach ($orders as $item)
+		{
+			$kvit->setVars('username1', $item['delivery_time'], true, 'utf-8');
+			$kvit->setVars('numb1', $item['Sum'], true, 'utf-8');			
+			$kvit->merge();					
+		}
+			$odf->mergeSegment($kvit);
+			//$odf->setVars('privet'.(string)$i, count($users) , $encode = TRUE, $charset='UTF-8');
+			
+		// We export the file
+		$odf->exportAsAttachedFile();
+	
 	}
 }

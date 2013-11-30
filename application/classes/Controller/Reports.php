@@ -31,10 +31,11 @@ class Controller_Reports extends Controller_Checkinputusers
 			$_SESSION['Mes1'] = 'Заказы';
 			$this->redirect('/Reports/printreports');
 		}
-		
+		$this->title="Отчеты";
 		$this->content = View::factory('templates/reports/repview');	
 		$this->styles = array('media/css/style.css' => 'screen');
-	}	
+		
+	}
 	
 	public function action_printreports()	
 	{	
@@ -63,12 +64,18 @@ class Controller_Reports extends Controller_Checkinputusers
 			{			
 				if ($Mes2 == "Клиенты")			
 				{
-					$RepVal = new Model_Report();
+					$RepVal = new Model_Report();					
 					$RepVal ->ExportWordClients($BeginDate, $EndDate);
+				}	
+				
+				if ($Mes2 == "Заказы")		
+				{					
+					$RepVal = new Model_Report();
+					$RepVal ->ExportWordOrders($BeginDate, $EndDate);					
 				}	
 			}
 		}	
-			
+		$this->title =$Mess; 			
 		$this->styles = array('media/css/style.css' => 'screen');
 		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->content = View::factory('templates/reports/date', array(				
