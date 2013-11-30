@@ -84,6 +84,7 @@ class Controller_Menu extends Controller_Checkinputusers
 				$_SESSION['menu'] = $menu;
 				$_SESSION['menu_id'] = $model_menu->get_menu_id();
 				unset($_SESSION['mk_order_id']);
+				unset($_SESSION['order']);
 				if (count($menu) < 1) {
 					$this->error_code = 3;
 				}

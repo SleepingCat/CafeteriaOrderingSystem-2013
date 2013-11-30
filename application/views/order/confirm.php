@@ -24,18 +24,22 @@
 	}
 	echo "Итого: ".$summ."<br>";
 	echo "Выберите форму заказа:<br>";
-	
-	echo "<select name = \"delivery_point\">
-		<option value=\"none\">
-			Без доставки
-		</option>";
-
-if (isset($delivery_point))
-{
-	echo '<option value="'.$delivery_point.'">';
-	echo	$delivery_point;
-	echo '</option></select>';
-}
+	echo "<select name = \"delivery_point\">";
+	$u = Auth::instance()->get_user()->as_array();
+	if($u['payment_type'] == 0)
+	{
+		echo "<option value=\"none\">Без доставки</option>";
+	}
+	else 
+	{
+		if (isset($delivery_point))
+		{
+			echo '<option value="'.$delivery_point.'">';
+			echo	$delivery_point;
+			echo '</option>';
+		}
+	}
+	echo "</select>";
 ?>
 <br>
 <div id="delivery_time">
