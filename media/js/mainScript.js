@@ -12,6 +12,13 @@ $(window).before(function()
 	});		
 });
 
+$( document ).tooltip({
+	content: function() {
+        var element = $(this);
+        return element.attr("title");
+    }
+});	
+
 $(document).ready(function(e)
 {		
 	Height_Add();	
@@ -28,7 +35,7 @@ $(document).ready(function(e)
 			$(this).children("div").attr("class", "TriangleClosed");
 		}		
 		return false;		
-		});
+	});
 	
 	//$( "#dialog-message" ).dialog();
 	

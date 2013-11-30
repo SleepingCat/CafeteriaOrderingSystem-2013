@@ -44,7 +44,7 @@ a {
 	border-radius: 5px;
 	border-color: rgb(131,114,86);
 	/*Для ff и ie*/	
-	/*white-space: pre;*/	
+	white-space: pre;	
 }
 
 /*Указатель свернутого раздела навигации*/
@@ -131,7 +131,7 @@ a {
 		-1px 1px 0px rgb(0,0,0),
 		-1px -1px 0px rgb(0,0,0);
 	/*Для ff и ie*/	
-	/*white-space: pre;*/		
+	white-space: pre;		
 }
 
 .UserWorkArea{
@@ -205,97 +205,4 @@ a {
 	color: #0000FF;
 }
 
-/*Подзаголовок страницы*/
-.SubPageHeader{
-	/*margin-left: 10%;
-	margin-right: 10%;	
-	margin-top: 15px;	
-	display: block;
-	font-size: x-large;
-	font-style: normal;
-	text-align: left;
-	color: #F5D694;	*/
-}
 
-/*Форма*/
-.MyForm{
-	/*display: inline-block;
-	text-align: center;
-	margin-top: 50px;
-	color: #F5D694;*/
-}
-
-.FormTopBorder{
-	/*border-color: #F5D694;
-	border-style: solid;
-	border-radius: 15px 15px 0px 0px;	
-	border-width: 2px;
-	line-height: 40px;
-	background-color: rgba(0,0,0,0.35)	*/
-}
-
-.FormArea{
-	/*border-color: #F5D694;
-	text-align: left;
-	border-left-style: solid;
-	border-right-style: solid;
-	border-width: 2px;
-	padding: 1em;*/
-}
-
-.FormBottomBorder{
-	/*border-color: #F5D694;
-	border-style: solid;
-	border-radius: 0px 0px 15px 15px;	
-	border-width: 2px;
-	height: 40px;
-	background-color: rgba(0,0,0,0.35);
-	line-height: 40px;	*/
-}
-
-.TitledTextboxArea{
-	/*padding: 0.5em;	*/	
-}
-
-.FailText{
-	/*color: #FF3737;
-	font-size: large;*/
-}
-
-.Fieldset{	
-	/*border-color: #D3BFA9;*/
-}
-
-.FailList{
-	/*list-style-position: outside;
-	list-style-type: square;
-	margin-left: 10%;*/
-}
-
-/*Текстовое поле*/
-.TextBox{
-	/*border-color: #967452;
-	background-color: #D3BFA9;
-	outline: none;
-	font-size: small;	*/
-}
-
-/*Таблица данных*/
-.DataTable{				
-	/*margin-top: 35px;	
-	text-align: left;
-	border-collapse: collapse;
-	color: #F5D694;	*/
-}
-
-.DataCell{
-	/*border-color: #F5D694;
-	border-style: solid;
-	border-width: 2px;	
-	padding: 0.5em 0.5em; 	*/
-}
-
-.TabHeader{	
-	/*background-color: rgba(0,0,0,0.35);	
-	text-align: center;*/
-}
