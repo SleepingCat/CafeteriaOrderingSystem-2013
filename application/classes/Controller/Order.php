@@ -31,9 +31,10 @@ class Controller_Order extends Controller_Checkinputusers
 	
 	public function action_clear()
 	{
-		$_SESSION['order'] = null;
-		$_SESSION['mk_order_menu_date'] = null;
-		$_SESSION['mk_order_id'] = null;
+		unset($_SESSION['order']);
+		unset($_SESSION['mk_order_menu_date']);
+		unset($_SESSION['mk_order_id']);
+		unset($_SESSION['menu_id']);
 		$this->redirect("/order");
 	}
 	
@@ -67,7 +68,7 @@ class Controller_Order extends Controller_Checkinputusers
 		if (isset($_POST['btn_confirm']))
 		{
 			//TODO: сделать валидацию
-			if ($_SESSION['mk_order_id']) {
+			if (isset($_SESSION['mk_order_id'])) {
 				$error_code = $model_order->update_order($_SESSION['mk_order_id'], $_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['mk_order_menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			}
 			else
@@ -76,7 +77,7 @@ class Controller_Order extends Controller_Checkinputusers
 			}
 			if ($error_code == 0) 
 			{
-				$_SESSION['order'] = null;
+				unset($_SESSION['order']);
 				unset($_SESSION['mk_order_id']);
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
 			}

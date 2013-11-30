@@ -2,7 +2,7 @@
 	.menu_table {border-collapse:separate;border-spacing:1px;}
 	table,td {border:1px solid black;}
 </style>
-
+<link href="/media/css/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script >
 $(document).ready(function(){
 	$(".add_button1").click( function(){
@@ -17,6 +17,13 @@ $(document).ready(function(){
 	});
 });
 $('#cart').ready(function (){
+	$.post("/Handler", function(data){
+		$('#cart').html(data);
+	});
+});
+
+$('.btn-slide').live("click", function()
+{
 	$.post("/Handler", function(data){
 		$('#cart').html(data);
 	});

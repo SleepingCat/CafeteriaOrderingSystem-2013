@@ -5,8 +5,16 @@ class Controller_Handler extends Controller
 	private $session = null;
 	public function before() 
 	{
-		$this->session = Session::instance(null,$_REQUEST['session']);
+		$this->session = Session::instance();
 		parent::before();
+	}
+	
+	public function action_test()
+	{
+		$m = new Model_Order();
+		echo '<pre>';
+		print_r($m->get_order(8, 29));
+		echo '</pre>';
 	}
 	
 	public function action_add()

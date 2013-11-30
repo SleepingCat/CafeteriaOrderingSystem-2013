@@ -34,9 +34,10 @@ class Model_Order extends Model
 					->execute()
 					->as_array();
 		if (!empty($order_detail))
-		{
-			$order_detail[0]['dishes'] = DB::query(Database::SELECT,
-					"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type.id, type_name
+		{	
+			$menu_model = new Model_Menu();
+			$dishes = DB::query(Database::SELECT,
+			"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type_id as portion, type_name
 					FROM orders_records, dishes, menu_records, portion_type
 					WHERE dishes.dish_id = orders_records.menu_record_dish_id
 					AND dishes.dish_id = menu_records.dish_id
@@ -44,10 +45,15 @@ class Model_Order extends Model
 					AND orders_records.order_id = :OrderId
 					AND portion_type.id = menu_records.portion_type_id
 					AND menu_id = :MenuId")
-						->param(':OrderId', $OrderId)
-						->param(':MenuId', $order_detail[0]['menu_id'])
-						->execute()
-						->as_array();
+								->param(':OrderId', $OrderId)
+								->param(':MenuId', $order_detail[0]['menu_id'])
+								->execute()
+								->as_array();
+			foreach ($dishes as $key => $value)
+			{
+				$value['portions'] = $menu_model->get_portions($value['menu_id'], $value['dish_id']); 
+				$order_detail[0]['dishes'][$value['dish_id']."|".$value['portion']] = $value;
+			}
 		}
 		return $order_detail[0];
 	}

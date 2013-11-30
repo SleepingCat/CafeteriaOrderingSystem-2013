@@ -40,6 +40,7 @@ class Controller_Menu extends Controller_Checkinputusers
 		}
 		else 
 		{
+			$_SESSION['menu_id'] = $model_menu->get_menu_id();
 			$this->view->bind('menu', $menu);
 		}
 		// если пользователь выбрал дату меню
@@ -78,12 +79,11 @@ class Controller_Menu extends Controller_Checkinputusers
 			if($this->error_code < 1)
 			{
 				$menu_date = $input_date['year'].'-'.$input_date['month'].'-'.$input_date['day'];
-				$model_menu = new Model_Menu();
 				$menu=$model_menu->get_menu($menu_date);
 				$_SESSION['mk_order_menu_date'] = $menu_date;
 				$_SESSION['menu'] = $menu;
 				$_SESSION['menu_id'] = $model_menu->get_menu_id();
-				$_SESSION['mk_order_id'] = null;
+				unset($_SESSION['mk_order_id']);
 				if (count($menu) < 1) {
 					$this->error_code = 3;
 				}
