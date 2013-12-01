@@ -84,13 +84,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				// Удаляем пол-ля			
 				$user->delete();
 				// Redirect admin/users	
-				$_SESSION['Mes11'] = "Пользователь был успешно удален";
+				$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был успешно удален<span>';
 				$this->redirect('admin/users');
 			}
 				
 			else 
 			{				
-				$_SESSION['Mes11'] = "Пользователя нельзя удалить,т.к уже совершал заказ";
+				$_SESSION['Mes11'] = "<span>Пользователя нельзя удалить,т.к уже совершал заказ</span>";
 				$this->redirect('admin/users');
 			//throw new HTTP_Exception_404('Пользователя нельзя удалить,т.к уже совершал заказ');	
 				
@@ -166,7 +166,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 		  {		//Добавляем пол-ля,если все OK , то переходим на контролл admin/users
 		  		if($register->reg())
 				{			
-					$_SESSION['Mes11'] = "Пользователь был успешно создан";
+					$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был успешно создан</span>';
 		      		 $this->redirect('/admin/users');	    
 				}
 		  }
@@ -339,13 +339,13 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 			   { 	
 			   		$register->changeorderstatus();
 			   		$register->changesubscriptionsstatus();		
-			   		$_SESSION['Mes11'] = "Пользователь был уволен и все его дейтсвующие заказы отеменены";
+			   		$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был уволен и все его дейтсвующие заказы отеменены</span>';
 			   		$this->redirect('/admin/users');
 			   }
 			   
 			   else			   
 			   {	
-			   	$_SESSION['Mes11'] = "Пользователь был успешно отредактирован";
+			   	$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был успешно отредактирован</span>';
 			   	$this->redirect('/admin/users');			   
 			   }			 
 			}	

@@ -3,7 +3,11 @@
 
 <div class="PageHeader">Список пользователей</div>
 
-<?php echo $message ?>
+<?php if ($message <> "") {?>
+	<div class="DialogCloser" id="dialog-message">
+		<?php echo $message; ?>
+	</div>
+<?};?>
 
 <div align="right">
 <form class="SearchForm"  action="<?php echo URL::site('admin/users/search') ?>" method="post">

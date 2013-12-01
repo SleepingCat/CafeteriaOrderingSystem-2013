@@ -1,10 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
-<form action="" method="post" name="user-form" class="ProfileForm">
+<?if(Arr::flatten($errors))
+{?> 
+	<div class="DialogCloser" id="dialog-message">
+		<?php echo '<span>Не удалось добавить пользователя</span>'; ?>
+	</div>
+<?};?>
 
-<?php if (Arr::get($errors, 'email')) : ?>
-<div class="help-block"><?php echo Arr::get($errors, 'email') ?></div>
-<?php endif; ?>
+<form action="" method="post" name="user-form" class="ProfileForm">
 
 <div class="FormTopBorder">Добавление пользователя</div>
 
@@ -162,3 +165,4 @@
 </div>		
 		
 </form>
+

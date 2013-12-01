@@ -15,13 +15,35 @@ $(window).before(function()
 $( document ).tooltip({
 	content: function() {
         var element = $(this);
-        return element.attr("title");
+		return element.attr("title");
     }
 });	
 
 $(document).ready(function(e)
 {		
-	Height_Add();	
+	Height_Add();
+	if ($('#dialog-message').length)
+	{
+		$("#dialog-message").modal({
+			overlayId: "dialog-overlay",		
+			overlayClose: true,
+			closeClass: "DialogCloser",
+			onOpen: function (dialog)
+			{
+				dialog.overlay.fadeIn(300);
+				dialog.container.fadeIn(300);
+				dialog.data.fadeIn(300);
+			},
+			onClose: function (dialog) 
+			{
+				dialog.overlay.fadeOut(300);
+				dialog.container.fadeOut(300);
+				dialog.data.fadeOut(300);
+			}
+		});
+		
+		setTimeout(function(){$.modal.close();}, 3000);
+	};		
 	
 	$( ".LeftMenuHeader" ).click(function()
 	{
@@ -35,9 +57,7 @@ $(document).ready(function(e)
 			$(this).children("div").attr("class", "TriangleClosed");
 		}		
 		return false;		
-	});
-	
-	//$( "#dialog-message" ).dialog();
+	});	
 	
 	LeftMenuHeaders = JSON.parse($.cookie("MenuHeaders"));
 	$.cookie("MenuHeaders", null, {path: '/'});
