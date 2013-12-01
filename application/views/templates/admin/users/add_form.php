@@ -2,10 +2,6 @@
 
 <form action="" method="post" name="user-form" class="ProfileForm">
 
-<?php if (Arr::get($errors, 'email')) : ?>
-<div class="help-block"><?php echo Arr::get($errors, 'email') ?></div>
-<?php endif; ?>
-
 <div class="FormTopBorder">Добавление пользователя</div>
 
 <div>
