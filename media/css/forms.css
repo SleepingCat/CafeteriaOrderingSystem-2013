@@ -3,24 +3,11 @@
 .checkbox{	
 	width: 19px;
 	height: 25px;
-	padding: 0 5px 0 0;
+	padding: 0 5px 0 0;	
 	background: url(../image/Template/checkbox.png) no-repeat;
 	display: block;
 	clear: left;
 	float: left;
-}
-
-.ui-tooltip{
-	display: inline-block;
-	position: absolute;
-	color: #FF0000;
-	font-size: 18px;
-	background-image: url(../image/Template/Texture.png);
-	background-repeat: repeat;
-	border: 2px solid #ff8e00;
-	border-radius: 10px;
-	padding: 3px 5px;
-	white-space: nowrap;	
 }
 
 .SearchForm{

@@ -12,16 +12,19 @@ $(window).before(function()
 	});		
 });
 
-$( document ).tooltip({
-	content: function() {
-        var element = $(this);
-		return element.attr("title");
-    }
-});	
+
 
 $(document).ready(function(e)
 {		
 	Height_Add();
+	
+	$( ".ProfileTextBox" ).tooltip({
+	content: function() {
+        var element = $(this);
+		return element.attr("title");			
+    }
+	});	
+	
 	if ($('#dialog-message').length)
 	{
 		$("#dialog-message").modal({

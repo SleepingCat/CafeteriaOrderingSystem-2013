@@ -150,7 +150,9 @@
 <?php foreach ($roles as $role) : ?>
 	<input type="checkbox" name="roles[]" id="role<?php echo $role->id ?>" value="<?php echo $role->id ?>"
 	<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>
-	><label for="role<?php echo $role->id ?>"> <?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?></label><br>
+	><label for="role<?php echo $role->id ?>" style="text-indent: 5px;">
+		<?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?>
+	</label><br>
 <?php endforeach; ?>			
 </div>					 
 </fieldset>

@@ -5,7 +5,7 @@
 
 <?php if ($message <> "") {?>
 	<div class="DialogCloser" id="dialog-message">
-		<?php echo $message; ?>
+		<?php echo $message;?>
 	</div>
 <?};?>
 
