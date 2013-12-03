@@ -1,7 +1,9 @@
 <div align=left style = "border:1px solid black; margin:30px; padding-left:10px;">
 <div style="right:10px; float:right; top:55px; position:relative">
-	<a onclick="return confirm('Отменить заказ?')" href=<?php echo "http://".$_SERVER['HTTP_HOST']."/order/cancel/".$order_detail['order_id']?>><button>Отменить</button></a><br>
-	<?php if($order_detail['order_status'] == OrderStatus::NewOrder) echo '<a href=http://'.$_SERVER['HTTP_HOST'].'/order/edit/'.$order_detail['order_id'].' stule="top:10px"><button>Редактировать</button></a>'; ?>
+<?php
+	if($order_detail['order_status'] == OrderStatus::NewOrder) echo"
+	<a onclick=\"return confirm('Отменить заказ?')\" href=<?php echo \"/order/cancel/\"".$order_detail['order_id']."><button>Отменить</button></a><br>
+	<a href=\"/order/edit/\"".$order_detail['order_id'].' stule="top:10px"><button>Редактировать</button></a>'; ?>
 </div>
 <style>
 	td
