@@ -147,10 +147,10 @@
 <td class="ProfileFormTableCell">
 <fieldset class="ProfileFormFieldset"><legend style="cursor: default">Роли</legend>
 <div style="height: 160px; padding-top: 10px;">
-<?php foreach ($roles as $role) : ?>
-	<input type="checkbox" name="roles[]" id="role<?php echo $role->id ?>" value="<?php echo $role->id ?>"
-	<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>
-	><label for="role<?php echo $role->id ?>" style="text-indent: 5px;">
+<?php foreach ($roles as $role) : ?>	
+	<input type="checkbox" class="styled" name="roles[]" id="role<?php echo $role->id ?>" value="<?php echo $role->id ?>"
+		<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>>
+	<label for="role<?php echo $role->id ?>" style="text-indent: 5px; line-height: 25px;">	
 		<?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?>
 	</label><br>
 <?php endforeach; ?>			

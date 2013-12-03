@@ -186,7 +186,8 @@ class Controller_Front extends Kohana_Controller_Template {
 				$media->uri(array('file' => 'js/jquery.cookie.js')),
 				$media->uri(array('file' => 'js/jquery.simplemodal.1.4.4.min.js')),				
 				$media->uri(array('file' => 'js/mainScript.js')),
-				$media->uri(array('file' => 'js/secondaryScript.js'))
+				$media->uri(array('file' => 'js/secondaryScript.js')),
+				$media->uri(array('file' => 'js/elementsScript.js'))					
 			);
 		}
 		// Assign variables to template variables

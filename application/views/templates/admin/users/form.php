@@ -70,10 +70,10 @@
 			<td class="Field3" rowspan="2">
 			<fieldset class="Fieldset"><legend>Роли</legend>
 				<?php foreach ($roles as $role) : ?>
-					<label>
+					
 						<input type="checkbox" name="roles[]" id="role<?php echo $role->id ?>" value="<?php echo $role->id ?>"
 							<?php if (in_array($role->id, Arr::get($item, 'roles',array()))) : ?> checked="checked" <?php endif ?>
-						/><?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?>
+						/><label><?php if($role->name=='admin') {echo $role->name='Администратор';} else {echo $role->name;} ?>
 					</label>					
 					<br />
 				<?php endforeach; ?>					 
