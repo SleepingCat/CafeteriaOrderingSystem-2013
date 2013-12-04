@@ -8,7 +8,10 @@
 						<div align = "center"> 
 			    Осталось укомплектовать:
 				     <?php echo $leftOrders?></div><br>
-		<div align = "center"><input type = "submit" name = "getOrder" value = "Получить заказ" onclick = "this.form.clickedelm.value=this.value"></div><?php 
+		<table align = "center"><td><input type = "submit" name = "getOrder" value = "Получить заказ" onclick = "this.form.clickedelm.value=this.value"></td>
+								<td>   </td>
+								<td><input type = "submit" name = "showLastEquip" value = "Просмотреть укомплектованные заказы"</td>
+		</table><?php 
 	} 
 	
 	else {echo "<div align = "."center"."> Заказы отсутствуют!</div><br>";}

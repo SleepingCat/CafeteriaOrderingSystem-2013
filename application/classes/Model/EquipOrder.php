@@ -79,4 +79,31 @@ class Model_EquipOrder
 		return $dishes;
 	}
 	
+	public function getEquipOrder()
+	{
+		$orders = DB::query(Database::SELECT, 'select order_id, concat(delivery_time, " - ", Time(delivery_time+15*100)) as delivery_period, delivery_date, order_status from orders
+												join delivery_times DT on DT.delivery_id = orders.delivery_times_delivery_id
+												where order_status = "Укомплектован" and CURRENT_DATE = delivery_date')
+												->execute()
+												->as_array();
+		return $orders;
+	}
+	
+	public function showEquipOrder($ID)
+	{
+		$eqOrder = DB::query(Database::SELECT, 'select orders.order_id, orders.order_status, orders.delivery_date, concat(delivery_time, " - ", Time(delivery_time+15*100)) as DeliveryPeriod, CONCAT(users.surname, "  ", users.`name`, "  ", users.patronymic) as Buyer, users.building, users.floor, users.office, dishes.dish_name, OrRec.servings_number, MR.price
+												from orders
+												join delivery_times DT on orders.delivery_times_delivery_id = DT.delivery_id
+												join orders_records OrRec on OrRec.order_id = orders.order_id
+												join menu_records MR on OrRec.menu_record_menu_id = MR.menu_id
+												join users on users.id = orders.user_id
+												join dishes on MR.dish_id = dishes.dish_id
+												where orders.order_id = :id')
+												->param(':id', $ID)
+												->execute()
+												->as_array();
+		
+		return $eqOrder;
+	}
+	
 }

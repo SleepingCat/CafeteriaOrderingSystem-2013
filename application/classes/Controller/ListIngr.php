@@ -10,6 +10,7 @@ class Controller_ListIngr extends Controller_Front
 		$_SESSION['ingr_list_of_ingr'] = $listIngr;
 		
 		$this -> title = 'Список ингредиентов';
+		
 		//Передаем полученные данные во вьюху
 		$this->content = View::factory('ingridients/listIngr')
 		->set('list', $_SESSION['ingr_list_of_ingr']);

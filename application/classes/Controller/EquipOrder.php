@@ -62,15 +62,61 @@ class Controller_EquipOrder extends Controller_Front
 			
 			$this -> redirect('EquipOrder');
 			
-			//Передаем полученные данные во вьюху
-			$this->content = View::factory('order/equipOrder')
-			->set("startTime",$periods)
-			->set('nowOrders', $orders )
-			->set('leftOrders', $leftOrd);
+		}
+		elseif(@$_POST['showLastEquip'])
+		{
+			//Получаем список укомплектованных заказов на текущую дату
+			$equip = new Model_EquipOrder();
+			$eqOrd = $equip -> getEquipOrder();
+			$_SESSION['list_of_orders'] = $eqOrd;
+			
+			$this -> title = "Укомплектованные заказы";
+			
+			$this->content = View::factory('order/showEquipOrder')
+			->set("list", $_SESSION['list_of_orders']);
+		}
+		elseif(@$_POST['smb'])
+		{
+			if (isset($_POST['smb']))
+			{
+				$pushed = $_POST['smb'];
+				$pushOrder = $_SESSION['list_of_orders'];
+				
+				foreach ($pushed as $key => $value)
+				{
+					$ord = new Model_EquipOrder();
+					$showOrd = $ord -> showEquipOrder($pushOrder[$key]['order_id']);
+					
+					$this -> title = "Детали заказа";
+					
+					$this->content = View::factory('order/detailOrder')
+					->set("order", $showOrd[0]['order_id'])
+					->set("status", $showOrd[1]['order_status'])
+					->set("date", $showOrd[2]['delivery_date'])
+					->set("period", $showOrd[3]['DeliveryPeriod'])
+					->set("owner", $showOrd[4]['Buyer'])
+					->set("build", $showOrd[5]['building'])
+					->set("floor", $showOrd[6]['floor'])
+					->set("office", $showOrd[7]['office'])
+					->set("ex", $showOrd);
+				}
+			}
 		}
 		elseif (@$_POST['cancel'])
 		{
 			$this -> redirect('EquipOrder');
+		}
+		elseif (@$_POST['back'])
+		{
+			//Получаем список укомплектованных заказов на текущую дату
+			$equip = new Model_EquipOrder();
+			$eqOrd = $equip -> getEquipOrder();
+			$_SESSION['list_of_orders'] = $eqOrd;
+			
+			$this -> title = "Укомплектованные заказы";
+			
+			$this->content = View::factory('order/showEquipOrder')
+			->set("list", $_SESSION['list_of_orders']);
 		}
 	}
 }
