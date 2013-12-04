@@ -34,15 +34,6 @@ class Controller_Menu extends Controller_Checkinputusers
 			}
 		}
 		$model_menu = new Model_Menu();
-		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
-		if (empty($menu)) {
-			$this->error_code = 6;
-		}
-		else 
-		{
-			$_SESSION['menu_id'] = $model_menu->get_menu_id();
-			$this->view->bind('menu', $menu);
-		}
 		// если пользователь выбрал дату меню
 		if (isset($_POST['smbt']))
 		{
@@ -93,6 +84,15 @@ class Controller_Menu extends Controller_Checkinputusers
 					$this->redirect("http://".$_SERVER['HTTP_HOST'].'/menu/show');
 				}
 			}
+		}
+		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
+		if (empty($menu)) {
+			$this->error_code = 6;
+		}
+		else
+		{
+			$_SESSION['menu_id'] = $model_menu->get_menu_id();
+			$this->view->bind('menu', $menu);
 		}
 		$this->content = $this->view;
 	}
