@@ -25,7 +25,7 @@
     </a>
 </div>
 
-<table class="DataTable">
+<table class="DataTable" style="width: 720px;">
 <tr class="ColoredRow">
 	<th class="DataCell DataTableHeader">Пользователь</th>    
     <th class="DataCell DataTableHeader">Данные о сотруднике</th>

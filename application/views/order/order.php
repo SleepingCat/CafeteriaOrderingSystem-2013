@@ -1,26 +1,58 @@
-<style>
-td,table 
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
+<script>
+$(document).ready(function(e)
 {
-	border:1px solid black;
-}
-</style>
-<div>
-	Ваши заказы:<br>
-<table>
-<tr><td>Номер заказа</td><td>Дата заказа</td><td>Время заказа</td><td>Статус заказа</td></tr>
-	<?php
-/**
- * Вывод ВСЕХ заказов пользователя без возможности редактирования 
- * с возможностью отменить заказ, если тот не в комплектовании
- */
-	$summ = 0;
-	foreach ($orders as $key => $value)
+	$("td").mouseenter(function(e)
+	{        
+		$(this).parent("tr").css("background-color", "rgba(155,155,155,0.5);");		
+    });
+    
+	$("td").mouseleave(function(e) 
 	{
-		echo "<tr><td>".$value['order_id']."</td><td>".$value['delivery_date']."</td>
-			<td>".$value['delivery_time']."</td><td>".$value['order_status']."</td>
-			<td><a class=\"btn_submit[".$key."]\" href=http://".$_SERVER['HTTP_HOST']."/order/detail/".$key."><button>Подробнее</button></a></td></td></tr>";
-			//<td><a href=\"http://".$_SERVER['HTTP_HOST']."/order/cancel/".$value['order_id']."\"><button>Отменить</button></a></td><td><a href=#><button>Изменить</button></a></td></tr>";
-	}
-?>
+        $(this).parent("tr").css("background-color", "transparent");		
+    });
+
+	$( "tr" ).tooltip(
+	{
+		content: function() 
+		{	        
+			var t = $(this).attr("title");			
+			return "Перейти к заказу " + t;			
+	    },
+	    tooltipClass: "OrderTooltip",
+	    track: true
+	});		
+});
+</script>
+
+<div class="PageHeader">Ваши заказы</div>
+
+<table class="DataTable" style="width: 600px; margin: 0px 80px; cursor: default;">
+<tr>
+	<th class="DataCell DataTableHeader ColoredRow">Номер заказа</th>
+    <th class="DataCell DataTableHeader ColoredRow">Дата заказа</th>
+    <th class="DataCell DataTableHeader ColoredRow">Время заказа</th>
+    <th class="DataCell DataTableHeader ColoredRow">Статус заказа</th>
+</tr>
+
+<?php foreach ($orders as $key => $value) 
+{?>
+<tr title="<? echo $key ?>" class="<? echo "btn_submit[".$key."]" ?>" onClick="window.location.href='http://<?echo $_SERVER['HTTP_HOST']?>/order/detail/<? echo $key?>'">	
+	<td class="DataCell" style="text-align: center;">
+		<? echo $value['order_id'] ?>
+	</td>
+    <td class="DataCell" style="text-align: center;">
+    	<? echo DateTime::createFromFormat("Y-m-d", $value['delivery_date'])->format("d.m.Y") ?>
+    </td>
+    <td class="DataCell" style="text-align: center;">
+    	<? echo DateTime::createFromFormat("G:i:s", $value['delivery_time'])->format("G:i") ?>
+    </td>
+    <td class="DataCell" style="text-align: center;">
+    	<? echo $value['order_status'] ?>
+    </td>    
+</tr>
+<? }; ?>
 </table>
-</div>
+
+<?php //<td><a href=\"http://".$_SERVER['HTTP_HOST']."/order/cancel/".$value['order_id']."\"><button>Отменить</button></a></td><td><a href=#><button>Изменить</button></a></td></tr>";?>

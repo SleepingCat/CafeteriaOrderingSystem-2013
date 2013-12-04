@@ -19,10 +19,11 @@ $(document).ready(function(e)
 	Height_Add();
 	
 	$( ".ProfileTextBox" ).tooltip({
-	content: function() {
-        var element = $(this);
-		return element.attr("title");			
-    }
+		content: function() {
+	        var element = $(this);
+			return element.attr("title");			
+	    },
+    	tooltipClass: "FailTooltip"
 	});	
 	
 	if ($('#dialog-message').length)
