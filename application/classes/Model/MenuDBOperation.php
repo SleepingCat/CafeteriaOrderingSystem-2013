@@ -44,7 +44,7 @@ class Model_MenuDBOperation
 		// добавляем меню в базу
 		$query = "insert into menus (menu_date) values (\"".$date."\")";
 		$qResult =  DB::query(Database::INSERT, $query)
-		->execute();
+		            ->execute();
 		if($qResult[1] == 1)
 		{
 			$menuID = DB::query(Database::SELECT, "select menu_id 
@@ -58,6 +58,18 @@ class Model_MenuDBOperation
 		else 
 			return 0;
 			
+	}
+
+	public function saveMenuDish($menuID, $dishes)
+	{
+		for ($i = 0; $i < count($dishes); $i++) 
+		{
+			$qResult =  DB::query(Database::INSERT, "insert into menu_records (menu_id, dish_id, price) values (:menuID, :dishID, :price)")
+			            ->param(":menuID", $menuID)
+			            ->param(":dishID", $dishes[$i]["dish_id"])
+			            ->param(":price", $dishes[$i]["price"])
+			            ->execute();
+		}
 	}
 	
     /**
@@ -127,15 +139,24 @@ class Model_MenuDBOperation
 		// дополнительные условия
 		switch($param):
 			case 1:
-				$filter =  $filter." D.is_standart <> 0 
+				if($filter <> "where")
+					$filter =  $filter."and D.is_standart <> 0 
+						   order by 4 desc, DC.priority asc";
+				else 
+					$filter =  $filter." D.is_standart <> 0
 						   order by 4 desc, DC.priority asc";
 				break;
 			case 2:
-				$filter =  $filter." (D.is_standart = 0 or D.is_standart is null)
-						   order by 4 desc, DC.priority asc";
+				if($filter <> "where")
+				    $filter =  $filter." and (D.is_standart = 0 or D.is_standart is null)
+						               order by 4 desc, DC.priority asc";
+				else 
+					$filter =  $filter." (D.is_standart = 0 or D.is_standart is null)
+						               order by 4 desc, DC.priority asc";
 				break;
 			default:
-				$filter =  $filter." order by 4 desc, DC.priority asc";				
+				    $filter =  $filter." order by 4 desc, DC.priority asc";		
+
 		endswitch;
 		
 		$allDish = array();
@@ -146,7 +167,8 @@ class Model_MenuDBOperation
 					        MR.price, 
                             D.is_standart, 
                             DT.name as dish_type, 
-                            DC.name as dish_categ
+                            DC.name as dish_categ,
+					        DC.priority
                       from menus M
 					  join menu_records MR on MR.menu_id = M.menu_id and
 					                          MR.menu_id = ".$menuID." 
@@ -158,7 +180,8 @@ class Model_MenuDBOperation
                              D.dish_name, 
                              D.is_standart, 
                              DT.name as dish_type, 
-                             DC.name as dish_categ
+                             DC.name as dish_categ,
+		    		         DC.priority
 		    	  from dishes D
                   join dish_type DT on DT.id = D.dish_type_id
                   join dish_category DC on DC.id = D.dish_category_id ".$filter;
@@ -230,15 +253,35 @@ class Model_MenuDBOperation
     	}
     }
 
-    /**
-     * Метод возвращает все типы порций.
-     */
-    public function getAllPortionType()
+    public function deleteMenu($menuID)
     {
-    	$query = 'select id, type_name from portion_type';
-    	$result =  DB::query(Database::SELECT, $query)
-    	    ->execute()
-    	    ->as_array();
-        return($result);	    
+        DB::query(Database::DELETE, "delete from menus  
+        		                     where menus.menu_id =:menuID and 
+        		                           not exists(select order_id 
+        		                                      from orders_records
+        		                                      where menu_record_menu_id =:menuID)")
+    	          ->param(":menuID", $menuID)
+    	          ->execute();
+    	DB::query(Database::DELETE, "delete from menu_records
+                                     where menu_records.menu_id =:menuID and 
+        		                           not exists(select order_id 
+        		                                      from orders_records
+        		                                      where menu_record_menu_id =:menuID)")
+    	          ->param(":menuID", $menuID)
+    	          ->execute();
+    }
+    
+    public function updatePrice($updates)
+    {
+    	foreach ($updates as $key => $value) 
+    	{
+    		DB::query(Database::UPDATE, "update  menu_records set price =:price
+                                     where dish_id = :dishID and 
+        		                           menu_id = :menuID")
+    	          ->param(":menuID", $value["menu_id"])
+    	          ->param(":dishID", $value["id"])
+    	          ->param(":price", $value["price"])
+    	          ->execute();
+    	}
     }
 }

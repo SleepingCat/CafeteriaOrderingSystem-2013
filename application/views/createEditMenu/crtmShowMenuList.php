@@ -1,6 +1,6 @@
 <form action = "../CreateMenu/RunAction" method = POST>
   <?php
-   echo "Перечень меню на дату <input type = \"date\" name = \"menuDate\">";
+   echo "Перечень меню на дату <input type = \"date\" name = \"menuDate\" value = ".$menu_date.">";
    echo "<input type = \"submit\" value = \"Обновить\" name = \"butUpdate\"><br>";
    echo "<table border = 1 align = \"center\" width = 500>";
    for ($i = 0; $i < count($setOfMenu); $i++) 

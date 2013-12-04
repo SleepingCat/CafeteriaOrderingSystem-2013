@@ -1,47 +1,68 @@
-<form action = "../CreateMenu/RunAction" method = POST>
+<script>
+function checkprice()
+{
+  $(".priceTextBox").each(function()
+  {
+    if(!$.isNumeric($(this).val()) || ($(this).val() == 0))
+	{
+	  alert('Заполните цены у всех блюд!');
+	  return false;
+    }
+   }
+  );
+}
+
+</script>
+<form action = "../CreateMenu/RunAction" method = POST align = "center">
   <?php
     //текущие тип и категория блюда
     $currentType = '';
     $currentCategory = '';
     $totalCount = Count($allDish); 
     $checkBox = "";
-
+    echo "Меню на ".$menuDate."<br>";
+    
     if(!$forEdit)
     {
-    	echo " <select name = \"type\">";
+    	echo "<select name = \"typeOfDish\">";
     	for ($i = 0; $i < count($typeOfDish); $i++)
     	{
     		echo "<option value = ".$typeOfDish[$i]["id"].">".$typeOfDish[$i]["name"]."</option>";
     	}
     	echo "</select>";
     	
-    	echo " <select name = \"type\">";
+    	echo "<select name = \"categoryOfDish\">";
     	for ($i = 0; $i < count($categoryOfDish); $i++)
     	{
     	echo "<option value = ".$categoryOfDish[$i]["id"].">".$categoryOfDish[$i]["name"]."</option>";
     	}
     	echo "</select>";
-    	echo "<input type = \"submit\" value = \"Применить\" name = \"butApply\">";
+    	echo "<input type = \"submit\" value = \"Применить\" name = \"butApply\"><br>";
     }
     
     //Заголовок всех таблиц.
     if($forEdit) // если режим редактирования существующего меню, то убираем checkbox из заголовка
-      $header = "<table style=\"margin:0px\" border = \"solid 1px black\"  align=\"center\">
+    {
+      // заголовок страницы
+      $header = "<table  border = \"solid 1px black\"  align =\"center\">
 	    		     <tr>
 	    		       <th>Наименование</th>
 	    		       <th>Ингредиенты</th>
 	    	           <th>Стоимоcть</th>
 	    		     </tr>";
+    }
     else // если режим добавления новых блюд в меню, то убираем цену и добавляем checkbox
-    	$header = "<table style=\"margin:0px\" border = \"solid 1px black\"  align=\"center\" >
+    {
+    	// заголовок страницы
+    	$header = "<table  border = \"solid 1px black\" align =\"center\">
 	    		     <tr>
 	    			   <th> </th>
 	    		       <th>Наименование</th>
 	    		       <th>Ингредиенты</th>
 	    		     </tr>";
+    }
     
-    // заголовок страницы
-    echo "Меню на ".$menuDate."<br>";
+   
     
     //вывод блюд
     if(count($allDish) > 0) 
@@ -53,9 +74,9 @@
 	    	if(!$forEdit)// если мы в режиме добавления блюда то выводим checkbox	
 	    	{
 		    	if($allDish[$i]['is_standart'])
-		    	  $checkBox = "<td style=\"width : 10px\"><input type = \"checkBox\" checked=\"checked\" name = checked_elements[".$i."] onClick = \"return false;\"></td>";
+		    	  $checkBox = "<td style=\"width : 10px\"><input type = \"checkBox\" class = \"styled\" checked=\"checked\" name = checked_elements[".$i."] onClick = \"return false;\"></td>";
 		    	else 
-		    	  $checkBox = "<td style=\"width : 10px\"><input type = \"checkBox\" name = checked_elements[".$i."]></td>";
+		    	  $checkBox = "<td style=\"width : 10px\"><input type = \"checkBox\" class = \"styled\" name = checked_elements[".$i."]></td>";
 	    	}
 	    	
 	    	
@@ -88,7 +109,7 @@
 	    		echo $tmpArray[$j]['product_name']."; ";
 	    	}
 	    	if($forEdit)
-	    	  echo "</td><td style=\"width : 100px\"><input type = \"text\" style=\"width : 100%\"  name = price[".$i."] value = ".$allDish[$i]["price"]."></td></tr>";
+	    	  echo "</td><td style=\"width : 100px\"><input type = \"text\" style=\"width : 80%\" class = \"priceTextBox\"  name = price[".$i."] value = ".$allDish[$i]["price"]."></td></tr>";
 	    	if($totalCount - 1 == $i)
 	    	{
 	    		echo "</table>";
@@ -105,7 +126,7 @@
     else 
     {
 	    echo "<br><input type = \"submit\" name = \"butAddDish\"  value = \"Добавить блюдо\">";
-	    echo "<input type = \"submit\" name = \"butSave\"  value = \"Сохранить\">";
+	    echo "<input type = \"submit\" name = \"butSave\" id=\"butSaveMenu\" onmousedown=\"checkprice()\" value = \"Сохранить\">";
     }
   ?>
   </form>
