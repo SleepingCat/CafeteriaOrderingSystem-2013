@@ -5,7 +5,7 @@ $(document).ready(function(e)
 {
 	$("td").mouseenter(function(e)
 	{        
-		$(this).parent("tr").css("background-color", "rgba(155,155,155,0.5);");		
+		$(this).parent("tr").css("background-color", "rgba(100,100,100,0.5)");		
     });
     
 	$("td").mouseleave(function(e) 
@@ -27,6 +27,18 @@ $(document).ready(function(e)
 </script>
 
 <div class="PageHeader">Ваши заказы</div>
+
+<div align="center" style="margin: 5px 140px 20px 0px; display: inline-block;">
+	<a href="<?php echo URL::site('/admin/users/new') ?>" class="EntBut EntBut-color" style="width: 200px; line-height: 30px;">
+    	<span>Мой профиль</span>
+    </a>
+</div>
+
+<div align="center" style="margin: 5px 0px 20px 140px; display: inline-block;">
+	<a href="<?php echo URL::site('Userprofile') ?>" class="EntBut EntBut-color" style="width: 200px; line-height: 30px;">
+    	<span>Мои подписки</span>
+    </a>
+</div>
 
 <table class="DataTable" style="width: 600px; margin: 0px 80px; cursor: default;">
 <tr>

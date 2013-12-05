@@ -40,6 +40,7 @@ var Custom = {
 			if((inputs[a].type == "checkbox" || inputs[a].type == "radio") && inputs[a].className.indexOf("styled") > -1) {
 				span[a] = document.createElement("span");
 				span[a].className = inputs[a].type;
+				span[a].title = "";
 
 				if(inputs[a].checked == true) {
 					if(inputs[a].type == "checkbox") {

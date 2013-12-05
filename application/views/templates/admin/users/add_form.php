@@ -1,5 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');?>
 
+
 <?if(Arr::flatten($errors))
 {?> 
 	<div class="DialogCloser" id="dialog-message">
@@ -7,12 +8,12 @@
 	</div>
 <?};?>
 
+<div class="PageHeader">Добавление пользователя</div>
+
 <form action="" method="post" name="user-form" class="ProfileForm">
 
-<div class="FormTopBorder">Добавление пользователя</div>
-
-<div>
-<table class="ProfileFormTable">
+<div class="ProfileFormArea">
+<table>
 <tr >
 <td class="ProfileFormTableCell">
     <fieldset class="ProfileFormFieldset"><legend style="cursor: default">Данные пользователя</legend>
@@ -162,9 +163,8 @@
 </div>
 
 <div class="FormBottomBorder">
-	<input type="submit" class="RightAreaBut" name="subm"  id="input" value="Сохранить" />
-    <input type="submit" class="RightAreaBut" name="back" id="cancel" value="Отмена" />
+	<input type="submit" class="FormBut" name="subm"  id="input" value="Сохранить" />
+    <input type="submit" class="FormBut" name="back" id="cancel" value="Отмена" />
 </div>		
 		
 </form>
-

@@ -3,11 +3,11 @@
 .checkbox{	
 	width: 19px;
 	height: 25px;
-	padding: 0 5px 0 0;	
+	padding-right: 5px;			
 	background: url(../image/Template/checkbox.png) no-repeat;
 	display: block;
 	clear: left;
-	float: left;
+	float: left;		
 }
 
 .SearchForm{
@@ -36,7 +36,7 @@
 }
 
 .FormBottomBorder{	
-	
+	margin-top: 10px;
 }
 
 .ProfileForm{
@@ -45,8 +45,9 @@
 	margin: 0px 100px;
 }
 
-.ProfileFormTable{
-	
+.ProfileFormArea{
+	border: 5px double rgb(131,114,86);
+	padding: 5px;
 }
 
 .ProfileFormTableCell{

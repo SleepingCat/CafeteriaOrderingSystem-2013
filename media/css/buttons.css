@@ -83,6 +83,31 @@ nav{
 	font-size: 14px;
 }
 
+.FormBut{
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	background-color: transparent;
+	background-image: url(../image/Template/Button140x35.png);
+	margin-bottom: 5px;
+	width: 140px;
+	height: 35px;
+	line-height: 35px;	
+	font-size: 16px;	
+	font-weight: bold;
+	font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
+	color: #EACA8E;
+	border-style: none;	
+}
+
+.FormBut:hover{
+	background-image: url(../image/Template/Button140x35_hover.png);
+}
+
+.FormBut:active{
+	font-size: 14px;
+}
+
 /*EntBut - прямоугольная кнопка с текстом*/
 .EntBut{
 	outline: none;

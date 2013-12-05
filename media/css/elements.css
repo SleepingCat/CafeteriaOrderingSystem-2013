@@ -29,14 +29,13 @@ a {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
-	line-height: 25px;
+	height: 30px;	
 	color: #C1AC51;	
-	font-family: 'Bookman Old Style', serif;	
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;	
 	text-shadow: 1px -1px 0px rgb(0,0,0),
 		1px 1px 0px rgb(0,0,0),
 		-1px 1px 0px rgb(0,0,0),
-		-1px -1px 0px rgb(0,0,0);
-	white-space: nowrap;
+		-1px -1px 0px rgb(0,0,0);	
 	cursor: pointer;
 	display: inline-block;
 	border-width: 2px;
@@ -55,7 +54,7 @@ a {
   height: 0;
   width: 0;
   display: inline-block;
-  margin: 0px 5px 3px 5px;    
+  margin: 0px 5px 8px 5px;    
 }
 
 /*Указатель развернутого раздела навигации*/
@@ -66,7 +65,7 @@ a {
   height: 0;
   width: 0;
   display: inline-block;
-  margin: 0px 5px 3px 5px;     
+  margin: 0px 5px 8px 5px;     
 }
 
 /*Указатель пункта навигации*/
@@ -123,9 +122,9 @@ a {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
-	line-height: 25px;
+	height: 30px;
 	color: #C1AC51;	
-	font-family: 'Bookman Old Style', serif;	
+	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;	
 	text-shadow: 1px -1px 0px rgb(0,0,0),
 		1px 1px 0px rgb(0,0,0),
 		-1px 1px 0px rgb(0,0,0),

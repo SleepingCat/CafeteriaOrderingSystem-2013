@@ -3,13 +3,13 @@
 var LeftMenuHeaders;
 var jsonHeaders;
 
-$(window).before(function() 
-{
+$(window).bind('load', function() 
+{	
 	$(".MainPanelButton, .LeftMenuHeader span, .UserHeaderArea").pxgradient({ 
 		step: 2, 
 		colors: ["#C1AC51","#FFFDDE", "#C1AC51"],
 		dir: "y" 
-	});		
+	});	
 });
 
 
