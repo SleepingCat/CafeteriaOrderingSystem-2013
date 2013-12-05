@@ -24,7 +24,7 @@ class Odf
     	'ZIP_PROXY' => 'PclZipProxy',
     	'DELIMITER_LEFT' => '{',
     	'DELIMITER_RIGHT' => '}',
-		'PATH_TO_TMP' => null
+		'PATH_TO_TMP' => '/tmp'
    	);
     protected $file;
     protected $contentXml;
@@ -271,11 +271,17 @@ IMG;
         
         if( $name == "" )
         {
-        	$name = 'Отчет'. ".doc";
-       	}        
-        header('Content-type: application/vnd.oasis.opendocument.text');
-        header('Content-Disposition: attachment; filename="'.$name.'"');
-        readfile($this->tmpfile);
+        	$name = 'Отчет'. ".odt";
+       	}        	
+       	
+        header ("Content-type: octet/stream");
+       	header ("Conent-type: application/vnd.ms-word");
+        header ("Content-disposition: attachment; filename=".$name.";");
+        header("Content-Length: ".filesize($this->tmpfile));
+        ob_clean();
+        flush();
+        readfile($this->tmpfile);  
+        
     }
     /**
      * Returns a variable of configuration 

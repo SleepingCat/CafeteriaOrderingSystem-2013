@@ -54,6 +54,99 @@ class Model_Report
 		return $Times;
 	}
 	
+	/**
+	 * Метод считывает количество заказов по заданным пунктам
+	 * @param unknown $BeginDate - начало периода, с которого считываются заказы
+	 * @param unknown $EndDate - окончание периода, с которого считываем
+	 * @param string $State - состояния заказов
+	 * @param string $PaymentType - платежный тип 1 или 0
+	 * @param string $$NotState - состояния заказов которые не используются в отчетах
+	 * @return Ambigous <mixed, unknown>
+	 */
+	public function  AddedInformationAboutOrders($BeginDate, $EndDate, $State = "", $PaymentType = "", $NotState = "")
+	{
+		$query = "Select Count(*) as CountOrder from orders where order_date <= '".$EndDate."' and ".
+				" order_date >= '".$BeginDate."'";
+		if ($State <> "")
+			$query .= " and order_status in (".$State.")";
+		if ($PaymentType != "")
+			$query .= " and payment_type = ".$PaymentType;
+		if ($NotState != "")
+			$query .= " and order_status not in (".$NotState.")";
+		$CountOrders = DB::query(Database::SELECT, $query)
+		->execute()
+		->get("CountOrder");
+		return $CountOrders;
+	}
+	
+	/**
+	 * 
+	 * Метод возвращает денежную сумму оплаченных заказов
+	 * @param unknown $BeginDate - начало периода
+	 * @param unknown $EndDate - конец периода 
+	 * @param string $State - состояния 
+	 * @param string $PaymentType - тип оплаты
+	 * @param string $$NotState - состояния заказов которые не используются в отчетах
+	 * @return Ambigous <mixed, unknown>
+	 */
+	public function AddedInformationAboutPay($BeginDate, $EndDate, $State = "", $PaymentType = "", $NotState = "")
+	{
+		$query = "Select Sum(total_price) as totalPrice from orders where order_date <= '".$EndDate."' and ".
+				" order_date >= '".$BeginDate."'";
+		if ($State != "")
+			$query .= " and order_status in (".$State.")";
+		if ($NotState != "")
+			$query .= " and order_status not in (".$NotState.")";
+		if ($PaymentType != "")
+			$query .= " and payment_type = ".$PaymentType;
+		$TotalPayment = DB::query(Database::SELECT, $query)
+		->execute()
+		->get("totalPrice");
+		return $TotalPayment;
+	}
+	
+	public  function  ReportAboutDishes($BeginDate, $EndDate)
+	{
+		$query = "select d1.dish_name, (select Count(*) ".
+				" from orders o join ".
+				" orders_records orec on o.order_id = orec.order_id join ".
+				" dishes d on d.dish_id =  orec.menu_record_dish_id ".
+				" where d.dish_id = d1.dish_id and o.order_date <= '".$EndDate."' and ".
+				" o.order_date >= '".$BeginDate."') as CountDish ".
+				" from dishes d1 where exists (select orec1.order_id from ".
+				" orders_records orec1 join ".
+				" orders o1 on o1.order_id = orec1.order_id ".
+				" where orec1.menu_record_dish_id = d1.dish_id and o1.order_date <= '".$EndDate."' and ".
+				" o1.order_date >= '".$BeginDate."')".
+				" order by CountDish desc".
+				" LIMIT 0 , 10";
+		$Dishes = DB::query(Database::SELECT, $query)
+		->execute()
+		->as_array();
+		return  $Dishes;
+				
+	}
+	
+	public function  ReportAboutDishesNotUsed($BeginDate, $EndDate)
+	{
+		$query = " select d1.dish_name ".
+				" from dishes d1 where not exists(select orec1.order_id from ".
+				" orders_records orec1 join ".
+				" orders o1 on o1.order_id = orec1.order_id ".
+				" where orec1.menu_record_dish_id = d1.dish_id and o1.order_date <= '".$EndDate."' and ".
+				" o1.order_date >= '".$BeginDate."')";
+		$Dishes = DB::query(Database::SELECT, $query)
+		->execute()
+		->as_array();
+		return  $Dishes;
+		
+	}
+	
+	/**
+	 * Метод выгружает отчет о клиентах
+	 * @param unknown $BeginDate
+	 * @param unknown $EndDate
+	 */
 	public  function ExportWordClients($BeginDate,$EndDate)
 	{		
 		$odf = new Odtphp(APPPATH.'templates/users.odt');			
@@ -82,20 +175,25 @@ class Model_Report
 				}
 				$odf->mergeSegment($kvit);
 		    	$odf->setVars('privet'.(string)$i, count($users) , $encode = TRUE, $charset='UTF-8');
+		    	
 		}
 			
 		// We export the file
-		$odf->exportAsAttachedFile();		
+		$odf->exportAsAttachedFile();
 	}
 	
+	/**
+	 * Метод выгружает отчет о заказах
+	 * @param unknown $BeginDate
+	 * @param unknown $EndDate
+	 */
 	public  function ExportWordOrders($BeginDate,$EndDate)
 	{
 		$odf = new Odtphp(APPPATH.'templates/orders.odt');
 	
 		$Date = 'c '.$BeginDate.' по '.$EndDate;
-		$odf->setVars('date', $Date , $encode = TRUE, $charset='UTF-8');			
-		
 	
+			
 		$segment = 'articles';
 			
 		$kvit = $odf->setSegment($segment);
@@ -108,10 +206,68 @@ class Model_Report
 			$kvit->merge();					
 		}
 			$odf->mergeSegment($kvit);
-			//$odf->setVars('privet'.(string)$i, count($users) , $encode = TRUE, $charset='UTF-8');
+			
+			$OrdCount = self::AddedInformationAboutOrders($BeginDate, $EndDate);
+			$odf->setVars('col1', $OrdCount , $encode = TRUE, $charset='UTF-8');
+			
+			$OrdPay = self::AddedInformationAboutPay($BeginDate, $EndDate, "'".OrderStatus::Paymented."'");
+			$odf->setVars('col2', $OrdPay , $encode = TRUE, $charset='UTF-8');
+			
+			$OrdCount1 = self::AddedInformationAboutOrders($BeginDate, $EndDate,"","1", "'".OrderStatus::Canceled."'");
+			$odf->setVars('col3', $OrdCount1 , $encode = TRUE, $charset='UTF-8');
+			
+			$OrdCount2 = self::AddedInformationAboutOrders($BeginDate, $EndDate,"","0", "'".OrderStatus::Canceled."'");
+			$odf->setVars('col4', $OrdCount2 , $encode = TRUE, $charset='UTF-8');
+			
+			$OrdCount3 = self::AddedInformationAboutOrders($BeginDate, $EndDate, "'".OrderStatus::Canceled."'");
+			$odf->setVars('col5', $OrdCount3 , $encode = TRUE, $charset='UTF-8');
+			
+			$odf->setVars('date', $Date , $encode = TRUE, $charset='UTF-8');				
 			
 		// We export the file
 		$odf->exportAsAttachedFile();
 	
+	}
+	
+	/**
+	 * Метод выгружает отчет о блюдах
+	 * @param unknown $BeginDate
+	 * @param unknown $EndDate
+	 */
+	public  function ExportWordDishes($BeginDate,$EndDate)
+	{
+		$odf = new Odtphp(APPPATH.'templates/foods.odt');
+		
+		$Date = 'c '.$BeginDate.' по '.$EndDate;
+		
+		$odf->setVars('date', $Date , $encode = TRUE, $charset='UTF-8');
+			
+		$segment = 'articles';
+			
+		$kvit = $odf->setSegment($segment);
+		$dishes = $this->ReportAboutDishes($BeginDate, $EndDate);
+		
+		foreach ($dishes as $item)
+		{
+			$kvit->setVars('username1', $item['dish_name'], true, 'utf-8');
+			$kvit->setVars('numb1', $item['CountDish'], true, 'utf-8');
+			$kvit->merge();
+		}
+		$odf->mergeSegment($kvit);
+		
+		$segment = 'articless';
+			
+		$kvit = $odf->setSegment($segment);
+		$dishes = $this->ReportAboutDishesNotUsed($BeginDate, $EndDate);
+		
+		foreach ($dishes as $item)
+		{
+			$kvit->setVars('username2', $item['dish_name'], true, 'utf-8');
+			$kvit->merge();
+		}
+		$odf->mergeSegment($kvit);
+		
+		// We export the file
+		$odf->exportAsAttachedFile();
 	}
 }

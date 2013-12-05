@@ -13,6 +13,7 @@ class OrderStatus
 	const NotDelivered = "Не доставлен";
 	const Delivered = "Доставлен";
 	const Completed = "Выполнен";
+	const Paymented = "Оплачен";
 }
 
 ?>

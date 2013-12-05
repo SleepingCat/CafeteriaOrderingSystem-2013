@@ -32,7 +32,7 @@ class Odtphp {
 		return $this->odf->mergeSegment($segment);
 	}
 	
-	public function exportAsAttachedFile($name="Отчет")
+	public function exportAsAttachedFile()
 	{
 		$this->odf->exportAsAttachedFile();
 	}

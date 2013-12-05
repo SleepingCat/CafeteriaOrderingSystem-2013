@@ -5,5 +5,5 @@ return array(
 	'ZIP_PROXY' => 'PclZipProxy',
 	'DELIMITER_LEFT' => '{',
 	'DELIMITER_RIGHT' => '}',
-	'PATH_TO_TMP' => null,
+	'PATH_TO_TMP' => '/tmp',
 );

@@ -71,7 +71,14 @@ class Controller_Reports extends Controller_Checkinputusers
 				if ($Mes2 == "Заказы")		
 				{					
 					$RepVal = new Model_Report();
-					$RepVal ->ExportWordOrders($BeginDate, $EndDate);					
+					$RepVal ->ExportWordOrders($BeginDate, $EndDate);	
+					
+				}
+				
+				if ($Mes2 == "Блюда")
+				{
+					$RepVal = new Model_Report();
+					$RepVal ->ExportWordDishes($BeginDate, $EndDate);
 				}	
 			}
 		}	
