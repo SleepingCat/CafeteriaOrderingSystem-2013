@@ -270,4 +270,37 @@ class Model_Report
 		// We export the file
 		$odf->exportAsAttachedFile();
 	}
+	
+	/**
+	 * ОТчет для Илюхи
+	 * @param Принимает ID_order(ID заказа)
+	 * Выгружает отчет о заказе пользователя: номер заказа,адрес доставки,ФИО пол-ля,блюда их кол-во и стоимость
+	 */
+	public  function ExportWordOrder($ID)
+	{	
+		$odf = new Odtphp(APPPATH.'templates/complete.odt');		
+		$segment = 'articles';				
+		$kvit = $odf->setSegment($segment);							
+		$ord = new Model_EquipOrder();
+		$showOrd = $ord -> getDishes($ID);		
+		$odf->setVars('numb_order', $ID, true, 'utf-8');
+		$odf->setVars('surname', $showOrd[1]['Buyer'], true, 'utf-8');
+		$odf->setVars('home', $showOrd[2]['building'], true, 'utf-8');
+		$odf->setVars('floor', $showOrd[3]['floor'], true, 'utf-8');
+		$odf->setVars('office', $showOrd[4]['office'], true, 'utf-8');
+		
+		foreach ($showOrd as $item)
+			{
+				$kvit->setVars('food', $item['dish_name'], true, 'utf-8');
+				$kvit->setVars('price', $item['price'], true, 'utf-8');
+				$kvit->setVars('count', $item['servings_number'], true, 'utf-8');		 
+			    $kvit->merge();
+			}
+			
+		$odf->mergeSegment($kvit);						 
+		
+			
+		// We export the file
+		$odf->exportAsAttachedFile();
+	}
 }
