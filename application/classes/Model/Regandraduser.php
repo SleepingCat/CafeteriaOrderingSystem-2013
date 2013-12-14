@@ -65,7 +65,10 @@ class Model_Regandraduser
 				return false;		
 			}     		
  		}	
- 	
+ 	/**
+ 	 * Метод для редактирования даных пол-ля
+ 	 * @return boolean
+ 	 */
  	public function reg_profile()
  	{		try
  		{
@@ -139,7 +142,8 @@ class Model_Regandraduser
     $NumOfDay = DB::query(Database::SELECT, 'SELECT DATEDIFF( NOW( ) , date_change ) as Razn from users u where u.id = :UID')
     ->param(':UID', $userID)
     ->execute()
-    ->get('Razn');
+    ->get('Razn');  
+    	
     return $NumOfDay >= 30;
  }
  

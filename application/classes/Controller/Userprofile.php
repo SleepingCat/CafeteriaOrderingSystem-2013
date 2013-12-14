@@ -132,7 +132,6 @@ public function action_index()
 		 $this->title = 'Профиль клиента';		
 		// Список ошибок валидации, хранится в файле messages/validation.php
 		View::set_global('errors', $post->errors('validation'));	
-		$roles = $register->find_role();		
 		$this->content= View::factory('templates/admin/users/regview')
 		->set(array(
 				'item' => $post->data(),

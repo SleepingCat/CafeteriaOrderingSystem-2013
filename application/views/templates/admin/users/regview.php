@@ -73,12 +73,12 @@ $(document).ready(function(e)
 	        />
 	    </div>
 	    <div class="TitledTextboxArea">
-	        <label for="password_confirm">Подтверждение пароля:</label>
-	        <input type="password" class="ProfileTextBox" size="25" maxlength="16" name="password_confirm" id="password_confirm"
-	        <?php if (Arr::get($errors, 'password_confirm'))
+	        <label for="password_confirm">Старый  пароль:</label>
+	        <input type="password" class="ProfileTextBox" size="25" maxlength="16" name="password_old" id="password_confirm"
+	        <?php if (Arr::get($errors, 'password_old'))
 	        {?>
 	        	style="border-color: red;"
-	        	title="<?php echo Arr::get($errors, 'password_confirm') ?>"	        	        
+	        	title="<?php echo Arr::get($errors, 'password_old') ?>"	        	        
 			<?}?>
 	        />
 	    </div>	
