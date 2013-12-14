@@ -184,7 +184,8 @@ class Controller_Front extends Kohana_Controller_Template {
 				$media->uri(array('file' => 'js/pxgradient-1.0.2.jquery.js')),
 				$media->uri(array('file' => 'js/jquery.json-2.4.min.js')),
 				$media->uri(array('file' => 'js/jquery.cookie.js')),
-				$media->uri(array('file' => 'js/jquery.simplemodal.1.4.4.min.js')),				
+				$media->uri(array('file' => 'js/jquery.simplemodal.1.4.4.min.js')),
+				$media->uri(array('file' => 'js/jquery.maskedinput.min.js')),					
 				$media->uri(array('file' => 'js/mainScript.js')),
 				$media->uri(array('file' => 'js/secondaryScript.js')),
 				$media->uri(array('file' => 'js/elementsScript.js'))					

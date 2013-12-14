@@ -1,26 +1,24 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#Start').datepicker({ firstDay: 1, dateFormat: 'yy-mm-dd' });
-        $('#End').datepicker({ firstDay: 1, dateFormat: 'yy-mm-dd' });
-    });
-</script>
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
 
-<form class = "Reports "action="" method="post">	
+<?if( $error !="")
+{?> 
+	<div class="DialogCloser" id="dialog-message">
+		<span><?php  echo $error ?></span>
+	</div>
+<?}?>
 
-<p align="center"><?php  echo $Rep.":"?></p>
-<table border=1px cellspacing="0" >
-<td align="center" width="250" height="250">
-Выберите начало периода:	
-<div class="Start"> <input type="text" name="Start" id="Start"> </div>
-
-Выберите конец периода:	
-<div class="End">   <input type="text" name="End" id="End"> </div>
-
-<div class="Subm">  <input type="submit" name="subm" id="subm" value="OK"> </div>
-
-<p align="center"><?php  echo $error ?></p>
-</td>	
-</table>	
-					
-				
+<div class="PageHeader"><?php  echo $Rep?></div>
+<form class="ReportsForm" action="" method="post">
+	<div class="TitledTextboxArea" style="margin: 15px 0px;">
+		<label for="Start">Выберите начало периода:</label><br>
+		<input type="text" name="Start" id="Start" class="ProfileTextBox" size="20" maxlength="10">
+	</div>
+	<div class="TitledTextboxArea" style="margin: 15px 0px;">
+		<label for="End">Выберите конец периода:</label><br>
+		<input type="text" name="End" id="End" class="ProfileTextBox" size="20" maxlength="10">
+	</div>
+	<div class="AuthFormBottom">
+		<input type="submit" name="subm" id="subm" class="EntBut EntBut-color" style="width: 100px; line-height: 28px;" value="OK">
+		<a href="/Reports" class="EntBut EntBut-color" style="width: 100px; line-height: 28px;">Отмена</a>		
+	</div>	
 </form>

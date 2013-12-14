@@ -33,7 +33,7 @@ class Controller_Reports extends Controller_Checkinputusers
 		}
 		$this->title="Отчеты";
 		$this->content = View::factory('templates/reports/repview');	
-		$this->styles = array('media/css/style.css' => 'screen');
+		//$this->styles = array('media/css/style.css' => 'screen');
 		
 	}
 	
@@ -83,7 +83,7 @@ class Controller_Reports extends Controller_Checkinputusers
 			}
 		}	
 		$this->title =$Mess; 			
-		$this->styles = array('media/css/style.css' => 'screen');
+		//$this->styles = array('media/css/style.css' => 'screen');
 		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->content = View::factory('templates/reports/date', array(				
 	    'Rep'=>$Mess,

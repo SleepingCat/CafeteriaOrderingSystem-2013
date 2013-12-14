@@ -98,3 +98,14 @@
 	color: #FF0000;
 	font-size: 20px;	
 }
+
+.ReportsForm{
+	display: inline-block;
+	font-size: 20px;
+	width: 280px;
+	height: 180px;
+	padding: 20px 0px;
+	display: inline-block;
+	background-image: url(../image/Template/Form.png);
+	margin-top: 10px;
+}

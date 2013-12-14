@@ -1,14 +1,11 @@
-<form class = "Reports "action="" method="post">	
-	
-	<table border=1px border-collaps="collapse">
-	<td>
-	<div class="Clients"><input type = "submit" name = "subm" style="width:150; height:30px"  value ="<?php echo __('Отчет по клиентам') ?>" /> </div>
-	
-	<div class="Foods"><input type = "submit" name = "food" style="width:150; height:30px" value ="<?php echo __('Отчет по блюдам') ?>" /> </div>
-	
-	<div  class="Order"><input type = "submit" name = "order" style="width:150; height:30px"  value ="<?php echo __('Отчет по заказам') ?>" /> </div>
-	</td>
-	</table>	
-					
-				
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+<div class="PageHeader"><?php echo __('Отчеты') ?></div>
+<form class="ReportsForm" action="" method="post">
+	<input type = "submit" name = "subm" class="EntBut EntBut-color" style="width: 200px; line-height: 28px; margin: 15px 0px;"
+		value ="<?php echo __('Отчет по клиентам') ?>" />
+	<input type = "submit" name = "food" class="EntBut EntBut-color" style="width: 200px; line-height: 28px; margin: 15px 0px;"
+		value ="<?php echo __('Отчет по блюдам') ?>" />
+	<input type = "submit" name = "order" class="EntBut EntBut-color" style="width: 200px; line-height: 28px; margin: 15px 0px;"
+		value ="<?php echo __('Отчет по заказам') ?>" />
 </form>
