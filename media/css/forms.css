@@ -75,3 +75,26 @@
 .TitledTextboxArea{
 	margin-top: 10px;
 }
+
+.AuthForm{
+	font-size: 20px;
+	width: 280px;
+	height: 220px;
+	display: inline-block;
+	background-image: url(../image/Template/Form.png);
+	margin-top: 10px;			
+}
+
+.AuthFormArea{
+	text-align: left;
+	margin: 30px 50px 0px 50px;		
+}
+
+.AuthFormBottom{
+	margin-top: 15px;
+}
+
+.FailText{	
+	color: #FF0000;
+	font-size: 20px;	
+}

@@ -46,7 +46,7 @@ $(document).ready(function(e)
 			}
 		});
 		
-		setTimeout(function(){$.modal.close();}, 3000);
+		setTimeout(function(){$.modal.close();}, 5000);
 	};		
 	
 	$( ".LeftMenuHeader" ).click(function()
