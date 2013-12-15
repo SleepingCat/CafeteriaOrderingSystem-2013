@@ -13,7 +13,7 @@ $(document).ready(function(e)
         $(this).parent("tr").css("background-color", "transparent");		
     });
 
-	$( "tr" ).tooltip(
+	/*$( "tr" ).tooltip(
 	{
 		content: function() 
 		{					
@@ -21,7 +21,7 @@ $(document).ready(function(e)
 	    },
 	    tooltipClass: "OrderTooltip",
 	    track: true
-	});
+	});*/
 
 	$( "th" ).tooltip(
 	{
