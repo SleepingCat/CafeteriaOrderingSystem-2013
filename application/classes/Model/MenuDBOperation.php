@@ -161,7 +161,7 @@ class Model_MenuDBOperation
 		
 		$allDish = array();
 		
-		if($menuID > 0) // Для оторбажения списка блюд в созданном меню
+		if($menuID > 0) // Для оторбажения списка блюд в созданном меню, релактирование
 			$query= "select D.dish_id, 
                             D.dish_name,
 					        MR.price, 
@@ -271,17 +271,82 @@ class Model_MenuDBOperation
     	          ->execute();
     }
     
+    
     public function updatePrice($updates)
     {
+    	$operationResult = ""; // результат выполнения обновления цен.
+    	
     	foreach ($updates as $key => $value) 
     	{
-    		DB::query(Database::UPDATE, "update  menu_records set price =:price
-                                     where dish_id = :dishID and 
-        		                           menu_id = :menuID")
-    	          ->param(":menuID", $value["menu_id"])
-    	          ->param(":dishID", $value["id"])
-    	          ->param(":price", $value["price"])
-    	          ->execute();
+    		//проверить нет ли заказов из этого меню на это блюдо
+	    	$counter = 0;
+	    	$counter = DB::query(Database::SELECT, "select count(*) as counter 
+	    			                     from orders_records 
+	    			                     where menu_record_menu_id = :menuID and 
+	    			                           menu_record_dish_id = :dishID")
+	    		->param(":menuID", $value["menu_id"])
+	    		->param(":dishID", $value["id"])	  
+	    		->execute()
+	    		->get("counter");
+	    	
+    	    if($counter == 0)// если блюдо не заказывали, то обновляем ему цену
+    	    {
+    	    	DB::query(Database::UPDATE, "update  menu_records set price =:price
+                                             where dish_id = :dishID and
+        		                                   menu_id = :menuID")
+    	    	        		                           ->param(":menuID", $value["menu_id"])
+    	    	        		                           ->param(":dishID", $value["id"])
+    	    	        		                           ->param(":price", $value["price"])
+    	    	        		                           ->execute();
+    	         $operationResult = "Цены изменены";
+    	    }
+    	    else //иначе ничего не делаем, добавляем в результат данные о текущем меню
+    	    {
+    	    	if($operationResult != "")
+    	    	{
+    	    		$operationResult += "Не удалось обновить цену, т.к. на блюдо ". $value["dish_name"]."есть заказ\n";
+    	    	}
+    	    }
     	}
+    	
+    	return($operationResult);
+    }
+    
+    /**
+     * Метод удаляет блюдо из меню
+     * @param integer $menuID - ИД меню из которого удаляют блюдо
+     * @param integer $dishID - ИД удаляемого блюда
+     * @return строка с результатом
+     */
+    public function deleteDish($menuID, $dishID)
+    {
+    	$operationResult = "";
+    	
+    	//проверить нет ли заказов из этого меню на это блюдо
+    	$counter = 0;
+    	$counter = DB::query(Database::SELECT, "select count(*) as counter 
+    			                     from orders_records 
+    			                     where menu_record_menu_id = :menuID and 
+    			                           menu_record_dish_id = :dishID")
+    		->param(":menuID", $menuID)
+    		->param(":dishID", $dishID)	  
+    		->execute()
+    		->get("counter");
+        if($counter == 0)//если нет, то удалить и создать строку "Удалено успешно!"
+        {
+        	DB::query(Database::DELETE, "delete 
+        			                     from orders_records  
+        			                     where menu_record_menu_id = :menuID and 
+    			                               menu_record_dish_id = :dishID")
+    			->execute();  
+    			$operationResult = "Удалено успешно!";                             
+        } 
+        else //иначе не удалять создать строку "На блюдо есть заказ! Удаление не возможно"
+        {
+        	$operationResult = "На блюдо есть заказ! Удаление не возможно";
+        }                        
+    	
+        return ($operationResult);
+    	
     }
 }

@@ -52,11 +52,17 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			foreach ($_POST["price"] as $key => $value) 
 			{
 				$dataToUpdate[$key]["id"] = $newMenu[$key]["dish_id"];
+				$dataToUpdate[$key]["dish_name"] = $newMenu[$key]["dish_name"];
 				$dataToUpdate[$key]["price"] = $value;
 				$dataToUpdate[$key]["menu_id"] = $menu_id;
 			}
-			$menuModel->updatePrice($dataToUpdate);
-			$this->action_showMenuList(date("Y-m-d"));
+			$result = $menuModel->updatePrice($dataToUpdate);
+			$_SESSION["crtm_new_menu"] =  $menuModel->getAllDish(0,0,0,$menu_id);
+			$this->content = View::factory("createEditMenu/crtmShowMenu")
+			                 ->set("allDish",  $_SESSION["crtm_new_menu"])
+			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
+			                 ->set("forEdit", TRUE)
+			                 ->set("message", $result);
 			
 		}	
 		else if(@$_POST["butAddMenu"])//если необходимо добавить меню.
@@ -72,7 +78,8 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 		   	  $this->content = View::factory("createEditMenu/crtmShowMenu")
 		   	                   ->set("allDish",  $_SESSION["crtm_new_menu"])
 		   	                   ->set("menuDate", $_SESSION["crtm_menu_date"])
-		   	                   ->set("forEdit", TRUE);
+		   	                   ->set("forEdit", TRUE)
+		   	                   ->set("message", "");
 		   	                   
 		   }
 		   else // меню на указанную дату в базе нет
@@ -86,12 +93,13 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 		   	  	$this->content = View::factory("createEditMenu/crtmShowMenu")
 		   	                     ->set("allDish", $_SESSION["crtm_new_menu"])
 		   	                     ->set("menuDate", $_SESSION["crtm_menu_date"])
-		   	                     ->set("forEdit", TRUE);
+		   	                     ->set("forEdit", TRUE)
+		   	  	                 ->set("message", "");
 		   	  }
 		   	  
 		   }
 		}
-		else if(@$_POST["butAddDish"]) 
+		else if(@$_POST["butAddDish"]) // при нажатии на кнопку "добавить блюдо", предоставление всех блюд в системе для выбора
 		{
 			$_SESSION["crtm_dish_to_select"] =  $menuModel->getAllDish(2, 0, 0, 0);
 			$this->content = View::factory("createEditMenu/crtmShowMenu")
@@ -99,9 +107,10 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
 			                 ->set("typeOfDish",  $menuModel->getTypesOfDishes())
 			                 ->set("categoryOfDish", $menuModel->getCategoryOfDishs())
-			                 ->set("forEdit", FALSE);
+			                 ->set("forEdit", FALSE)
+			                 ->set("message", "Выберите блюда. При смене категории и типа выбранные блюда не сохраняется!");
 		}
-		else if(@$_POST["addInMenu"])
+		else if(@$_POST["addInMenu"]) // при добавлении блюда в меню. Добавление выбранных блюд в меню
 		{
 			// получаем массивы для работы
 			$newMenu = array(); //хранит текущее меню
@@ -153,13 +162,14 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$this->content = View::factory("createEditMenu/crtmShowMenu") //отрисовываем обновлённое меню
 			                 ->set("allDish", $_SESSION["crtm_new_menu"])
 			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
-			                 ->set("forEdit", TRUE);
+			                 ->set("forEdit", TRUE)
+			                 ->set("message", "Блюда добавлены.");
 		}
-		else if(@$_POST["butUpdate"])
+		else if(@$_POST["butUpdate"]) // обновление списка меню
 		{
 			$this->action_showMenuList($_POST["menuDate"]);
 		}
-		else if(@$_POST["butApply"])
+		else if(@$_POST["butApply"])// при применении фильтра на тип и категорию
 		{
 			$_SESSION["crtm_dish_to_select"] = $menuModel->getAllDish(2, $_POST["typeOfDish"], $_POST["categoryOfDish"], 0);
 			$this->content = View::factory("createEditMenu/crtmShowMenu") //отрисовываем обновлённое меню
@@ -167,9 +177,10 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
 			                 ->set("typeOfDish",  $menuModel->getTypesOfDishes())
 			                 ->set("categoryOfDish", $menuModel->getCategoryOfDishs())
-			                 ->set("forEdit", FALSE);
+			                 ->set("forEdit", FALSE)
+			                 ->set("message", "");
 		}
-		else if(@$_POST["edit"])
+		else if(@$_POST["edit"])  //при открытии на редактирование меню
 		{
 			$menuList = $_SESSION["crtm_menu_list"];
 			foreach ($_POST["edit"] as $key => $value) 
@@ -182,7 +193,8 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			$this->content = View::factory("createEditMenu/crtmShowMenu")
 			                 ->set("allDish",  $_SESSION["crtm_new_menu"])
 			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
-			                  ->set("forEdit", TRUE);
+			                 ->set("forEdit", TRUE)
+			                 ->set("message", "");
 		}
 		else if(@$_POST["delete"])
 		{
@@ -193,6 +205,27 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			}
 			$menuModel->deleteMenu($menu_id);
 			$this->action_showMenuList($_POST["menuDate"]);
+		}
+		else if(@$_POST["deleteDish"])
+		{
+			$menu_id = $_SESSION["crtm_menu_id"]; // меню из которого удаляем блюдо
+			$allDish = $_SESSION["crtm_new_menu"];// набор всех блюд в меню
+			foreach ($_POST["deleteDish"] as $key => $value)
+			{
+				$dish_id = $allDish[$key]["dish_id"];
+			}
+			$result = $menuModel->deleteDish($menu_id, $dish_id);
+			$_SESSION["crtm_new_menu"] = $menuModel->getAllDish(0,0,0,$menu_id); 
+			$this->content = View::factory("createEditMenu/crtmShowMenu")
+			->set("allDish",  $_SESSION["crtm_new_menu"])
+			->set("menuDate", $_SESSION["crtm_menu_date"])
+			->set("forEdit", TRUE)
+			->set("message", $result);
+			
+		}
+		else if(@$_POST["toMenuList"])
+		{
+			$this->action_showMenuList(date("Y-m-d"));
 		}
 		 	
 	}

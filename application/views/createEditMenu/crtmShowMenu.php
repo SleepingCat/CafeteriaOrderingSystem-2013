@@ -21,6 +21,8 @@ function checkprice()
     $totalCount = Count($allDish); 
     $checkBox = "";
     echo "Меню на ".$menuDate."<br>";
+    echo "<div align = \"left\"><input type = \"submit\" name = \"toMenuList\" value = \"К списку меню\"></div><br>";
+    echo "<div align = \"right\">".$message."</div><br>";
     
     if(!$forEdit)
     {
@@ -49,6 +51,7 @@ function checkprice()
 	    		       <th>Наименование</th>
 	    		       <th>Ингредиенты</th>
 	    	           <th>Стоимоcть</th>
+    			       <th></th>
 	    		     </tr>";
     }
     else // если режим добавления новых блюд в меню, то убираем цену и добавляем checkbox
@@ -59,6 +62,7 @@ function checkprice()
 	    			   <th> </th>
 	    		       <th>Наименование</th>
 	    		       <th>Ингредиенты</th>
+	    		       <th></th>	
 	    		     </tr>";
     }
     
@@ -109,7 +113,11 @@ function checkprice()
 	    		echo $tmpArray[$j]['product_name']."; ";
 	    	}
 	    	if($forEdit)
-	    	  echo "</td><td style=\"width : 100px\"><input type = \"text\" style=\"width : 80%\" class = \"priceTextBox\"  name = price[".$i."] value = ".$allDish[$i]["price"]."></td></tr>";
+	    	  echo "</td>
+	    			<td style=\"width : 100px\">
+	    			  <input type = \"text\" style=\"width : 80%\" class = \"priceTextBox\"  name = price[".$i."] value = ".$allDish[$i]["price"]."></td>
+	    			<td><input type = \"submit\" name = deleteDish[".$i."] value = \"Удалить\"></td>
+	    		</tr>";
 	    	if($totalCount - 1 == $i)
 	    	{
 	    		echo "</table>";
