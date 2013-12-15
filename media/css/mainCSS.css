@@ -25,6 +25,22 @@ body{
 	white-space: nowrap;
 }
 
+#dialog-ask{
+	display: none;
+	background-image: url(../image/Template/Texture.png);
+	background-repeat: repeat;
+	color: #4B1573;
+	font-family: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", serif;
+	font-weight: bold;
+	font-size: 20px;	
+	text-align: center;	
+	cursor: default;
+	padding: 0.3em 1em;
+	border: 2px solid #ff8e00;
+	border-radius: 10px;	
+	white-space: nowrap;
+}
+
 /*Главный контейнер*/
 .MainArea{
 	margin: 0 auto;	

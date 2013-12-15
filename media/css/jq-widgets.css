@@ -10,7 +10,8 @@
 	border: 2px solid #ff8e00;
 	border-radius: 10px;
 	padding: 3px 5px;
-	white-space: nowrap;	
+	white-space: nowrap;
+	cursor: default;	
 }
 
 .OrderTooltip{
@@ -23,7 +24,8 @@
 	border: 2px solid #ff8e00;
 	border-radius: 10px;
 	padding: 3px 5px;
-	white-space: nowrap;		
+	white-space: nowrap;
+	cursor: default;		
 }
 
 .WarningTooltip{
@@ -37,7 +39,8 @@
 	border-radius: 10px;
 	padding: 3px 5px;
 	white-space: nowrap;
-	text-indent: 1em;		
+	text-indent: 1em;
+	cursor: default;		
 }
 
 .ui-datepicker{
