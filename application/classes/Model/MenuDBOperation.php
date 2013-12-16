@@ -335,9 +335,9 @@ class Model_MenuDBOperation
         if($counter == 0)//если нет, то удалить и создать строку "Удалено успешно!"
         {
         	DB::query(Database::DELETE, "delete 
-        			                     from orders_records  
-        			                     where menu_record_menu_id = :menuID and 
-    			                               menu_record_dish_id = :dishID")
+        			                     from menu_records  
+        			                     where menu_id = :menuID and 
+    			                               dish_id = :dishID")
     			->param(":menuID", $menuID)
     			->param(":dishID", $dishID)
     			->execute();  
@@ -355,14 +355,28 @@ class Model_MenuDBOperation
    public function GetCheckData($beginDate, $endDate)
    {
 	   	$result = array();  
-	   	$result = DB::query(Database::SELECT, "select user_id ,total_price,name,surname,patronymic,employee_number
+	   	$result = DB::query(Database::SELECT, "select user_id , sum(total_price) as total_price,name,surname,patronymic,employee_number
 	   	  		                       from orders join users on users.id=orders.user_id
 	   	  		                       where order_date >= :beginDate and
-	   	  		                             order_date <= :endDate")
+	   	  		                             order_date <= :endDate
+	   	                               group by user_id")
 	   	  		    ->param(":beginDate", $beginDate)
 	   	  		    ->param(":endDate", $endDate)
 	   	  		    ->execute()
 	   	  		    ->as_array();        
 	   	return($result);
+   }
+   
+   public function isExistsDish($dish_id, $menu_id)
+   {
+   	 $counter = DB::query(Database::SELECT, "select count(*) as counter 
+   	  		                       from menu_records 
+   	  		                       where menu_id = :menuID and 
+   	  		                             dish_id = :dishID")
+   	  		    ->param(":menuID",  $menu_id)  
+   	  		    ->param(":dishID", $dish_id)  
+   	  		    ->execute()
+   	  		    ->get("counter");
+   	 return($counter);                      
    }
 }

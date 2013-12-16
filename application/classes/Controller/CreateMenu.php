@@ -213,14 +213,38 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			foreach ($_POST["deleteDish"] as $key => $value)
 			{
 				$dish_id = $allDish[$key]["dish_id"];
+				$dish_key = $key;
 			}
-			$result = $menuModel->deleteDish($menu_id, $dish_id);
-			$_SESSION["crtm_new_menu"] = $menuModel->getAllDish(0,0,0,$menu_id); 
-			$this->content = View::factory("createEditMenu/crtmShowMenu")
-			->set("allDish",  $_SESSION["crtm_new_menu"])
-			->set("menuDate", $_SESSION["crtm_menu_date"])
-			->set("forEdit", TRUE)
-			->set("message", $result);
+			
+			if($menuModel->isExistsDish($dish_id, $menu_id)) // если блюдо уже прописано в меню
+			{
+				$result = $menuModel->deleteDish($menu_id, $dish_id);
+				$_SESSION["crtm_new_menu"] = $menuModel->getAllDish(0,0,0,$menu_id);
+				
+				$this->content = View::factory("createEditMenu/crtmShowMenu")
+				     ->set("allDish",  $_SESSION["crtm_new_menu"])
+					 ->set("menuDate", $_SESSION["crtm_menu_date"])
+					 ->set("forEdit", TRUE)
+					 ->set("message", $result);
+			}
+			else // иначе - пытаются удалить блюдо, которое ещё не заинсёртили, след-но удаляем только из массивов
+			{
+				unset($allDish[$dish_key]);// удаляем ненужное блюдо
+				$allDish = array_values($allDish);// обновляем индексы массива
+				
+				$neeInsertDishes = $_SESSION["crtm_need_insert_dish"];// повторяем то же самое для блюд которые ожидают инсёрта
+				unset($neeInsertDishes[$dish_key]);
+				$neeInsertDishes = array_values($neeInsertDishes);
+				$_SESSION["crtm_need_insert_dish"] = $neeInsertDishes;
+				
+				$_SESSION["crtm_new_menu"] = $allDish; // обновляем данные в сессии
+				
+				$this->content = View::factory("createEditMenu/crtmShowMenu")// отображаем изменения
+				     ->set("allDish",  $_SESSION["crtm_new_menu"])
+				     ->set("menuDate", $_SESSION["crtm_menu_date"])
+				     ->set("forEdit", TRUE)
+				     ->set("message", "");
+			}
 			
 		}
 		else if(@$_POST["toMenuList"])
