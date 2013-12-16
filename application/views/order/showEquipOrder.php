@@ -11,7 +11,7 @@
 	}
 </style>
 <form action="/EquipOrder/equipOrGetContent" method="POST">
-	<div><label align = "center"> Укомплектованные заказы </label><br>
+	<label align = "center"> Укомплектованные заказы: </label><br>
 				<table align = "center"><tr><td> Заказ № </td><td> Интервал доставки </td><td> Дата доставки </td><td> Статус </td><td>Просмотреть</td></tr>
 					<?php
 						$i = 0;
@@ -26,6 +26,6 @@
 						   $i++;
 						}
 					?>
-				</table></div><br>
-		<div align = "center"><input type = "submit" name = "cancel" value = "Назад"</div>
+				</table><br>
+		<div align = "center"><input type = "submit" name = "cancel" value = "Назад"></div>
 </form>
