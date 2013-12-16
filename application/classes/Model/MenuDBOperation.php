@@ -338,6 +338,8 @@ class Model_MenuDBOperation
         			                     from orders_records  
         			                     where menu_record_menu_id = :menuID and 
     			                               menu_record_dish_id = :dishID")
+    			->param(":menuID", $menuID)
+    			->param(":dishID", $dishID)
     			->execute();  
     			$operationResult = "Удалено успешно!";                             
         } 
