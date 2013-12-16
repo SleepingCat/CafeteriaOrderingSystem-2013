@@ -349,4 +349,18 @@ class Model_MenuDBOperation
         return ($operationResult);
     	
     }
+    
+   public function GetCheckData($beginDate, $endDate)
+   {
+	   	$result = array();  
+	   	$result = DB::query(Database::SELECT, "select user_id 
+	   	  		                       from orders 
+	   	  		                       where order_date >= :beginDate and
+	   	  		                             order_date <= :endDate")
+	   	  		    ->param(":beginDate", $beginDate)
+	   	  		    ->param("endDate", $endDate)
+	   	  		    ->execute()
+	   	  		    ->as_array();        
+	   	return($result);
+   }
 }
