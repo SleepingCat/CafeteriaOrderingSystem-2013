@@ -197,7 +197,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				'floor'=>$floor,
 				));					
 			//$this->styles = array('media/css/style.css' => 'screen');
-			$this->template->title ="Новый пользователь";
+			$this->title ="Новый пользователь";
    		}
     /**
      * Редактирование пользователя

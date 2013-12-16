@@ -353,12 +353,12 @@ class Model_MenuDBOperation
    public function GetCheckData($beginDate, $endDate)
    {
 	   	$result = array();  
-	   	$result = DB::query(Database::SELECT, "select user_id 
-	   	  		                       from orders 
+	   	$result = DB::query(Database::SELECT, "select user_id ,total_price,name,surname,patronymic,employee_number
+	   	  		                       from orders join users on users.id=orders.user_id
 	   	  		                       where order_date >= :beginDate and
 	   	  		                             order_date <= :endDate")
 	   	  		    ->param(":beginDate", $beginDate)
-	   	  		    ->param("endDate", $endDate)
+	   	  		    ->param(":endDate", $endDate)
 	   	  		    ->execute()
 	   	  		    ->as_array();        
 	   	return($result);

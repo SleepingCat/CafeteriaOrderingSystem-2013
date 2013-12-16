@@ -279,26 +279,66 @@ class Model_Report
 	public  function ExportWordOrder($ID)
 	{	
 		$odf = new Odtphp(APPPATH.'templates/complete.odt');		
-		$segment = 'articles';				
+		$segment = 'articles';			
+			
 		$kvit = $odf->setSegment($segment);							
 		$ord = new Model_EquipOrder();
-		$showOrd = $ord -> getDishes($ID);		
-		$odf->setVars('numb_order', $ID, true, 'utf-8');
-		$odf->setVars('surname', $showOrd[1]['Buyer'], true, 'utf-8');
-		$odf->setVars('home', $showOrd[2]['building'], true, 'utf-8');
-		$odf->setVars('floor', $showOrd[3]['floor'], true, 'utf-8');
-		$odf->setVars('office', $showOrd[4]['office'], true, 'utf-8');
+		$showOrd = $ord -> getDishes($ID);	
+	
+		$odf->setVars('numb_order', $ID, true, 'utf-8');		
 		
 		foreach ($showOrd as $item)
-			{
+			{	
+				$odf->setVars('surname', $item['Buyer'], true, 'utf-8');
+				$odf->setVars('home', $item['building'], true, 'utf-8');
+				$odf->setVars('floor', $item['floor'], true, 'utf-8');
+				$odf->setVars('office', $item['office'], true, 'utf-8');
 				$kvit->setVars('food', $item['dish_name'], true, 'utf-8');
 				$kvit->setVars('price', $item['price'], true, 'utf-8');
 				$kvit->setVars('count', $item['servings_number'], true, 'utf-8');		 
 			    $kvit->merge();
 			}
 			
-		$odf->mergeSegment($kvit);						 
+		$odf->mergeSegment($kvit);			 
+					
+		// We export the file
+		$odf->exportAsAttachedFile();	
+	}
+	
+	
+/**
+ * Отчет для Димана 
+ * @param unknown $beginDate- начало периода
+ * @param unknown $endDate- конец периода
+ * Выгружает отчет : номер пол-ля,ФИО и сумму заказа
+ */
+	public  function ExportWordSumm($beginDate,$endDate)
+	{
+		$odf = new Odtphp(APPPATH.'templates/Summ.odt');
+		$segment = 'articles';
 		
+		$kvit = $odf->setSegment($segment);
+		
+		$Date = 'c '.$beginDate.' по '.$endDate;
+		
+		$odf->setVars('date', $Date , $encode = TRUE, $charset='UTF-8');
+		
+		$ord = new Model_MenuDBOperation();
+		
+		$showOrd = $ord -> GetCheckData($beginDate, $endDate);	
+		
+		foreach ($showOrd as $item)
+		{			
+			$kvit->setVars('id_user', $item['user_id'], true, 'utf-8');
+			$kvit->setVars('summ', $item['total_price'], true, 'utf-8');
+			$kvit->setVars('surname', $item['surname'], true, 'utf-8');
+			$kvit->setVars('name', $item['name'], true, 'utf-8');
+			$kvit->setVars('patronymic', $item['patronymic'], true, 'utf-8');
+			$kvit->setVars('numb', $item['employee_number'], true, 'utf-8');
+			$kvit->merge();		
+		}
+			
+		$odf->mergeSegment($kvit);
 			
 		// We export the file
 		$odf->exportAsAttachedFile();
