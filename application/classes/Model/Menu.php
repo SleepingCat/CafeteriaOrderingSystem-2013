@@ -60,7 +60,7 @@ class Model_Menu
 		if ($isDrink === true) {
 				return Array( 	
 						4 => Array('portion_type_id' => 4, 'type_name' => 'Бутылка', 'size' => 1, 'price' => $price[0]['price']),
-						5 => Array('portion_type_id' => 5, 'type_name' => 'Бокал', 'size' => 0.33, 'price' => $price[0]['price']*0.33 )
+						5 => Array('portion_type_id' => 5, 'type_name' => 'Бокал', 'size' => 0.33, 'price' => $price[0]['price']*0.5 )
 				);
 		}
 		return Array( 	

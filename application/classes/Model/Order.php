@@ -161,10 +161,13 @@ class Model_Order extends Model
 	
 	public function update_order($OrderId, $Order, $UserId, $MenuId ,$Delivery_date, $Delivery_point = NULL, $Delivery_time = NULL)
 	{
+		echo "<pre>";
+		print_r($Order);
+		echo "</pre>";
 		$Total_price = 0;
 		foreach ($Order as $key => $value)
 		{
-			$Total_price += $value['servings_number']*$value['price'];
+			$Total_price += $value['portions'][$value['portion']]['price']*$value['servings_number'];
 		}
 
 		DB::query(Database::UPDATE,
@@ -186,10 +189,10 @@ class Model_Order extends Model
 			foreach ($Order as $key => $value)
 			{
 				DB::query(Database::INSERT,
-				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, portion_type_id, servings_number)
+				"INSERT INTO `orders_records`(menu_record_dish_id, menu_record_menu_id, order_id, menu_record_portion_type_id, servings_number)
 				VALUES(:dishId,:menuId,:orderId,:portionType,:servings_number)")
 					->param(':dishId', $value['dish_id'])
-					->param(':potrionType', $value['portion_type_id'])
+					->param(':portionType', $value['portion'])
 					->param(':menuId', $MenuId)
 					->param(':orderId', $OrderId)
 					->param(':servings_number', $value['servings_number'])
