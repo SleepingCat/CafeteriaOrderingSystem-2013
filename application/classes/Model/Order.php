@@ -35,15 +35,24 @@ class Model_Order extends Model
 					->as_array();
 		if (!empty($order_detail))
 		{	
-			$menu_model = new Model_Menu();
-			$dishes = DB::query(Database::SELECT,
-			"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type_id as portion, type_name
+			/*
+			 * 
+			 * SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, portion_type_id as portion, type_name
 					FROM orders_records, dishes, menu_records, portion_type
 					WHERE dishes.dish_id = orders_records.menu_record_dish_id
 					AND dishes.dish_id = menu_records.dish_id
 					AND menu_records.portion_type_id = orders_records.menu_record_portion_type_id
 					AND orders_records.order_id = :OrderId
 					AND portion_type.id = menu_records.portion_type_id
+					AND menu_id = :MenuId
+			 */
+			$menu_model = new Model_Menu();
+			$dishes = DB::query(Database::SELECT,
+			"SELECT orders_records.order_id, menu_records.menu_id, dishes.dish_id, dish_name, servings_number, price, menu_record_portion_type_id as portion
+					FROM orders_records, dishes, menu_records
+					WHERE dishes.dish_id = orders_records.menu_record_dish_id
+					AND dishes.dish_id = menu_records.dish_id
+					AND orders_records.order_id = :OrderId
 					AND menu_id = :MenuId")
 								->param(':OrderId', $OrderId)
 								->param(':MenuId', $order_detail[0]['menu_id'])
@@ -51,9 +60,16 @@ class Model_Order extends Model
 								->as_array();
 			foreach ($dishes as $key => $value)
 			{
-				$value['portions'] = $menu_model->get_portions($value['menu_id'], $value['dish_id']); 
+				$value['portions'] = $menu_model->get_portions($value['menu_id'], $value['dish_id']);
+				switch ($value['portion'])
+				{
+					case 1: $value['type_name'] = "Половинная"; break;
+					case 2: $value['type_name'] = "Стандартная"; break;
+					case 3: $value['type_name'] = "Двойная"; break;
+				}
 				$order_detail[0]['dishes'][$value['dish_id']."|".$value['portion']] = $value;
 			}
+			
 		}
 		return $order_detail[0];
 	}

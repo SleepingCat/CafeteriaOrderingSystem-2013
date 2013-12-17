@@ -26,12 +26,21 @@
 			case 5: echo "Выберите дату меню"; break;
 			case 6: echo "К сожалению на сегодня меню нет, выберите другую дату."; break;
 		}
+		if ($error_code > 0) unset($menu);
 	}
 	?>
 </form>
 <?
+//$menu_mod = new Model_Menu();
+//print_r($menu_mod->get_portions(1, 1));
+if (isset($menu_list)) {
+	foreach ($menu_list as $key => $value)
+	{
+		echo $value['menu_date']."<br>";
+	}
+}
 if (isset($menu))
 {	
-	echo View::factory('order/menu')->set('menu',$menu);
-} 
+	echo View::factory('order/menu')->set('menu',$menu)->set('title',"Меню");
+}
 ?>

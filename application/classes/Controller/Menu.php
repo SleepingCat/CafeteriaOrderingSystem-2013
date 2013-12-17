@@ -10,6 +10,7 @@ class Controller_Menu extends Controller_Checkinputusers
 		// Подключаем скрипт с датапикером
 		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->view = View::factory('order/index')->bind('error_code', $this->error_code);
+		$this->title = "Меню";
 		parent::before();
 	}
 	
@@ -65,6 +66,15 @@ class Controller_Menu extends Controller_Checkinputusers
 				{
 					$this->error_code = 4;
 				}
+				// если сегодняшняя дата
+				elseif ($input_date_in_seconds == mktime(0, 0, 0, date("m")  , date("d"), date("Y")))
+				{
+					if(date("H")>=14)
+					{
+						// выводим завтрашнее меню
+						$this->error_code = 4;
+					}
+				}
 			}
 			// Если ошибок нет запихиваем меню в сессию и редиректим на отображение
 			if($this->error_code < 1)
@@ -81,13 +91,14 @@ class Controller_Menu extends Controller_Checkinputusers
 				}
 				else
 				{
-					$this->redirect("http://".$_SERVER['HTTP_HOST'].'/menu/show');
+					$this->redirect("http://".$_SERVER['HTTP_HOST'].'/menu');
 				}
 			}
 		}
 		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
-		if (empty($menu)) {
+		if (empty($menu) && $this->error_code < 1) {
 			$this->error_code = 6;
+			$this->view->set('menu_list', $model_menu->get_menu_list());
 		}
 		else
 		{
@@ -113,11 +124,13 @@ class Controller_Menu extends Controller_Checkinputusers
 		$menu = $model_menu->get_menu($_SESSION['mk_order_menu_date']);
 		if (empty($menu)) {
 			$this->error_code = 6;
+			print_r($model_menu->get_menu_list());
+			$this->view->set('menu_list', $model_menu->get_menu_list());
 			$this->content = $this->view;
 		}
 		else
 		{
-			$this->content = View::factory('order/menu')->bind('menu', $menu);
+			$this->content = View::factory('order/menu')->bind('menu', $menu)->set('title','Меню');
 		}
 	}
 	

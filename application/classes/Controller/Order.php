@@ -90,7 +90,6 @@ class Controller_Order extends Controller_Checkinputusers
 		$order_id = Request::current()->param('id');
 		$model_order = new Model_Order();
 		$order = $model_order->get_order($this->user['id'],$order_id);
-		$this->desu($order);
 		$_SESSION['mk_order_menu_date'] = $order['delivery_date'];
 		$_SESSION['mk_order_id'] = $order_id;
 		$_SESSION['order'] = $order['dishes'];
@@ -98,10 +97,10 @@ class Controller_Order extends Controller_Checkinputusers
 	}
 	
 	public function action_desu()
-	{
+	{$order_id = Request::current()->param('id');
 		$m = new Model_Order();
-		$order = $model_order->get_order($this->user['id'],$order_id);
-
+		$order = $m->get_order($this->user['id'],$order_id);
+		$this->desu($order);
 	}
 	
 	public function desu($data)

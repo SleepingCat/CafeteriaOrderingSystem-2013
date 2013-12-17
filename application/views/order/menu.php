@@ -2,7 +2,7 @@
 	.menu_table {border-collapse:separate;border-spacing:1px;}
 	table,td {border:1px solid black;}
 </style>
-<link href="/media/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+
 <script >
 $(document).ready(function(){
 	$(".add_button1").click( function(){
@@ -66,7 +66,7 @@ if (isset($error_code) && $error_code > 0)
 } 
 ?>
 <div align=center>
-<H1>Меню на (<?php echo $_SESSION['mk_order_menu_date']; ?>):</H1>
+<H1>Меню на <a href=# class="menu_datepicker">(<?php echo $_SESSION['mk_order_menu_date']; ?>)</a>:</H1>
 <table class = "menu_table">
 <tr><td>Наименование</td><td>Размер порции</td><td>Цена(руб.)</td><td>Заказать</td></tr>
 	<?php
@@ -81,18 +81,25 @@ if (isset($error_code) && $error_code > 0)
 			}
 			echo "<tr><form id=\"add_form".$key."\" action=\"./add_to_cart\" method=\"post\">
  					<td>".$value['dish_name']."</td>
-					<td><select name=\"portion\">";
+					<td>";
 					$price = null;
+					$first = true;
 					foreach ($value['portions'] as $portion_id => $portion_value)
 					{
-						echo "<option value=\"".$portion_id."\">".$portion_value['type_name']."</option>";
-						$price .= $price?"\\".$portion_value['price']:$portion_value['price'];
+						//echo "<option value=\"".$portion_id."\">".$portion_value['type_name']."</option>";
+						echo "<input type=\"radio\" ";
+						if($first === true){echo 'checked'; $first = false;}
+				 		echo " name=\"portion\" value=\"".$portion_id."\">".$portion_value['type_name']."<br>";
 					}
-					echo "</select>
+					echo "
 					</td>
-					<td>".$price."</td>
-					<td><input type=\"number\" min=\"1\" max = \"50\" maxlength=\"2\" name=cart[".$key."] value=1></td>
-					<td>
+					<td>";
+					foreach ($value['portions'] as $portion_id => $portion_value)
+					{
+						echo $portion_value['price']."<br>";
+					}
+					echo "</td>
+					<td align=\"center\"><input type=\"number\" min=\"1\" max = \"50\" maxlength=\"2\" size=\"2\" name=cart[".$key."] value=1><br>
 					<input type=\"button\" name=\"smbt_make_order\" class=\"add_button\" id=\"btn_submit[".$key."]\" onclick=\"add_to_cart(".$key.")\" value=\"Заказать\"></td>
 				</form></tr>";
 		}

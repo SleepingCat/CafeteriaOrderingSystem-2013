@@ -46,9 +46,19 @@
 	Выберите время доставки:<br>
 	<select name = "delivery_time">
 	<?php 
+
 	foreach ($options as $key => $value)
 	{
-		echo "<option value=\"$key\">".$value['delivery_time']."</option>";
+		if(date("Y-m-d") == $_SESSION['mk_order_menu_date'])
+		{
+			if(strtotime($value['delivery_time']) >= time()){
+				echo "<option value=\"$key\">".$value['delivery_time']."</option>";
+			}
+		}
+		else 
+		{
+			echo "<option value=\"$key\">".$value['delivery_time']."</option>";
+		}
 	}
 	?>
 	</select><br>

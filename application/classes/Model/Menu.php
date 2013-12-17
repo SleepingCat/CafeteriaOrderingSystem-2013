@@ -8,6 +8,23 @@ class Model_Menu
 {
 	public $menu_id;
 	
+	function get_menu_list()
+	{
+		if(date("H")>14)
+		{
+			$yd = date("Y-m-d");
+		}
+		else
+		{
+			$yd = date("Y-m-d", strtotime('-1 day'));
+		}
+		return DB::query(Database::SELECT, 'SELECT menu_id, menu_date FROM menus WHERE menu_date > :date')
+		->param(':date', $yd)
+		->execute()
+		->as_array();
+		
+	}
+	
 	/**
 	 * Возвращает Id меню за конкретную дату
 	 * @param $date - дата, за которую требуется вывести меню
@@ -27,17 +44,23 @@ class Model_Menu
 	
 	public function get_portions($menuId,$dishId)
 	{
-		return DB::query(Database::SELECT, 
-					'SELECT portion_type_id, type_name, price
-					FROM portion_type, menu_records
-					WHERE portion_type.id = menu_records.portion_type_id
-					AND menu_records.menu_id = :MenuId
+		
+		$price = DB::query(Database::SELECT, 
+					'SELECT price
+					FROM menu_records
+					WHERE 
+					menu_records.menu_id = :MenuId
 					AND menu_records.dish_id = :DishId
 					')
 				->param(':MenuId', $menuId)
 				->param(':DishId', $dishId)
 				->execute()
-				->as_array('portion_type_id');
+				->as_array();
+		return Array( 	
+						2 => Array('portion_type_id' => 2, 'type_name' => 'Стандартная', 'size' => 1, 'price' => $price[0]['price']),
+						1 => Array('portion_type_id' => 1, 'type_name' => 'Половинная', 'size' => 0.5, 'price' => $price[0]['price']*0.5 ),
+						3 => Array('portion_type_id' => 3, 'type_name' => 'Двойная', 'size' => 2, 'price' => $price[0]['price']*2 )
+				);
 	}
 	
 	/**
