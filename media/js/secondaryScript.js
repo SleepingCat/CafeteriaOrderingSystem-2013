@@ -9,7 +9,26 @@ $(document).ready(function ()
 	
 	$('#menu_datepicker, #Start, #End').mask("9999-99-99");
 	
-	$('th:first').click();	
+	$('#menu_create_datepicker').datepicker({ 
+		firstDay: 1, 
+		dateFormat: "yy-mm-dd"	
+		});
+	
+	$('#menu_create_datepicker').mask("9999-99-99");
+	
+	/*$('#menu_create_datepicker').datepicker({ 
+		firstDay: 1, 
+		dateFormat: "dd.mm.yy"	
+		});
+		
+	$('#menu_create_datepicker').mask("99.99.9999");*/
+	
+	$("#ui-datepicker-div").hide();
+	
+	$('th:first').click();
+	
+	//$('.CustSelect').customSelect();
+	//$('.CustNumber').spinner();
 });
 
 function sort(el)

@@ -1,4 +1,4 @@
-<!-- @autor=MrAnderson -->
+<?php defined('SYSPATH') or die('No direct script access.');?>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -32,19 +32,127 @@ $(document).ready(function(){
 </script>
 
 
+<div class="PageHeader">
+	<?php if (isset ($dish))
+	{	
+		echo "Редактирование блюда";	
+	}
+	else
+	{
+		echo "Создание блюда";
+	}
+	?>
+</div>
 <form action = "" method= POST>
-
-<div>
-
 <?php 
 if (isset ($dish))
 {
 
 	echo "<input type = \"hidden\" name = \"id\" value =\"".$dish['dish_id']."\">";
 
-}
+}?>
+<div class="TitledTextboxArea">
+	<label for="username">Название:</label>
+	<input type="text" class="ProfileTextBox" size="25" maxlength="60" name="title" value="<?php if (isset ($dish))
+		{
+			echo $dish['dish_name'];
+		}?>"/>
+</div>
+<div class="TitledTextboxArea">
+	<label for="username">Категория:</label>
+	<select name = "category" class="CustSelect">
+	<?php foreach ($categories as $key => $value)
+	{?>
+		<option value="<? echo $key ?>"
+			<?php if (isset ($dish) && $value['name'] == $dish['category']) : ?> selected="selected" <?php endif ?>><? echo $value['name'] ?>
+		</option>
+	<?}?>	
+	</select>
+</div>
+<div class="TitledTextboxArea">
+	<label for="username">Тип:</label>
+	<select name = "type" class="CustSelect">
+	<?php foreach ($types as $key => $value)
+	{?>
+		<option value="<? echo $key ?>"
+			<?php if (isset ($dish) && $value['name'] == $dish['type']) : ?> selected="selected" <?php endif ?>><? echo $value['name'] ?>
+		</option>
+	<?}?>		
+	</select>
+</div>
+<div>
+	<input type="checkbox" class="styled" name="standart" id="chek_standart"
+		<?php if (isset ($dish) && $dish['is_standart']!=null) : ?> checked="checked" <?php endif ?>>
+	<label for="chek_standart" style="text-indent: 5px; line-height: 25px;">	
+		Является стандартным	
+	</label><br>
+	
+	<input type="checkbox" class="styled" name="available" id="chek_available"
+		<?php if (isset ($dish) && $dish['is_available']!=null) : ?> checked="checked" <?php endif ?>>
+	<label for="chek_standart" style="text-indent: 5px; line-height: 25px;">	
+		Доступно для заказа	
+	</label><br>	
+</div>
+<?php
+$counter = 0; 
+ if(isset($dish['ingredients']))
+ {
+ 	foreach ($dish['ingredients'] as $key =>$value)
+ 	{
+ 		echo "<div  class=\"ogranichenie\"> <select name = \"ingredients['$counter'][ingredient_id]\" class=\"CustSelect\">";
+ 		
+ 		foreach ($ingredient as $key1 => $value1)
+		{
+			if($key == $key1)
+			{
+				echo "<option value=".$key1." selected = \"selected\">".$value1['product_name']."</option>\";\n";			
+			}
+			else 
+			{
+				echo "<option value=".$key1.">".$value1['product_name']."</option>\";\n";
+			}			
+		}		
+		echo "</select> <input class=\"CustNumber\" name = \"ingredients['$counter'][yield]\" value = \"".$value['yield']."\">	<a href=#\"> <button id = \"delete\"> - </button></a></div>";
+		$counter++;
+	}
+ }
 ?>
-<h1>Добавить блюдо:</h1>
+<div id="add">
+<a href=#> <button> + </button></a>
+</div>
+
+<input type = "submit" name = "btn_dish_add" value = "Принять" >
+<a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/"; ?>" ><button>Отмена</button></a> 
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  
 <p> Название: 
 <?php 
 		if (isset ($dish))
@@ -202,3 +310,4 @@ $counter = 0;
 </div>
 
 </form>
+-->

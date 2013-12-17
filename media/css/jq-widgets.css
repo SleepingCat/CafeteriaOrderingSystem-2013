@@ -43,6 +43,58 @@
 	cursor: default;		
 }
 
+.customSelect { 
+	outline: none;
+	background-color: #FFF;
+	border-color: #f2e19e;
+	border-style: inset;
+	border-width: 2px;
+	font-size: 14px;
+	color: #000;
+	font-family: sans-serif;
+	text-align: left;
+	width: 179px;
+	background-image: url(../image/Template/CB_arrow.png);
+	background-repeat: no-repeat;
+	background-position: 100% 50%;	
+}
+
+.customSelect.customSelectHover {
+	
+}
+
+.customSelect.customSelectOpen {
+	
+}
+
+.customSelect.customSelectFocus {
+	
+}
+
+.customSelectInner {
+	
+}
+
+.ui-spinner{
+	
+}
+
+.ui-spinner-input{
+	
+}
+
+.ui-spinner-button{
+	
+}
+
+.ui-spinner-up{
+	
+}
+
+.ui-spinner-down{
+	
+}
+
 .ui-datepicker{
 	color: #4B1573;
 	text-decoration: none;
