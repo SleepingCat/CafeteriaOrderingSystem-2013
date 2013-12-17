@@ -60,21 +60,36 @@ class Controller_Handler extends Controller
 	{
 		if (isset($_SESSION['order']))
 		{
-
-			$summ = 0;
-			foreach ($_SESSION['order'] as $key => $value)
-			{
-				echo $value['dish_name']."(".$value['portions'][$value['portion']]['price'].") x".$value['servings_number']."<button onclick=\"remove_from_cart('".$key."')\">Удалить</button><br>";
+			$summ = 0;?>
+			<script>
+			$(document).ready(function(){
+				$( ".CartItem" ).tooltip(
+				{
+					content: function() 
+					{	
+						return "Нажмите на блюдо для его удаления";			
+					},
+					tooltipClass: "OrderTooltip",
+					track: false
+				});
+			});	
+			</script>						
+			<ul class="CartList">
+			<? foreach ($_SESSION['order'] as $key => $value)
+			{?>
+				<li class="CartItem" title="" <? echo "onclick=\"remove_from_cart('".$key."')\""?>>
+				<? echo $value['dish_name']."(<span style=\"color:blue;\">".$value['portions'][$value['portion']]['price']."</span>) x".$value['servings_number'];
 				$summ += $value['portions'][$value['portion']]['price']*$value['servings_number'];
-			}
-			echo "Итого: ".$summ."<br>";
-			echo "<button onclick=\"cart_clear()\">Очистить</button>
-		<a href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\"><button>Оформить</button></a>";
+			}?></li>
+			</ul>
+			<? echo "Итого: <span style=\"color:blue;\">".$summ."</span><br>";
+			echo "<a href=\"http://".$_SERVER['HTTP_HOST']."/order/confirm\" class=\"EntBut EntBut-color\" style=\"width: 80px; line-height: 20px; font-size: 14px; margin: 5px;\">Оформить</a>
+			<button class=\"EntBut EntBut-color\" style=\"width: 80px; line-height: 20px; font-size: 14px; margin: 5px;\" onclick=\"cart_clear()\">Очистить</button>";
 		}
 		else
 		{
 			echo "Пусто =(<br>";
-		}
-	}
+		}			
+	 }
 }
 ?>

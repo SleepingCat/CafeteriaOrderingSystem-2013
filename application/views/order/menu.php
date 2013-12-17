@@ -5,6 +5,8 @@
 
 <script >
 $(document).ready(function(){
+$("#cart").show();
+
 	$(".add_button1").click( function(){
 		var data1 = '{ name: "John", time: "2pm" }';
 		// data2 = $(".some_link").parent().find('input[name=A1]').val();
@@ -18,39 +20,44 @@ $(document).ready(function(){
 });
 $('#cart').ready(function (){
 	$.post("/Handler", function(data){
-		$('#cart').html(data);
+		$('#cart .UserWorkArea').html(data);
 	});
 });
 
 $('.btn-slide').live("click", function()
 {
 	$.post("/Handler", function(data){
-		$('#cart').html(data);
+		$('#cart .UserWorkArea').html(data);
 	});
 });
+
+
 
 function add_to_cart(id)
 {
 	var data2 = $('#add_form'+id).serializeArray();
 	$.post("/Handler/add", data2, function(data){
-		$('#cart').html(data);
+		$('#cart .UserWorkArea').html(data);
 		});
+	Height_Add();	
 	return false;
 }
 
 function cart_clear(id)
 {
 	$.post("/Handler/clear", function(data){
-		$('#cart').html(data);
+		$('#cart .UserWorkArea').html(data);
 		});
+	Height_Add();
 	return false;
 }
 
 function remove_from_cart(id)
 {
 	$.post("/Handler/remove/" + id, function(data){
-		$('#cart').html(data);
+		$('#cart .UserWorkArea').html(data);  
 		});
+	Height_Add();
 	return false;
 }
 </script>

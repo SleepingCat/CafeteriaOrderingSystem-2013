@@ -204,4 +204,17 @@ a {
 	color: #0000FF;
 }
 
+.CartList{
+	text-align: left;
+	font-size: 16px;
+	list-style-type: disc;
+	list-style-position: outside;
+	text-indent: 0px;
+	margin: 5px 0px 5px 25px;	
+}
+
+.CartItem{
+	cursor: pointer;
+}
+
 

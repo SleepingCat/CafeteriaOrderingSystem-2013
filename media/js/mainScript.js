@@ -16,7 +16,7 @@ $(window).bind('load', function()
 
 $(document).ready(function(e)
 {		
-	Height_Add();
+	Height_Add();	
 	
 	$( ".ProfileTextBox" ).tooltip({
 		content: function() {

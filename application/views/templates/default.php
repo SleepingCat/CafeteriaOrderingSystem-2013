@@ -58,7 +58,13 @@
     
 <div class="RightBlock">
     <?php echo $user;?>
-    <div id="cart"></div>
+    <div id="cart" style="display: none">
+    	<div class="UserArea">
+		<div class="UserHeaderArea">Ваш заказ:</div>
+		<div class="UserWorkArea">
+		</div>
+		</div>
+    </div>
 </div>
  
 </div>
