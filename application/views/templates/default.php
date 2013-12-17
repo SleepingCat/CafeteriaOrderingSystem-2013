@@ -57,7 +57,8 @@
 </div>
     
 <div class="RightBlock">
-    <?php echo $user; ?>
+    <?php echo $user;?>
+    <div id="cart"></div>
 </div>
  
 </div>

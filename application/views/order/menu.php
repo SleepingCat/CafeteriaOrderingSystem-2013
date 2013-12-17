@@ -106,7 +106,7 @@ if (isset($error_code) && $error_code > 0)
 	?>
 </table>
 </div>
-
+<!-- 
 <script>
 	$('.btn-slide').live("click", function()
 			{
@@ -153,3 +153,4 @@ if (isset($error_code) && $error_code > 0)
 
 </div>
 </div>
+ -->

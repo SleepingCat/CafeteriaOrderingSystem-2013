@@ -10,7 +10,7 @@
 ?>
 <div>
 	Ваш заказ:<br>
-<form action="" method="post">
+<form action="" method="post" border=1>
 <?php
 	/*
 	 * Вывод заказа без возможности редактирования 

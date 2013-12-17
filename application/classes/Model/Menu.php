@@ -7,6 +7,7 @@
 class Model_Menu
 {
 	public $menu_id;
+	public static $drinks = array(4,5,6,12,13,14,15,16,17);
 	
 	function get_menu_list()
 	{
@@ -42,7 +43,7 @@ class Model_Menu
 		return $this->menu_id;
 	}
 	
-	public function get_portions($menuId,$dishId)
+	public function get_portions($menuId,$dishId,$isDrink = FALSE)
 	{
 		
 		$price = DB::query(Database::SELECT, 
@@ -56,6 +57,12 @@ class Model_Menu
 				->param(':DishId', $dishId)
 				->execute()
 				->as_array();
+		if ($isDrink === true) {
+				return Array( 	
+						4 => Array('portion_type_id' => 4, 'type_name' => 'Бутылка', 'size' => 1, 'price' => $price[0]['price']),
+						5 => Array('portion_type_id' => 5, 'type_name' => 'Бокал', 'size' => 0.33, 'price' => $price[0]['price']*0.33 )
+				);
+		}
 		return Array( 	
 						2 => Array('portion_type_id' => 2, 'type_name' => 'Стандартная', 'size' => 1, 'price' => $price[0]['price']),
 						1 => Array('portion_type_id' => 1, 'type_name' => 'Половинная', 'size' => 0.5, 'price' => $price[0]['price']*0.5 ),
@@ -79,7 +86,7 @@ class Model_Menu
 		{	
 			$id = $id[0];
 			$result = DB::query(Database::SELECT, 
-				'SELECT menu_id, dishes.dish_id, dish_name, price, dish_category.`name` as type, priority, portion_type_id
+				'SELECT menu_id, dishes.dish_id, dish_name, price, dish_category.`name` as type, priority, portion_type_id, dish_category.id as cat_id
 				FROM menu_records, dishes, dish_category
 				WHERE (dishes.dish_id = menu_records.dish_id) 
 				and (dishes.dish_category_id = dish_category.id)
@@ -91,7 +98,7 @@ class Model_Menu
 				->as_array('dish_id');
 			foreach ($result as $key => $value)
 			{
-				$result[$key]['portions'] = $this->get_portions($id,$key);
+				$result[$key]['portions'] = $this->get_portions($id,$key,($value['cat_id']>3));
 			}
 			return $result;
 		}

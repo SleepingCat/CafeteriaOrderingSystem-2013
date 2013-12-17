@@ -26,7 +26,7 @@ if (isset($error_code) && $error_code > 0)
 			echo "<tr>
  					<td>".$value['dish_name']."</td>
 
-					<td>".$value['portions'][2]['price']."</td>
+					<td>".$value['price']."</td>
 				</tr>";
 		}
 	?>
