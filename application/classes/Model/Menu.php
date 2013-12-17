@@ -19,7 +19,7 @@ class Model_Menu
 		{
 			$yd = date("Y-m-d", strtotime('-1 day'));
 		}
-		return DB::query(Database::SELECT, 'SELECT menu_id, menu_date FROM menus WHERE menu_date > :date')
+		return DB::query(Database::SELECT, 'SELECT distinct menus.menu_id, menu_date FROM menus JOIN menu_records ON menus.menu_id = menu_records.menu_id WHERE menu_date > :date')
 		->param(':date', $yd)
 		->execute()
 		->as_array();

@@ -68,6 +68,11 @@ class Controller_Order extends Controller_Checkinputusers
 		if (isset($_POST['btn_confirm']))
 		{
 			//TODO: сделать валидацию
+
+			if (!isset($_SESSION['menu_id'])) {
+				$model_menu = new Model_Menu();
+				$_SESSION['menu_id'] = $model_menu->get_menu_id($_SESSION['mk_order_menu_date']);
+			}
 			if (isset($_SESSION['mk_order_id'])) {
 				$error_code = $model_order->update_order($_SESSION['mk_order_id'], $_SESSION['order'], $this->user['id'],$_SESSION['menu_id'], $_SESSION['mk_order_menu_date'],$_POST['delivery_point'], $_POST['delivery_time']);
 			}
@@ -77,8 +82,7 @@ class Controller_Order extends Controller_Checkinputusers
 			}
 			if ($error_code == 0) 
 			{
-				unset($_SESSION['order']);
-				unset($_SESSION['mk_order_id']);
+				$this->action_clear();
 				$this->redirect("http://".$_SERVER['HTTP_HOST']."/order");
 			}
 		}

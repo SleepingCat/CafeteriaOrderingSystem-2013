@@ -23,7 +23,7 @@ class Controller_Menu extends Controller_Checkinputusers
 		if(!isset($_SESSION['mk_order_menu_date']))
 		{
 			// если сейчас больше 14 часов
-			if(date("H")>14)
+			if(date("H")>=14)
 			{
 				// выводим завтрашнее меню
 				$_SESSION['mk_order_menu_date'] = date("Y-m-d", strtotime(" + 1 day"));
