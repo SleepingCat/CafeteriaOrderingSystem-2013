@@ -43,7 +43,7 @@ $(document).ready(function(){
 	}
 	?>
 </div>
-<form action = "" method= POST>
+<form class="ProfileForm" action = "" method= POST>
 <?php 
 if (isset ($dish))
 {
@@ -51,6 +51,10 @@ if (isset ($dish))
 	echo "<input type = \"hidden\" name = \"id\" value =\"".$dish['dish_id']."\">";
 
 }?>
+<div class="ProfileFormArea">
+
+<fieldset class="ProfileFormFieldset" style="width: auto; text-align: left; margin: 5px 0px;">
+	<legend style="cursor: default; text-align: center; font-weight: bold;">Данные блюда</legend>
 <div class="TitledTextboxArea">
 	<label for="username">Название:</label>
 	<input type="text" class="ProfileTextBox" size="25" maxlength="60" name="title" value="<?php if (isset ($dish))
@@ -80,7 +84,7 @@ if (isset ($dish))
 	<?}?>		
 	</select>
 </div>
-<div>
+<div style="margin: 5px 0px;">
 	<input type="checkbox" class="styled" name="standart" id="chek_standart"
 		<?php if (isset ($dish) && $dish['is_standart']!=null) : ?> checked="checked" <?php endif ?>>
 	<label for="chek_standart" style="text-indent: 5px; line-height: 25px;">	
@@ -93,13 +97,17 @@ if (isset ($dish))
 		Доступно для заказа	
 	</label><br>	
 </div>
+</fieldset>
+
+<fieldset class="ProfileFormFieldset" style="width: auto; text-align: center; margin: 10px 0px;">
+	<legend style="cursor: default; text-align: center; font-weight: bold;">Ингредиенты</legend>
 <?php
 $counter = 0; 
  if(isset($dish['ingredients']))
  {
  	foreach ($dish['ingredients'] as $key =>$value)
  	{
- 		echo "<div  class=\"ogranichenie\"> <select name = \"ingredients['$counter'][ingredient_id]\" class=\"CustSelect\">";
+ 		echo "<div  class=\"ogranichenie\"> <select name = \"ingredients['$counter'][ingredient_id]\">";
  		
  		foreach ($ingredient as $key1 => $value1)
 		{
@@ -112,17 +120,21 @@ $counter = 0;
 				echo "<option value=".$key1.">".$value1['product_name']."</option>\";\n";
 			}			
 		}		
-		echo "</select> <input class=\"CustNumber\" name = \"ingredients['$counter'][yield]\" value = \"".$value['yield']."\">	<a href=#\"> <button id = \"delete\"> - </button></a></div>";
+		echo "</select> <input type=\"number\" name = \"ingredients['$counter'][yield]\" value = \"".$value['yield']."\">	<a href=#\"> <button id = \"delete\"> - </button></a></div>";
 		$counter++;
 	}
  }
 ?>
 <div id="add">
-<a href=#> <button> + </button></a>
+	<a href=#><button> + </button></a>
 </div>
+</fieldset>
 
-<input type = "submit" name = "btn_dish_add" value = "Принять" >
-<a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/reestr/"; ?>" ><button>Отмена</button></a> 
+<div class="FormBottomBorder">
+	<input type="submit" class="FormBut" name="btn_dish_add"  id="input1" value="Принять" />
+	<a  href= "<?php echo "http://".$_SERVER['HTTP_HOST']."/Reestr/"; ?>" class="FormBut">Отмена</a>    
+</div>	
+
 </div>
 </form>
 
