@@ -99,8 +99,9 @@ if (isset ($dish))
 </div>
 </fieldset>
 
-<fieldset class="ProfileFormFieldset" style="width: auto; text-align: center; margin: 10px 0px;">
+<fieldset class="ProfileFormFieldset" style="width: auto; text-align: center; margin: 10px 0px;"><div class = "ingridients">
 	<legend style="cursor: default; text-align: center; font-weight: bold;">Ингредиенты</legend>
+</div>
 <?php
 $counter = 0; 
  if(isset($dish['ingredients']))

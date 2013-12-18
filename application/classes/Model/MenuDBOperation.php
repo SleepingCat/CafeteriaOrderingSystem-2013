@@ -62,6 +62,7 @@ class Model_MenuDBOperation
 
 	public function saveMenuDish($menuID, $dishes)
 	{
+		$this->deleteMenuRecords($menuID);
 		for ($i = 0; $i < count($dishes); $i++) 
 		{
 			$qResult =  DB::query(Database::INSERT, "insert into menu_records (menu_id, dish_id, price) values (:menuID, :dishID, :price)")
@@ -262,15 +263,18 @@ class Model_MenuDBOperation
         		                                      where menu_record_menu_id =:menuID)")
     	          ->param(":menuID", $menuID)
     	          ->execute();
+		$this->deleteMenuRecords($menuID);
+    }
+    public function deleteMenuRecords($menuID)
+    {
     	DB::query(Database::DELETE, "delete from menu_records
-                                     where menu_records.menu_id =:menuID and 
-        		                           not exists(select order_id 
+                                     where menu_records.menu_id =:menuID and
+        		                           not exists(select order_id
         		                                      from orders_records
         		                                      where menu_record_menu_id =:menuID)")
-    	          ->param(":menuID", $menuID)
-    	          ->execute();
+    	        		                                      ->param(":menuID", $menuID)
+    	        		                                      ->execute();
     }
-    
     
     public function updatePrice($updates)
     {

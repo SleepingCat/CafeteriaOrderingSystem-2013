@@ -86,7 +86,7 @@ if (isset($error_code) && $error_code > 0)
 				$type=$value['type'];
 				echo "<tr><td colspan=\"5\">$type</td></tr>";
 			}
-			echo "<tr><form id=\"add_form".$key."\" action=\"./add_to_cart\" method=\"post\">
+			echo "<tr><form id=\"add_form".$key."\" action=\"./add_to_cart\" method=\"post\" onsubmit=\"return false;\">
  					<td>".$value['dish_name']."</td>
 					<td>";
 					$price = null;
