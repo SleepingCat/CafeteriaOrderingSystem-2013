@@ -108,7 +108,7 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			                 ->set("typeOfDish",  $menuModel->getTypesOfDishes())
 			                 ->set("categoryOfDish", $menuModel->getCategoryOfDishs())
 			                 ->set("forEdit", FALSE)
-			                 ->set("message", "Выберите блюда. При смене категории и типа выбранные блюда не сохраняется!");
+			                 ->set("message", '<span style="color: blue;">Выберите блюда. При смене категории и типа выбранные блюда не сохраняется!</span>');
 		}
 		else if(@$_POST["addInMenu"]) // при добавлении блюда в меню. Добавление выбранных блюд в меню
 		{
@@ -163,7 +163,7 @@ class Controller_CreateMenu extends Controller_Checkinputusers
 			                 ->set("allDish", $_SESSION["crtm_new_menu"])
 			                 ->set("menuDate", $_SESSION["crtm_menu_date"])
 			                 ->set("forEdit", TRUE)
-			                 ->set("message", "Блюда добавлены.");
+			                 ->set("message", '<span style="color: green;">Блюда добавлены.</span>');
 		}
 		else if(@$_POST["butUpdate"]) // обновление списка меню
 		{

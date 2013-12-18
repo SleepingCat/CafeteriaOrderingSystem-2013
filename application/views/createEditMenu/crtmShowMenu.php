@@ -1,3 +1,5 @@
+<?php defined('SYSPATH') or die('No direct script access.');?>
+
 <script>
 function checkprice()
 {
@@ -11,20 +13,27 @@ function checkprice()
    }
   );
 }
-
 </script>
+
+<?php if ($message <> "") {?>
+	<div class="DialogCloser" id="dialog-message">
+		<?php echo $message;?>
+	</div>
+<?};?>
+
 <form action = "../CreateMenu/RunAction" method = POST align = "center">
   <?php
     //текущие тип и категория блюда
     $currentType = '';
     $currentCategory = '';
     $totalCount = Count($allDish); 
-    $checkBox = "";
-    echo "Меню на ".$menuDate."<br>";
-    echo "<div align = \"left\"><input type = \"submit\" name = \"toMenuList\" value = \"К списку меню\"></div><br>";
-    echo "<div align = \"right\">".$message."</div><br>";
+    $checkBox = "";?>
+<div class="PageHeader">Меню на <? echo DateTime::createFromFormat("Y-m-d", $menuDate)->format("d.m.Y"); ?></div>
+ <div align="left" style="margin: 5px 0px 20px 40px;">
+ 	<input type = "submit" name = "butAddDish"  value = "Добавить блюдо" class="EntBut EntBut-color" style="width: 200px; line-height: 30px;">	
+</div>
     
-    if(!$forEdit)
+<?php if(!$forEdit)
     {
     	echo "<select name = \"typeOfDish\">";
     	for ($i = 0; $i < count($typeOfDish); $i++)
@@ -133,8 +142,8 @@ function checkprice()
     }
     else 
     {
-	    echo "<br><input type = \"submit\" name = \"butAddDish\"  value = \"Добавить блюдо\">";
-	    echo "<input type = \"submit\" name = \"butSave\" id=\"butSaveMenu\" onmousedown=\"checkprice()\" value = \"Сохранить\">";
+    	echo "<input type = \"submit\" name = \"butSave\" id=\"butSaveMenu\" onmousedown=\"checkprice()\" value = \"Сохранить\">";
+    	echo "<input type = \"submit\" name = \"toMenuList\" value = \"К списку меню\">";	    
     }
   ?>
   </form>

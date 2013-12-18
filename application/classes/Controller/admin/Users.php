@@ -84,7 +84,7 @@ class Controller_Admin_Users extends Controller_Checkinputadmin
 				// Удаляем пол-ля			
 				$user->delete();
 				// Redirect admin/users	
-				$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был успешно удален<span>';
+				$_SESSION['Mes11'] = '<span style="color: green;">Пользователь был успешно удален</span>';
 				$this->redirect('admin/users');
 			}
 				
