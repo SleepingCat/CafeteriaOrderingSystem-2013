@@ -10,7 +10,7 @@ class Controller_Menu extends Controller_Checkinputusers
 		// Подключаем скрипт с датапикером
 		$this->scripts = Arr::merge(array(Route::get('media')->uri(array('file' => 'js/jquery.ui.datepicker-ru.min.js'))), $this->scripts);
 		$this->view = View::factory('order/index')->bind('error_code', $this->error_code);
-		$this->title = "Меню";
+		$this->title = "Заказать";
 		parent::before();
 	}
 	

@@ -93,15 +93,15 @@ if (isset ($dish))
 	
 	<input type="checkbox" class="styled" name="available" id="chek_available"
 		<?php if (isset ($dish) && $dish['is_available']!=null) : ?> checked="checked" <?php endif ?>>
-	<label for="chek_standart" style="text-indent: 5px; line-height: 25px;">	
+	<label for="chek_available" style="text-indent: 5px; line-height: 25px;">	
 		Доступно для заказа	
 	</label><br>	
 </div>
 </fieldset>
 
-<fieldset class="ProfileFormFieldset" style="width: auto; text-align: center; margin: 10px 0px;"><div class = "ingridients">
+<fieldset class="ProfileFormFieldset" style="width: auto; text-align: center; margin: 10px 0px;">
 	<legend style="cursor: default; text-align: center; font-weight: bold;">Ингредиенты</legend>
-</div>
+<div class = "ingridients"></div>
 <?php
 $counter = 0; 
  if(isset($dish['ingredients']))

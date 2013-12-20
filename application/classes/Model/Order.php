@@ -106,6 +106,7 @@ class Model_Order extends Model
 	public function make_order($Order, $UserId, $MenuId ,$Delivery_date, $Delivery_point = NULL, $Delivery_time = NULL)
 	{
 		//TODO: доделать проверку на количество заказов на данное время
+		
 		$result = DB::query(Database::SELECT,
 			"SELECT COUNT(order_id) as orders_maked, delivery_limit 
 			FROM orders, delivery_times 
@@ -125,16 +126,18 @@ class Model_Order extends Model
 		{
 			$Total_price += $value['servings_number']*$value['portions'][$value['portion']]['price'];
 		}
+		$u = Auth::instance()->get_user()->as_array();
 		$result = DB::query(Database::INSERT,
 		"INSERT INTO `orders`(order_date, delivery_date, delivery_times_delivery_id,
-			delivery_point, order_status, total_price, user_id )
-			VALUES(NOW(), :date, :time, :point, :status, :total, :user)")
+			delivery_point, order_status, total_price, user_id, payment_type )
+			VALUES(NOW(), :date, :time, :point, :status, :total, :user, :paymentType)")
 					->param(':date', $Delivery_date)
 					->param(':time', $Delivery_time)
 					->param(':point', $Delivery_point)
 					->param(':status', OrderStatus::NewOrder)
 					->param(':total', $Total_price)
 					->param(':user', $UserId)
+					->param(':paymentType', $u['payment_type'])
 					->execute();
 		// Если вставилось, то обрабатываем дальше
 		if ($result[1] == 1)
@@ -169,10 +172,10 @@ class Model_Order extends Model
 		{
 			$Total_price += $value['portions'][$value['portion']]['price']*$value['servings_number'];
 		}
-
+		$u = Auth::instance()->get_user()->as_array();
 		DB::query(Database::UPDATE,
 			"UPDATE `orders` SET order_date=NOW(), delivery_date=:date, delivery_times_delivery_id=:time,
-			delivery_point=:point, order_status=:status, total_price=:total, user_id=:user
+			delivery_point=:point, order_status=:status, total_price=:total, user_id=:user, payment_type=:paymentType
 			WHERE order_id=:orderId and user_id = :user")
 				->param(':date', $Delivery_date)
 				->param(':time', $Delivery_time)
@@ -181,6 +184,7 @@ class Model_Order extends Model
 				->param(':total', $Total_price)
 				->param(':user', $UserId)
 				->param(':orderId', $OrderId)
+				->param(':paymentType',$u['payment_type'])
 				->execute();
 		DB::query(Database::DELETE,
 			"DELETE FROM `orders_records` WHERE order_id=:orderId")

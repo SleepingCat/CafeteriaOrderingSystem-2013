@@ -41,7 +41,7 @@ class Model_Report
 	public function ReportAboutOrders($BeginDate, $EndDate)
 	{
 		$query = "SELECT dt.delivery_time, (select  ".
-				"count(dt2.delivery_id)/DATEDIFF('".$EndDate."','".$BeginDate."') from  ".
+				"count(dt2.delivery_id)/case when '".$EndDate."'= '".$BeginDate."' then 1 else DATEDIFF('".$EndDate."','".$BeginDate."') end from  ".
 				"delivery_times dt2 join ".
 				"orders o ON dt2.delivery_id = o.delivery_times_delivery_id ".
 				"where  o.order_date <='".$EndDate."' and ".
@@ -211,6 +211,8 @@ class Model_Report
 			$odf->setVars('col1', $OrdCount , $encode = TRUE, $charset='UTF-8');
 			
 			$OrdPay = self::AddedInformationAboutPay($BeginDate, $EndDate, "'".OrderStatus::Paymented."'");
+			if (Empty($OrdPay))
+				$OrdPay = 0;
 			$odf->setVars('col2', $OrdPay , $encode = TRUE, $charset='UTF-8');
 			
 			$OrdCount1 = self::AddedInformationAboutOrders($BeginDate, $EndDate,"","1", "'".OrderStatus::Canceled."'");

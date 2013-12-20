@@ -362,7 +362,8 @@ class Model_MenuDBOperation
 	   	$result = DB::query(Database::SELECT, "select user_id , sum(total_price) as total_price,name,surname,patronymic,employee_number
 	   	  		                       from orders join users on users.id=orders.user_id
 	   	  		                       where order_date >= :beginDate and
-	   	  		                             order_date <= :endDate
+	   	  		                             order_date <= :endDate and
+	   										 orders.payment_type = 1
 	   	                               group by user_id")
 	   	  		    ->param(":beginDate", $beginDate)
 	   	  		    ->param(":endDate", $endDate)
